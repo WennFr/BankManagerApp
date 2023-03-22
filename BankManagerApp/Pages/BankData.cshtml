@@ -1,0 +1,29 @@
+﻿@page
+@model BankManagerApp.Pages.BankDataModel
+@{
+}
+
+<h1>All Customers</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var cust in Model.Customers)
+        {
+            <tr>
+                <td>@cust.Id</td>
+                <td>@cust.GivenName</td>
+                <td>@cust.Surname</td>
+                <td>@cust.Country</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
