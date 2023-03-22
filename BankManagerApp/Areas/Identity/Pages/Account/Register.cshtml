@@ -27,6 +27,12 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            
+            <input asp-for="Input.UserRole" type="radio" value="Admin" />
+            <label asp-for="Input.UserRole">Administrator</label> <br />
+            <input asp-for="Input.UserRole" type="radio" value="Cashier" />
+            <label asp-for="Input.UserRole">Cashier</label> <br />
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>

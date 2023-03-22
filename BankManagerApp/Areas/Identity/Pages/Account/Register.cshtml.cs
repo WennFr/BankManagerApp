@@ -21,6 +21,8 @@ using Microsoft.Extensions.Logging;
 
 namespace BankManagerApp.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = "Admin")]
+
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -70,6 +72,11 @@ namespace BankManagerApp.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
+            [DataType(DataType.Text)]
+            [Display(Name = "User role")]
+            public string UserRole { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -121,6 +128,22 @@ namespace BankManagerApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+
+
+                    if (Input.UserRole == null)
+                    {
+                        await _userManager.AddToRoleAsync(
+                            user, "Cashier");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(
+                            user, Input.UserRole);
+                    }
+
+
+
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
