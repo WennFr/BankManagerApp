@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using BankRepository.ViewModels;
 
 namespace BankManagerApp.Pages
 {
@@ -14,17 +15,8 @@ namespace BankManagerApp.Pages
             _dbContext = dbContext;
         }
 
-        public class CustomerViewModel
-        {
-            public int Id { get; set; }
-            public string GivenName { get; set; }
-            public string Surname { get; set; }
-            public string Country { get; set; }
-
-        }
-
         public List<CustomerViewModel> Customers { get; set; }
-            = new List<CustomerViewModel>();
+
 
 
         public void OnGet()
@@ -37,7 +29,29 @@ namespace BankManagerApp.Pages
                 Country = c.Country
             }).ToList();
 
-
+                
         }
+
+        //public void OnGet(int page = 1, int pageSize = 10)
+        //{
+        //    int skip = (page - 1) * pageSize;
+        //    Customers = _dbContext.Customers
+        //        .OrderBy(c => c.CustomerId)
+        //        .Skip(skip)
+        //        .Take(pageSize)
+        //        .Select(c => new CustomerViewModel
+        //        {
+        //            Id = c.CustomerId,
+        //            GivenName = c.Givenname,
+        //            Surname = c.Surname,
+        //            Country = c.Country
+        //        })
+        //        .ToList();
+        //}
+
+
+
+
+
     }
 }

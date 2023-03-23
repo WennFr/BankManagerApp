@@ -6,5 +6,29 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Total amount of customers</th>
+            <th scope="col">Total amount of accounts</th>
+            <th scope="col">Sum of all accounts</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var iData in Model.IndexPageData)
+        {
+            <tr>
+                <td>@iData.TotalNumberOfCustomers</td>
+                <td>@iData.TotalNumberOfAccounts</td>
+                <td>@iData.TotalSumOfAccounts</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
