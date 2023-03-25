@@ -8,8 +8,9 @@
 /*=== MEDIA QUERY ===*/
 @import url("https://fonts.googleapis.com/css?family=Lora:400,400i|Open+Sans:300,400,600,700,800");
 body {
-  font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
+    font-family: "Open Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("/images/office-2.jpg");
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -54,6 +55,8 @@ cite {
 
 .flags {
     font-size: 2em;
+    /*box-shadow: 1px 2px 1px 1px black;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .row {
