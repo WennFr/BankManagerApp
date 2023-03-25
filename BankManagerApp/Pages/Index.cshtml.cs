@@ -2,6 +2,7 @@
 using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using static BankManagerApp.Pages.BankDataModel;
 
 namespace BankManagerApp.Pages
@@ -22,14 +23,25 @@ namespace BankManagerApp.Pages
 
         public void OnGet()
         {
-            
-            IndexPageData.Add(new IndexDataViewModel
-            {
-                TotalNumberOfCustomers = _dbContext.Customers.Count(),
-                TotalNumberOfAccounts = _dbContext.Accounts.Count(),
-                TotalSumOfAccounts = _dbContext.Accounts.Sum(a => a.Balance)
-            });
 
+            foreach (var country in _dbContext.Customers.Select(c => c.Country).Distinct())
+            {
+                IndexPageData.Add(new IndexDataViewModel
+                {
+                    TotalNumberOfCustomers = _dbContext.Customers.Where(c => c.Country == country).Count(),
+
+                    TotalNumberOfAccounts = _dbContext.Dispositions
+                        .Where(d => d.Customer.Country == country && d.Type.ToLower() == "owner")
+                        .Distinct()
+                        .Count(),
+                    TotalSumOfAccounts = _dbContext.Dispositions
+                        .Include(d => d.Account)
+                        .Where(d => d.Customer.Country == country && d.Type.ToLower() == "owner")
+                        .Sum(d => d.Account.Balance),
+
+                    Country = country
+                });
+            }
         }
     }
 }

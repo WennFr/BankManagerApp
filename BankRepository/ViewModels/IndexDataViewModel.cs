@@ -11,6 +11,9 @@ namespace BankRepository.ViewModels
         public int TotalNumberOfCustomers { get; set; }
         public int TotalNumberOfAccounts { get; set; }
         public decimal TotalSumOfAccounts { get; set; }
+        public string Country { get; set; }
+
+        
 
     }
 }
