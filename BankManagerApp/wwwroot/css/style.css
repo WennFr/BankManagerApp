@@ -51,6 +51,19 @@ cite {
   font-style: italic;
 }
 
+
+.flags {
+    font-size: 2em;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 .form-control::-webkit-input-placeholder {
   color: #808080;
   line-height: 25px;
@@ -173,6 +186,13 @@ a:hover {
     width: 100%;
   }
 }
+
+
+.blurry-image {
+
+}
+
+
 
 .page-title {
   text-align: center;
