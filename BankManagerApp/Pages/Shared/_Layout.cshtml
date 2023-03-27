@@ -17,6 +17,7 @@
     <title>@ViewData["Title"] - BankManagerApp</title>
     <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/BankManagerApp.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="~/plugins/themify-icons/themify-icons.css">
@@ -31,7 +32,7 @@
 </head>
 
 
-<body>
+<body class="@ViewBag.BodyClass">
 
 
     @*HEADER*@

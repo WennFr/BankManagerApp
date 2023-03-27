@@ -1,0 +1,13 @@
+﻿.home {
+    background-image: url("/images/office-2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.privacy {
+    background-image: none
+}
+
+.contact {
+    background-image: url('/images/contact-background.jpg');
+}
