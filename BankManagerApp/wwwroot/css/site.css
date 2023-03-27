@@ -11,6 +11,9 @@
     background-repeat: no-repeat;
 }
 
-.contact {
-    background-image: url('/images/contact-background.jpg');
+.homelong {
+    background-image: url("/images/office-2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
