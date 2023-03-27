@@ -1,11 +1,14 @@
-﻿.home {
+﻿@import url('site.css');
+.home {
     background-image: url("/images/office-2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.privacy {
-    background-image: none
+.login {
+    background-image: url("/images/office-corridor.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .contact {

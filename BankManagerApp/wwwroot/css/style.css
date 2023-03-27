@@ -558,6 +558,16 @@ header {
   outline: none;
 }
 
+
+
+
+.img-login {
+}
+
+    .img-login .img-fluid {
+        height: 640px
+}
+
 .footer-main {
     padding: 92px 0;
     background: #1a1b1f;
