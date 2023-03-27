@@ -386,9 +386,7 @@ button:focus,
 
 
 header {
-    /*position: fixed;*/
     top: 0;
-    /*left: 0;*/
     position: sticky;
     top: 0;
     width: 100%;
@@ -404,13 +402,10 @@ header {
     z-index: 1;
     position: sticky;
     top: 0;
-    height: 60px;
+    /*height: 60px;*/
 }
 
-/*.navbar .main-nav .container {
-    position: sticky;
-    top: 0;
-}*/
+
 .main-nav .navbar-brand {
   padding: 0;
 }
