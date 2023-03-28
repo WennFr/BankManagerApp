@@ -1,5 +1,6 @@
 using BankRepository.BankAppData;
 using BankRepository.Data;
+using BankRepository.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<DataInitializer>();
+builder.Services.AddTransient<IIndexStatisticsService, IndexStatisticsService>();
 
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
