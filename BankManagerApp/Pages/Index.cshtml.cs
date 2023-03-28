@@ -1,4 +1,4 @@
-﻿using BankManagerApp.BankAppData;
+﻿using BankRepository.BankAppData;
 using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

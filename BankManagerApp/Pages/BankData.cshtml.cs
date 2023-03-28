@@ -1,8 +1,8 @@
-using BankManagerApp.BankAppData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using BankRepository.BankAppData;
 using BankRepository.ViewModels;
 
 namespace BankManagerApp.Pages

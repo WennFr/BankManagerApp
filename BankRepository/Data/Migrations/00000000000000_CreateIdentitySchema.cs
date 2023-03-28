@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace BankManagerApp.Data.Migrations
+namespace BankRepository.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

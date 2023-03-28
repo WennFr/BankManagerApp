@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace BankManagerApp.BankAppData
+namespace BankRepository.BankAppData
 {
     public partial class BankAppDataContext : DbContext
     {

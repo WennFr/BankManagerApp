@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BankManagerApp.BankAppData
+namespace BankRepository.BankAppData
 {
     public partial class User
     {

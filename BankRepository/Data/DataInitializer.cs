@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankManagerApp.Data
+namespace BankRepository.Data
 {
     public class DataInitializer
     {

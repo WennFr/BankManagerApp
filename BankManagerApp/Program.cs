@@ -1,5 +1,5 @@
-using BankManagerApp.BankAppData;
-using BankManagerApp.Data;
+using BankRepository.BankAppData;
+using BankRepository.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
