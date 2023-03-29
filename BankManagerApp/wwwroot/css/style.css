@@ -1659,8 +1659,8 @@ hr {
   font-size: 30px;
 }
 .job-list .block .job {
-  padding: 50px 10px;
-  display: flex;
+ /* padding: 50px 10px;
+  display: flex;*/
 }
 @media (max-width: 768px) {
   .job-list .block .job {
