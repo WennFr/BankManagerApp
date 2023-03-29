@@ -64,7 +64,7 @@ namespace BankRepository.Services
                 DateOfCreation = a.Created.ToString(),
                 Balance = a.Balance
 
-            }).Take(10).ToList();
+            }).ToList();
 
             return viewModelResult;
         }
