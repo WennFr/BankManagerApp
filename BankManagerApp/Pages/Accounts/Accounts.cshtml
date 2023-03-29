@@ -1,0 +1,59 @@
+﻿@page
+@model BankManagerApp.Pages.Accounts.AccountsModel
+@{
+}
+
+<h1>All Accounts</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">
+                Frequency
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Frequency"
+                   asp-route-sortOrder="asc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-up"></i>
+
+                </a>
+            </th>
+            <th scope="col">
+                Date Of Creation
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Date Of Creation"
+                   asp-route-sortOrder="asc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-up"></i>
+
+                </a>
+            </th>
+            <th scope="col">
+                Balance
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Balance"
+                   asp-route-sortOrder="asc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-up"></i>
+
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var cust in Model.Accounts)
+        {
+            <tr>
+                <td>@cust.Id</td>
+                <td>@cust.Frequency</td>
+                <td>@cust.DateOfCreation</td>
+                <td>@cust.Balance</td>
+                <td><a asp-page="/Account" asp-route-id="@cust.Id" class="btn btn-primary">View</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>

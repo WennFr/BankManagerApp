@@ -9,6 +9,10 @@ namespace BankRepository.ViewModels
     public class AccountViewModel
     {
             public int Id { get; set; }
+
+            public string Frequency { get; set; }
+
+            public string DateOfCreation { get; set; }
             
             public decimal Balance { get; set; }
 
