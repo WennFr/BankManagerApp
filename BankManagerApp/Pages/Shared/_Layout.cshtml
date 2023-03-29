@@ -81,6 +81,18 @@
                                    asp-page="/Account/Register">Register</a>
                             </li>
                         }
+                        else if (User.IsInRole("Cashier"))
+                        {
+                            <li class="nav-item @@privacy">
+                                <a class="nav-link text-dark" asp-area="" 
+                                   asp-page="/Customers/Customers">Privacy</a>
+                            </li>
+
+                            <li class="nav-item  @@register">
+                                <a class="nav-link text-dark" asp-area="Identity"
+                                   asp-page="/Accounts/Accounts">Register</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

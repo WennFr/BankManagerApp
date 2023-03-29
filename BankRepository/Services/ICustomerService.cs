@@ -11,5 +11,7 @@ namespace BankRepository.Services
     {
         List<TopCustomerViewModel> GetTopCustomersByCountry(string country);
 
+        List<CustomerViewModel> GetAllCustomers(string sortColumn, string sortOrder);
+
     }
 }
