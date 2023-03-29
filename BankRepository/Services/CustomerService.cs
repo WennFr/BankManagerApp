@@ -54,6 +54,37 @@ namespace BankRepository.Services
 
             var query = _dbContext.Customers.AsQueryable();
 
+            if (sortColumn == "First Name")
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.Givenname);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c => c.Givenname);
+
+            if (sortColumn == "Last Name")
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.Surname);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c => c.Surname);
+
+            if (sortColumn == "Address")
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.Streetaddress);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c => c.Streetaddress);
+
+            if (sortColumn == "City")
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.City);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c =>c.City);
+
+            if (sortColumn == "Country")
+                if (sortOrder == "asc")
+                    query = query.OrderBy(c => c.Country);
+                else if (sortOrder == "desc")
+                    query = query.OrderByDescending(c => c.Country);
+
+
             var viewModelResult = query.Select(c => new CustomerViewModel
             {
                 Id = c.CustomerId,
