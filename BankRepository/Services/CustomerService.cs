@@ -28,21 +28,23 @@ namespace BankRepository.Services
 
         public List<TopCustomerViewModel> GetTopCustomersByCountry(string country)
         {
-            var query = _dbContext.Dispositions
-                .Include(d => d.Customer)
-                .Where(d=> d.Customer.Country == country && d.Type.ToLower() == "owner")
-               
-                .AsQueryable();
+            var query = _dbContext.Dispositions.AsQueryable();
 
-            var result = query.Select(d => new TopCustomerViewModel()
+            var result = query
+                .Include(d => d.Customer)
+                .Where(d => d.Customer.Country.ToLower() == country.ToLower() && d.Type.ToLower() == "owner")
+                .ToList()
+                .Select(d => new TopCustomerViewModel()
             {
                 Id = d.Customer.CustomerId,
                 GivenName = d.Customer.Givenname,
                 Surname = d.Customer.Surname,
                 City = d.Customer.City,
                 Country = d.Customer.Country,
-                TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerBalance(d.Customer.CustomerId)
-            }).ToList();
+                TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerBalance(d.CustomerId)
+            }).OrderByDescending(c=> c.TotalBalanceOfAllAccounts).Take(10).ToList();
+
+            
 
             return result;
         }
