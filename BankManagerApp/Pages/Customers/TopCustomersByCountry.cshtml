@@ -19,15 +19,22 @@
     </thead>
     <tbody>
 
-    @*@foreach (var cust in Model.Customers)
+@*    @foreach (var cust in Model.TopCustomers)
     {
         <tr>
             <td>@cust.Id</td>
             <td>@cust.GivenName</td>
             <td>@cust.Surname</td>
+            <td>@cust.City</td>
             <td>@cust.Country</td>
+            <td>@cust.AccountBalance</td>
+            <td><a asp-page="/Customer" asp-route-id="@cust.Id" class="btn btn-primary">View</a></td>  
+
         </tr>
-    }*@
+    }
+    *@
+
+    
 
     </tbody>
 </table>
