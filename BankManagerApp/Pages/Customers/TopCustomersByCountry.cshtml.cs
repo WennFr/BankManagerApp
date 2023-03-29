@@ -10,7 +10,7 @@ namespace BankManagerApp.Pages.Customers
         public List<CustomerViewModel> TopCustomers { get; set; }
 
 
-        public void OnGet()
+        public void OnGet(string country)
         {
 
 

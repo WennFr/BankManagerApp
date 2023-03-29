@@ -56,35 +56,31 @@
 
                 @foreach (var iData in Model.IndexPageData)
                 {
-                    
-                    
-                    
-                    
-
                     <div class="col-lg-3 col-md-6 mt-5 mt-md-0 text-center">
                         <a asp-page="/Customers/TopCustomersByCountry" asp-route-country="@iData.Country">
-                        @if (iData.Country == "Sweden")
-                        {
-                            <i class="flags fi fi-se "></i>
-                        }
-                        else if (iData.Country == "Denmark")
-                        {
-                            <i class="flags fi fi-dk"></i>
-                        }
-                        else if (iData.Country == "Norway")
-                        {
-                            <i class="flags fi fi-no"></i>
-                        }
-                        else if (iData.Country == "Finland")
-                        {
-                            <i class="flags fi fi-fi"></i>
-                        }
-                        <h3 class="mt-4 text-capitalize h5 ">Customers</h3>
-                        <p class="regular text-muted">@iData.TotalNumberOfCustomers</p>
-                        <h3 class="mt-4 text-capitalize h5 ">Accounts</h3>
-                        <p class="regular text-muted">@iData.TotalNumberOfAccounts</p>
-                        <h3 class="mt-4 text-capitalize h5 ">Total Assets</h3>
-                        <p class="regular text-muted">@iData.TotalSumOfAccounts</p>
+
+                            @if (iData.Country == "Sweden")
+                            {
+                                <i class="flags fi fi-se "></i>
+                            }
+                            else if (iData.Country == "Denmark")
+                            {
+                                <i class="flags fi fi-dk"></i>
+                            }
+                            else if (iData.Country == "Norway")
+                            {
+                                <i class="flags fi fi-no"></i>
+                            }
+                            else if (iData.Country == "Finland")
+                            {
+                                <i class="flags fi fi-fi"></i>
+                            }
+                            <h3 class="mt-4 text-capitalize h5 ">Customers</h3>
+                            <p class="regular text-muted">@iData.TotalNumberOfCustomers</p>
+                            <h3 class="mt-4 text-capitalize h5 ">Accounts</h3>
+                            <p class="regular text-muted">@iData.TotalNumberOfAccounts</p>
+                            <h3 class="mt-4 text-capitalize h5 ">Total Assets</h3>
+                            <p class="regular text-muted">@iData.TotalSumOfAccounts</p>
                         </a>
 
                     </div>
