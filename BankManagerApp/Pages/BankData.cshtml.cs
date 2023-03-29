@@ -15,13 +15,13 @@ namespace BankManagerApp.Pages
             _dbContext = dbContext;
         }
 
-        public List<CustomerViewModel> Customers { get; set; }
+        public List<TopCustomerViewModel> Customers { get; set; }
 
 
 
         public void OnGet()
         {
-            Customers = _dbContext.Customers.Select(c => new CustomerViewModel
+            Customers = _dbContext.Customers.Select(c => new TopCustomerViewModel
             {
                 Id = c.CustomerId,
                 GivenName = c.Givenname,
