@@ -7,10 +7,10 @@ using BankRepository.ViewModels;
 
 namespace BankManagerApp.Pages
 {
-    public class BankDataModel : PageModel
+    public class CustomersModel : PageModel
     {
         private readonly BankAppDataContext _dbContext;
-        public BankDataModel(BankAppDataContext dbContext)
+        public CustomersModel(BankAppDataContext dbContext)
         {
             _dbContext = dbContext;
         }
