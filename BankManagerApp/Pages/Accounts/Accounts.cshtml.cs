@@ -18,8 +18,9 @@ namespace BankManagerApp.Pages.Accounts
         public List<AccountViewModel> Accounts { get; set; }
 
 
-        public void OnGet()
+        public void OnGet(string sortColumn, string sortOrder)
         {
+            Accounts = _accountService.GetAllAccounts(sortColumn, sortOrder);
         }
     }
 }

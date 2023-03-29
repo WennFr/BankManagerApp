@@ -41,7 +41,7 @@ namespace BankRepository.Services
                     Surname = d.Customer.Surname,
                     City = d.Customer.City,
                     Country = d.Customer.Country,
-                    TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerBalance(d.CustomerId)
+                    TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(d.CustomerId)
                 }).OrderByDescending(c => c.TotalBalanceOfAllAccounts).Take(10).ToList();
 
 
