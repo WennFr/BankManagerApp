@@ -94,7 +94,7 @@ namespace BankRepository.Services
                 City = c.City,
                 Country = c.Country,
                 
-            }).Take(15).ToList();
+            }).Take(50).ToList();
 
             return viewModelResult;
         }

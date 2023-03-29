@@ -1,83 +1,97 @@
 ﻿@page
 @model BankManagerApp.Pages.Accounts.AccountsModel
 @{
+    ViewBag.BodyClass = "homelong";
 }
 
-<h1>All Accounts</h1>
+<h1 class="text-center">All Accounts</h1>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">
-                Frequency
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Frequency"
-                   asp-route-sortOrder="asc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-up"></i>
 
-                </a>
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Frequency"
-                   asp-route-sortOrder="desc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-down"></i>
 
-                </a>
-                
-                
+<section class="job-list section pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-12 m-auto">
+                <div class="block">
+                    <table class="title table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">
+                                    Frequency
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Frequency"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-up"></i>
 
-            </th>
-            <th scope="col">
-                Date Of Creation
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Date Of Creation"
-                   asp-route-sortOrder="asc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-up"></i>
+                                    </a>
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Frequency"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-down"></i>
 
-                </a>
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Date Of Creation"
-                   asp-route-sortOrder="desc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-down"></i>
+                                    </a>
 
-                </a>
-            </th>
-            <th scope="col">
-                Balance
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Balance"
-                   asp-route-sortOrder="asc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-up"></i>
 
-                </a>
-                <a asp-page="/Accounts/Accounts"
-                   asp-route-sortColumn="Balance"
-                   asp-route-sortOrder="desc"
-                   style="text-decoration:none">
-                    <i class="fa-solid fa-angle-down"></i>
 
-                </a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+                                </th>
+                                <th scope="col">
+                                    Date Of Creation
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Date Of Creation"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-up"></i>
 
-        @foreach (var cust in Model.Accounts)
-        {
-            <tr>
-                <td>@cust.Id</td>
-                <td>@cust.Frequency</td>
-                <td>@cust.DateOfCreation</td>
-                <td>@cust.Balance</td>
-                <td><a asp-page="/Account" asp-route-id="@cust.Id" class="btn btn-primary">View</a></td>
-            </tr>
-        }
+                                    </a>
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Date Of Creation"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-down"></i>
 
-    </tbody>
-</table>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Balance
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Balance"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-up"></i>
+
+                                    </a>
+                                    <a asp-page="/Accounts/Accounts"
+                                       asp-route-sortColumn="Balance"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration:none">
+                                        <i class="fa-solid fa-angle-down"></i>
+
+                                    </a>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var cust in Model.Accounts)
+                            {
+                                <tr>
+                                    <td>@cust.Id</td>
+                                    <td>@cust.Frequency</td>
+                                    <td>@cust.DateOfCreation</td>
+                                    <td>@cust.Balance</td>
+                                    <td><a asp-page="/Account" asp-route-id="@cust.Id" class="btn btn-primary">View</a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
