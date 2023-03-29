@@ -18,6 +18,16 @@
                     <i class="fa-solid fa-angle-up"></i>
 
                 </a>
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Frequency"
+                   asp-route-sortOrder="desc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-down"></i>
+
+                </a>
+                
+                
+
             </th>
             <th scope="col">
                 Date Of Creation
@@ -28,6 +38,13 @@
                     <i class="fa-solid fa-angle-up"></i>
 
                 </a>
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Date Of Creation"
+                   asp-route-sortOrder="desc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-down"></i>
+
+                </a>
             </th>
             <th scope="col">
                 Balance
@@ -36,6 +53,13 @@
                    asp-route-sortOrder="asc"
                    style="text-decoration:none">
                     <i class="fa-solid fa-angle-up"></i>
+
+                </a>
+                <a asp-page="/Accounts/Accounts"
+                   asp-route-sortColumn="Balance"
+                   asp-route-sortOrder="desc"
+                   style="text-decoration:none">
+                    <i class="fa-solid fa-angle-down"></i>
 
                 </a>
             </th>
