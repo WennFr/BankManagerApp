@@ -13,5 +13,8 @@ namespace BankRepository.Services
 
         List<CustomerViewModel> GetAllCustomers(string sortColumn, string sortOrder, int pageNo);
 
+        CustomerViewModel GetCustomerById(int cutomerId);
+
+
     }
 }

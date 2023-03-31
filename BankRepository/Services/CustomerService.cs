@@ -107,5 +107,26 @@ namespace BankRepository.Services
         }
 
 
+        public CustomerViewModel GetCustomerById(int customerId)
+        {
+
+           var viewModelResult = _dbContext.Customers
+                .Where(c => c.CustomerId == customerId)
+                .Select(c => new CustomerViewModel
+                {
+                    Id = c.CustomerId,
+                    GivenName = c.Givenname,
+                    Surname = c.Surname,
+                    Address = c.Streetaddress,
+                    City = c.City,
+                    Country = c.Country,
+                })
+                .FirstOrDefault();
+
+            return viewModelResult;
+        }
+
+
+
     }
 }
