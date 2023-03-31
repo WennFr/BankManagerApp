@@ -5,65 +5,81 @@
 
 <h1>Customer</h1>
 
-<table class="title table">
-    <thead>
-    <tr>
-        <th scope="col">Info</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Id:</td>
-        <td>@Model.Customer.Id</td>
-    </tr>
-    <tr>
-        <td>Given Name:</td>
-        <td>@Model.Customer.GivenName</td>
-    </tr>
-    <tr>
-        <td>Surname:</td>
-        <td>@Model.Customer.Surname</td>
-    </tr>
-    <tr>
-        <td>Address:</td>
-        <td>@Model.Customer.Address</td>
-    </tr>
-    <tr>
-        <td>City:</td>
-        <td>@Model.Customer.City</td>
-    </tr>
-    <tr>
-        <td>Zipcode:</td>
-        <td>@Model.Customer.Zipcode</td>
-    </tr>
-    <tr>
-        <td>Country:</td>
-        <td>@Model.Customer.Country</td>
-    </tr>
-    <tr>
-        <td>Birthday:</td>
-        <td>@Model.Customer.BirthDay</td>
-    </tr>
-    <tr>
-        <td>National Id:</td>
-        <td>@Model.Customer.NationalId</td>
-    </tr>
-    <tr>
-        <td>Telephone Country Code:</td>
-        <td>@Model.Customer.TelephoneCountryCode</td>
-    </tr>
-    <tr>
-        <td>Telephone Number:</td>
-        <td>@Model.Customer.TelephoneNumber</td>
-    </tr>
-    <tr>
-        <td>Email Address:</td>
-        <td>@Model.Customer.EmailAddress</td>
-    </tr>
-    @*<tr>
-            <td><a asp-page="/Customer" asp-route-customerId="@cust.Id" class="btn btn-primary">View</a></td>
-        </tr>*@
-    </tbody>
-</table>
 
 
+<section class="job-list section pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-12 m-auto">
+                <div class="block">
+                    <table class="title table">
+                        <thead>
+
+                        <tr>
+                            <h2>@Model.Customer.GivenName @Model.Customer.Surname</h2>
+                            <th scope="col">Customer Info</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Id:</td>
+                                <td>@Model.Customer.Id</td>
+                            </tr>
+                            <tr>
+                                <td>Given Name:</td>
+                                <td>@Model.Customer.GivenName</td>
+                            </tr>
+                            <tr>
+                                <td>Surname:</td>
+                                <td>@Model.Customer.Surname</td>
+                            </tr>
+                            <tr>
+                                <td>Address:</td>
+                                <td>@Model.Customer.Address</td>
+                            </tr>
+                            <tr>
+                                <td>City:</td>
+                                <td>@Model.Customer.City</td>
+                            </tr>
+                            <tr>
+                                <td>Zipcode:</td>
+                                <td>@Model.Customer.Zipcode</td>
+                            </tr>
+                            <tr>
+                                <td>Country:</td>
+                                <td>@Model.Customer.Country</td>
+                            </tr>
+                            <tr>
+                                <td>Birthday:</td>
+                                <td>@Model.Customer.BirthDay</td>
+                            </tr>
+                            <tr>
+                                <td>National Id:</td>
+                                <td>@Model.Customer.NationalId</td>
+                            </tr>
+                            <tr>
+                                <td>Telephone Country Code:</td>
+                                <td>@Model.Customer.TelephoneCountryCode</td>
+                            </tr>
+                            <tr>
+                                <td>Telephone Number:</td>
+                                <td>@Model.Customer.TelephoneNumber</td>
+                            </tr>
+                            <tr>
+                                <td>Email Address:</td>
+                                <td>@Model.Customer.EmailAddress</td>
+                            </tr>
+                            @*<tr>
+                            <td><a asp-page="/Customer" asp-route-customerId="@cust.Id" class="btn btn-primary">View</a></td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
