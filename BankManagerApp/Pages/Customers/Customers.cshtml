@@ -118,6 +118,40 @@
                                 </tr>
                             }
 
+                            <tr>
+                                <td>
+                                    @if (Model.CurrentPage != 1)
+                                    {
+                                        <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customers"
+                                       asp-route-sortColumn="@Model.SortColumn"
+                                       asp-route-sortOrder="@Model.SortOrder"
+                                       asp-route-pageNo="@(Model.CurrentPage - 1)">
+                                            Prev
+                                        </a>
+                                    }
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td>
+                                    <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customers"
+                                       asp-route-sortColumn="@Model.SortColumn"
+                                       asp-route-sortOrder="@Model.SortOrder"
+                                       asp-route-pageNo="@(Model.CurrentPage + 1)">
+                                        Next
+                                    </a>
+                                </td>
+
+                            </tr>
+
+
+
+
                         </tbody>
                     </table>
 

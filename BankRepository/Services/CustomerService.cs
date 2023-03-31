@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
 using BankRepository.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -49,7 +50,7 @@ namespace BankRepository.Services
             return result;
         }
 
-        public List<CustomerViewModel> GetAllCustomers(string sortColumn, string sortOrder)
+        public List<CustomerViewModel> GetAllCustomers(string sortColumn, string sortOrder, int pageNo)
         {
 
             var query = _dbContext.Customers.AsQueryable();
@@ -85,6 +86,12 @@ namespace BankRepository.Services
                     query = query.OrderByDescending(c => c.Country);
 
 
+            var firstItemIndex = (pageNo - 1) * 10; // 5 är page storlek
+
+            query = query.Skip(firstItemIndex);
+            query = query.Take(10); // 5 är page storlek
+
+
             var viewModelResult = query.Select(c => new CustomerViewModel
             {
                 Id = c.CustomerId,
@@ -94,7 +101,7 @@ namespace BankRepository.Services
                 City = c.City,
                 Country = c.Country,
                 
-            }).Take(50).ToList();
+            }).ToList();
 
             return viewModelResult;
         }

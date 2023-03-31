@@ -19,31 +19,27 @@ namespace BankManagerApp.Pages.Customers
 
         public List<CustomerViewModel> Customers { get; set; }
 
+        public int CurrentPage { get; set; }
+        public string SortColumn { get; set; }
+        public string SortOrder { get; set; }
 
 
-        public void OnGet(string sortColumn, string sortOrder)
+
+        public void OnGet(string sortColumn, string sortOrder,int pageNo)
         {
-            Customers = _customerService.GetAllCustomers(sortColumn, sortOrder);
+            SortColumn = sortColumn;
+            SortOrder = sortOrder;
+
+            if (pageNo == 0)
+                pageNo = 1;
+            CurrentPage = pageNo;
+           
+
+            Customers = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
 
         }
 
-        //public void OnGet(int page = 1, int pageSize = 10)
-        //{
-        //    int skip = (page - 1) * pageSize;
-        //    Customers = _dbContext.Customers
-        //        .OrderBy(c => c.CustomerId)
-        //        .Skip(skip)
-        //        .Take(pageSize)
-        //        .Select(c => new CustomerViewModel
-        //        {
-        //            Id = c.CustomerId,
-        //            GivenName = c.Givenname,
-        //            Surname = c.Surname,
-        //            Country = c.Country
-        //        })
-        //        .ToList();
-        //}
-
+      
 
 
 
