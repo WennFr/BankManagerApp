@@ -1,5 +1,6 @@
 ﻿using BankRepository.BankAppData;
 using BankRepository.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace BankRepository.Services
 
             return TotalAccountsBalance;
         }
-        public List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder)
+        public List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder,int pageNo)
         {
 
             var query = _dbContext.Accounts.AsQueryable();
@@ -57,6 +58,11 @@ namespace BankRepository.Services
                     query = query.OrderByDescending(a => a.Balance);
 
 
+            var firstItemIndex = (pageNo - 1) * 10;
+
+            query = query.Skip(firstItemIndex);
+            query = query.Take(10);
+
             var viewModelResult = query.Select(a => new AccountViewModel
             {
                 Id = a.AccountId,
@@ -64,7 +70,7 @@ namespace BankRepository.Services
                 DateOfCreation = a.Created.ToString(),
                 Balance = a.Balance
 
-            }).Take(10).ToList();
+            }).ToList();
 
             return viewModelResult;
         }

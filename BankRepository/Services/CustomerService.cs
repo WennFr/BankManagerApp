@@ -86,10 +86,10 @@ namespace BankRepository.Services
                     query = query.OrderByDescending(c => c.Country);
 
 
-            var firstItemIndex = (pageNo - 1) * 10; // 5 är page storlek
+            var firstItemIndex = (pageNo - 1) * 10;
 
             query = query.Skip(firstItemIndex);
-            query = query.Take(10); // 5 är page storlek
+            query = query.Take(10); 
 
 
             var viewModelResult = query.Select(c => new CustomerViewModel
