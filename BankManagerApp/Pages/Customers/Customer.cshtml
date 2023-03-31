@@ -96,9 +96,28 @@
                                 <td>Email Address:</td>
                                 <td>@Model.Customer.EmailAddress</td>
                             </tr>
-                            @*<tr>
-                            <td><a asp-page="/Customer" asp-route-customerId="@cust.Id" class="btn btn-primary">View</a></td>
-                            </tr>*@
+                            <tr>
+                                <td>
+                                    @if (@Model.PreviousPage == "customers")
+                                    {
+
+                                        <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customers">
+                                            Back
+                                        </a>
+
+                                    }
+                                    else if (@Model.PreviousPage == "topCustomersByCountry")
+                                    {
+                                        <a class="btn btn-secondary"
+                                       asp-page="/Customers/TopCustomersByCountry" asp-route-country="@Model.Country">
+                                            Back
+                                        </a>
+                                    }
+                                    
+
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 

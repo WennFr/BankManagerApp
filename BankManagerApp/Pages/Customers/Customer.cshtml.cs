@@ -17,13 +17,16 @@ namespace BankManagerApp.Pages.Customers
         private readonly IAccountService _accountService;
 
         public CustomerInformationViewModel Customer { get; set; }
+        public string PreviousPage { get; set; }
+        public string Country { get; set; }
 
 
 
-        public void OnGet(int customerId)
+        public void OnGet(int customerId, string previousPage)
         {
             Customer = _customerService.GetFullCustomerInformationById(customerId);
-
+            PreviousPage = previousPage;
+            Country = Customer.Country;
         }
     }
 }
