@@ -5,19 +5,65 @@
 
 <h1>Customer</h1>
 
+<table class="title table">
+    <thead>
+    <tr>
+        <th scope="col">Info</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Id:</td>
+        <td>@Model.Customer.Id</td>
+    </tr>
+    <tr>
+        <td>Given Name:</td>
+        <td>@Model.Customer.GivenName</td>
+    </tr>
+    <tr>
+        <td>Surname:</td>
+        <td>@Model.Customer.Surname</td>
+    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@Model.Customer.Address</td>
+    </tr>
+    <tr>
+        <td>City:</td>
+        <td>@Model.Customer.City</td>
+    </tr>
+    <tr>
+        <td>Zipcode:</td>
+        <td>@Model.Customer.Zipcode</td>
+    </tr>
+    <tr>
+        <td>Country:</td>
+        <td>@Model.Customer.Country</td>
+    </tr>
+    <tr>
+        <td>Birthday:</td>
+        <td>@Model.Customer.BirthDay</td>
+    </tr>
+    <tr>
+        <td>National Id:</td>
+        <td>@Model.Customer.NationalId</td>
+    </tr>
+    <tr>
+        <td>Telephone Country Code:</td>
+        <td>@Model.Customer.TelephoneCountryCode</td>
+    </tr>
+    <tr>
+        <td>Telephone Number:</td>
+        <td>@Model.Customer.TelephoneNumber</td>
+    </tr>
+    <tr>
+        <td>Email Address:</td>
+        <td>@Model.Customer.EmailAddress</td>
+    </tr>
+    @*<tr>
+            <td><a asp-page="/Customer" asp-route-customerId="@cust.Id" class="btn btn-primary">View</a></td>
+        </tr>*@
+    </tbody>
+</table>
 
-
-<tr>
-    <td>@Model.Customer.Id</td>
-    <td>@Model.Customer.GivenName</td>
-    <td>@Model.Customer.Surname</td>
-    <td>@Model.Customer.</td>
-
-    <td>@cust.GivenName</td>
-    <td>@cust.Surname</td>
-    <td>@cust.Address</td>
-    <td>@cust.City</td>
-    <td>@cust.Country</td>
-    <td><a asp-page="/Customer" asp-route-customerId="@cust.Id" class="btn btn-primary">View</a></td>
-</tr>
 

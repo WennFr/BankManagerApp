@@ -9,19 +9,20 @@ namespace BankManagerApp.Pages.Customers
     {
         public CustomerModel(ICustomerService customerService,IAccountService accountService)
         {
+            _customerService = customerService;
             _accountService = accountService;
         }
 
         private readonly ICustomerService _customerService;
         private readonly IAccountService _accountService;
 
-        public CustomerViewModel Customer { get; set; }
+        public CustomerInformationViewModel Customer { get; set; }
 
 
 
         public void OnGet(int customerId)
         {
-            Customer = _customerService.GetCustomerById(customerId);
+            Customer = _customerService.GetFullCustomerInformationById(customerId);
 
         }
     }

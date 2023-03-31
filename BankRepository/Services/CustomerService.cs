@@ -107,19 +107,27 @@ namespace BankRepository.Services
         }
 
 
-        public CustomerViewModel GetCustomerById(int customerId)
+        public CustomerInformationViewModel GetFullCustomerInformationById(int customerId)
         {
 
            var viewModelResult = _dbContext.Customers
                 .Where(c => c.CustomerId == customerId)
-                .Select(c => new CustomerViewModel
+                .Select(c => new CustomerInformationViewModel
                 {
                     Id = c.CustomerId,
                     GivenName = c.Givenname,
                     Surname = c.Surname,
                     Address = c.Streetaddress,
                     City = c.City,
+                    Zipcode = c.Zipcode,
                     Country = c.Country,
+                    CountryCode = c.CountryCode,
+                    BirthDay = c.Birthday.ToString(),
+                    NationalId = c.NationalId,
+                    TelephoneCountryCode = c.Telephonecountrycode,
+                    TelephoneNumber = c.Telephonenumber,
+                    EmailAddress = c.Emailaddress
+
                 })
                 .FirstOrDefault();
 
