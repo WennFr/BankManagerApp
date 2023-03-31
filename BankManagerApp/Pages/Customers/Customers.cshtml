@@ -18,7 +18,7 @@
                         <thead>
                             <tr>
                                 <h3>Page @Model.CurrentPage</h3>
-                                <th scope="col">Id</th>
+                                <th scope="col">AccountId</th>
                                 <th scope="col">
                                     First Name
                                     <a asp-page="/Customers/Customers"
@@ -116,7 +116,7 @@
                                     <td>@cust.Address</td>
                                     <td>@cust.City</td>
                                     <td>@cust.Country</td>
-                                    <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.Id" asp-route-previousPage="customers" class="btn btn-primary">View</a></td>
+                                    <td><a asp-page="/Customers/Customer" asp-route-customerAccountId="@cust.Id" asp-route-previousPage="customers" class="btn btn-primary">View</a></td>
                                 </tr>
                             }
 

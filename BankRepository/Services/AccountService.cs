@@ -34,7 +34,7 @@ namespace BankRepository.Services
 
             return TotalAccountsBalance;
         }
-        public List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder,int pageNo)
+        public List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder, int pageNo)
         {
 
             var query = _dbContext.Accounts.AsQueryable();
@@ -65,7 +65,7 @@ namespace BankRepository.Services
 
             var viewModelResult = query.Select(a => new AccountViewModel
             {
-                Id = a.AccountId,
+                AccountId = a.AccountId,
                 Frequency = a.Frequency,
                 DateOfCreation = a.Created.ToString(),
                 Balance = a.Balance
@@ -73,6 +73,24 @@ namespace BankRepository.Services
             }).ToList();
 
             return viewModelResult;
+        }
+
+        public AccountViewModel GetAccountById(int accountId)
+        {
+            var viewModelResult = _dbContext.Accounts
+                .Where(a => a.AccountId == accountId)
+                .Select(a => new AccountViewModel()
+                {
+                    AccountId = a.AccountId,
+                    Frequency = a.Frequency,
+                    DateOfCreation = a.Created.ToString(),
+                    Balance = a.Balance
+                }).FirstOrDefault();
+
+            return viewModelResult;
+
+
+
         }
 
 

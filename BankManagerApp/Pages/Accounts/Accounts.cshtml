@@ -16,7 +16,7 @@
                     <table class="title table ">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
+                            <th scope="col">AccountId</th>
                             <th scope="col">
                                 Frequency
                                 <a asp-page="/Accounts/Accounts"
@@ -76,14 +76,14 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var cust in Model.Accounts)
+                            @foreach (var acco in Model.Accounts)
                             {
                                 <tr>
-                                    <td>@cust.Id</td>
-                                    <td>@cust.Frequency</td>
-                                    <td>@cust.DateOfCreation</td>
-                                    <td>@cust.Balance</td>
-                                    <td><a asp-page="/Account" asp-route-id="@cust.Id" class="btn btn-primary">View</a></td>
+                                    <td>@acco.AccountId</td>
+                                    <td>@acco.Frequency</td>
+                                    <td>@acco.DateOfCreation</td>
+                                    <td>@acco.Balance</td>
+                                    <td><a asp-page="/Accounts/Account" asp-route-accountId="@acco.AccountId" asp-route-previousPage="accounts" class="btn btn-primary">View</a></td>
                                 </tr>
                             }
                             

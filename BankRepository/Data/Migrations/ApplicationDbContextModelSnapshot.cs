@@ -20,7 +20,7 @@ namespace BankRepository.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("AccountId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -35,7 +35,7 @@ namespace BankRepository.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -47,7 +47,7 @@ namespace BankRepository.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AccountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -62,7 +62,7 @@ namespace BankRepository.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountId");
 
                     b.HasIndex("RoleId");
 
@@ -71,7 +71,7 @@ namespace BankRepository.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("AccountId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
@@ -121,7 +121,7 @@ namespace BankRepository.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -136,7 +136,7 @@ namespace BankRepository.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AccountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -151,7 +151,7 @@ namespace BankRepository.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountId");
 
                     b.HasIndex("UserId");
 

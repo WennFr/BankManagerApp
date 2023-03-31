@@ -8,7 +8,7 @@ namespace BankRepository.ViewModels
 {
     public class AccountViewModel
     {
-            public int Id { get; set; }
+            public int AccountId { get; set; }
 
             public string Frequency { get; set; }
 
