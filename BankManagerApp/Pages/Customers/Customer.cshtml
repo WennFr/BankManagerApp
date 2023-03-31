@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.CodeAnalysis.VisualBasic.Syntax
 @model BankManagerApp.Pages.Customers.CustomerModel
 @{
     ViewBag.BodyClass = "homelong";
@@ -11,21 +12,45 @@
 <section class="job-list section pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-lg-12 m-auto">
+            <div class="col-10 col-lg-10 m-auto">
                 <div class="block">
+                    <div class="customer-top">
+                        <h2 class="customer-name">@Model.Customer.GivenName @Model.Customer.Surname</h2>
+
+
+                        @if (@Model.Customer.Gender == "male")
+                        {
+                            <div>
+                                <img class="customer-img" src="/images/team/marketing-team-02.jpg" alt="client">
+                            </div>
+
+                        }
+                        else if (@Model.Customer.Gender == "female")
+                        {
+                            <div>
+                                <img class="customer-img" src="/images/team/marketing-team-03.jpg" alt="client">
+                            </div>
+
+                        }
+
+                    </div>
+
                     <table class="title table">
                         <thead>
 
-                        <tr>
-                            <h2>@Model.Customer.GivenName @Model.Customer.Surname</h2>
-                            <th scope="col">Customer Info</th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th scope="col">Customer Info</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Id:</td>
                                 <td>@Model.Customer.Id</td>
+                            </tr>
+                            <tr>
+                                <td>Id:</td>
+                                <td>@Model.Customer.Gender</td>
                             </tr>
                             <tr>
                                 <td>Given Name:</td>

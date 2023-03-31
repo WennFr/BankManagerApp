@@ -65,7 +65,23 @@ cite {
     align-items: center;
 }
 
+.customer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
 
+.customer-name {
+    text-align: center;
+    align-self: center;
+    margin-top: 40px;
+}
+
+.customer-img {
+    height: 14rem;
+    width: 14rem;
+}
 
 .form-control::-webkit-input-placeholder {
   color: #808080;

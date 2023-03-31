@@ -115,6 +115,7 @@ namespace BankRepository.Services
                 .Select(c => new CustomerInformationViewModel
                 {
                     Id = c.CustomerId,
+                    Gender = c.Gender,
                     GivenName = c.Givenname,
                     Surname = c.Surname,
                     Address = c.Streetaddress,

@@ -8,6 +8,7 @@
 <h1 class="text-center">All Customers </h1>
 
 
+
 <section class="job-list section pt-0">
     <div class="container">
         <div class="row">
@@ -16,20 +17,21 @@
                     <table class="title table ">
                         <thead>
                             <tr>
+                                <h3>Page @Model.CurrentPage</h3>
                                 <th scope="col">Id</th>
                                 <th scope="col">
                                     First Name
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="First Name"
                                        asp-route-sortOrder="asc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="First Name"
                                        asp-route-sortOrder="desc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-down"></i>
 
                                     </a>
@@ -39,14 +41,14 @@
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Last Name"
                                        asp-route-sortOrder="asc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Last Name"
                                        asp-route-sortOrder="desc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-down"></i>
 
                                     </a>
@@ -56,14 +58,14 @@
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Address"
                                        asp-route-sortOrder="asc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Address"
                                        asp-route-sortOrder="desc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-down"></i>
 
                                     </a>
@@ -73,14 +75,14 @@
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="City"
                                        asp-route-sortOrder="asc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="City"
                                        asp-route-sortOrder="desc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-down"></i>
 
                                     </a>
@@ -90,13 +92,13 @@
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Country"
                                        asp-route-sortOrder="asc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
                                     </a>
                                     <a asp-page="/Customers/Customers"
                                        asp-route-sortColumn="Country"
                                        asp-route-sortOrder="desc"
-                                       style="text-decoration:none">
+                                       style="text-decoration: none">
                                         <i class="fa-solid fa-angle-down"></i>
                                     </a>
                                 </th>
