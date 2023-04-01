@@ -22,6 +22,8 @@ namespace BankRepository.ViewModels
         public string? TelephoneCountryCode { get; set; }
         public string? TelephoneNumber { get; set; }
         public string? EmailAddress { get; set; }
+        public decimal TotalBalanceOfAllAccounts { get; set; }
+
 
 
 

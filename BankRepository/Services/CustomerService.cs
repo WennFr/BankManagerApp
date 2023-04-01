@@ -127,7 +127,8 @@ namespace BankRepository.Services
                     NationalId = c.NationalId,
                     TelephoneCountryCode = c.Telephonecountrycode,
                     TelephoneNumber = c.Telephonenumber,
-                    EmailAddress = c.Emailaddress
+                    EmailAddress = c.Emailaddress,
+                    TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerId)
 
                 })
                 .FirstOrDefault();
