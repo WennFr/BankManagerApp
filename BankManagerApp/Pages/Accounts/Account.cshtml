@@ -14,14 +14,12 @@
         <div class="row">
             <div class="col-10 col-lg-10 m-auto">
                 <div class="block">
-
                     <table class="title table">
                         <thead>
 
                             <tr>
                                 <th scope="col">Account Info</th>
                                 <th></th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -42,30 +40,46 @@
                                 <td>@Model.Account.Frequency</td>
                             </tr>
 
+                          
+                        </tbody>
+                    </table>
+
+                    <table class="title table">
+                        <thead>
                             <tr>
-                                <td>
-                                    @if (@Model.PreviousPage == "accounts")
-                                    {
-
-                                        <a class="btn btn-secondary"
-                                           asp-page="/Accounts/Accounts">
-                                            Back
-                                        </a>
-
-                                    }
-                                    else if (@Model.PreviousPage == "topCustomersByCountry")
-                                    {
-                                        <a class="btn btn-secondary"
-                                           asp-page="/Customers/TopCustomersByCountry">
-                                            Back
-                                        </a>
-                                    }
-
-
-                                </td>
-                                
-                                <td></td>
+                                <th scope="col">Transactions</th>
+                                <th></th>
                             </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr>
+                            <td>AccountId:</td>
+                            <td>@Model.Account.AccountId</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                @if (@Model.PreviousPage == "accounts")
+                                {
+
+                                    <a class="btn btn-secondary"
+                                       asp-page="/Accounts/Accounts">
+                                        Back
+                                    </a>
+
+                                }
+                                else if (@Model.PreviousPage == "topCustomersByCountry")
+                                {
+                                    <a class="btn btn-secondary"
+                                       asp-page="/Customers/TopCustomersByCountry">
+                                        Back
+                                    </a>
+                                }
+
+                            </td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
