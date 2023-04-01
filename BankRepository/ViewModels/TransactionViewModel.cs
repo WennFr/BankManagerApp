@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankRepository.ViewModels
 {
-    internal class TransactionViewModel
+    public class TransactionViewModel
     {
         public int TransactionId { get; set; }
 

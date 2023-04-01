@@ -21,8 +21,7 @@ builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddTransient<IIndexStatisticsService, IndexStatisticsService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
-
-
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
