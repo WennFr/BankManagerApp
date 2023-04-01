@@ -15,6 +15,9 @@ namespace BankRepository.Services
 
         CustomerInformationViewModel GetFullCustomerInformationById(int customerId);
 
+        CustomerViewModel GetCustomerNameByAccountId(int accountId);
+
+
 
     }
 }

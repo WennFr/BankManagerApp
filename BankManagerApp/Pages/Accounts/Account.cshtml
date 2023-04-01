@@ -38,6 +38,14 @@
                                 <td>Frequency:</td>
                                 <td>@Model.Account.Frequency</td>
                             </tr>
+                             <tr>
+                                <td>Owner:</td>
+                                 <td>@Model.Customer.GivenName @Model.Customer.Surname</td>
+                                 <td> <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account">
+                                     Customer
+                                 </a></td>
+                            </tr>
 
 
                         </tbody>
@@ -46,7 +54,14 @@
                     <table class="title table">
                         <thead>
                             <tr>
-                                <th scope="col">Transactions</th>
+                                <th >Transactions</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+
                             </tr>
                             <tr>
                                 <th scope="col">Id</th>
@@ -82,7 +97,7 @@
                                     {
 
                                         <a class="btn btn-secondary"
-                                           asp-page="/Accounts/Accounts">
+                                       asp-page="/Accounts/Accounts">
                                             Back
                                         </a>
 
@@ -90,7 +105,7 @@
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
                                         <a class="btn btn-secondary"
-                                           asp-page="/Customers/TopCustomersByCountry">
+                                       asp-page="/Customers/TopCustomersByCountry">
                                             Back
                                         </a>
                                     }

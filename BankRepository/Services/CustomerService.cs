@@ -136,6 +136,27 @@ namespace BankRepository.Services
             return viewModelResult;
         }
 
+        public CustomerViewModel GetCustomerNameByAccountId(int accountId)
+        {
+
+            var viewModelResult = _dbContext.Dispositions
+                .Include(d => d.Account)
+                .ThenInclude(a => a.Dispositions)
+                .ThenInclude(d => d.Customer)
+                .Where(d => d.AccountId == accountId && d.Type.ToLower() == "owner")
+                .Select(d => new CustomerViewModel
+                {
+                    Id = d.Customer.CustomerId,
+                    GivenName = d.Customer.Givenname,
+                    Surname = d.Customer.Surname,
+
+                })
+                .FirstOrDefault();
+
+            return viewModelResult;
+
+
+        }
 
 
     }
