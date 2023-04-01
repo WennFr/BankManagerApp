@@ -16,7 +16,6 @@
                 <div class="block">
                     <table class="title table">
                         <thead>
-
                             <tr>
                                 <th scope="col">Account Info</th>
                                 <th></th>
@@ -32,7 +31,7 @@
                                 <td>@Model.Account.DateOfCreation</td>
                             </tr>
                             <tr>
-                                <td>Balance</td>
+                                <td>Current Balance</td>
                                 <td>@Model.Account.Balance</td>
                             </tr>
                             <tr>
@@ -40,7 +39,7 @@
                                 <td>@Model.Account.Frequency</td>
                             </tr>
 
-                          
+
                         </tbody>
                     </table>
 
@@ -48,38 +47,56 @@
                         <thead>
                             <tr>
                                 <th scope="col">Transactions</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Operation</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Bal. after txn</th>
+                                <th scope="col">Date of txn</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        
-                        <tr>
-                            <td>AccountId:</td>
-                            <td>@Model.Account.AccountId</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                @if (@Model.PreviousPage == "accounts")
-                                {
 
-                                    <a class="btn btn-secondary"
+
+
+                            @foreach (var tran in Model.Transactions)
+                            {
+                                <tr>
+
+                                    <td>@tran.TransactionId</td>
+                                    <td>@tran.Type</td>
+                                    <td>@tran.Operation</td>
+                                    <td>@tran.Amount</td>
+                                    <td>@tran.BalanceAfterTransaction</td>
+                                    <td>@tran.TransactionDate</td>
+                                </tr>
+
+                            }
+
+                            <tr>
+                                <td>
+                                    @if (@Model.PreviousPage == "accounts")
+                                    {
+
+                                        <a class="btn btn-secondary"
                                        asp-page="/Accounts/Accounts">
-                                        Back
-                                    </a>
+                                            Back
+                                        </a>
 
-                                }
-                                else if (@Model.PreviousPage == "topCustomersByCountry")
-                                {
-                                    <a class="btn btn-secondary"
+                                    }
+                                    else if (@Model.PreviousPage == "topCustomersByCountry")
+                                    {
+                                        <a class="btn btn-secondary"
                                        asp-page="/Customers/TopCustomersByCountry">
-                                        Back
-                                    </a>
-                                }
+                                            Back
+                                        </a>
+                                    }
 
-                            </td>
-                            <td></td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
