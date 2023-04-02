@@ -16,7 +16,7 @@ namespace BankRepository.Services
 
         AccountViewModel GetAccountByAccountId(int accountId);
 
-        AccountViewModel GetAccountByCustomerId(int customerId);
+        List<AccountViewModel> GetAccountsByCustomerId(int customerId);
 
 
     }

@@ -93,9 +93,12 @@ namespace BankRepository.Services
         }
 
 
-        public AccountViewModel GetAccountByCustomerId(int customerId)
+        public List<AccountViewModel> GetAccountsByCustomerId(int customerId)
         {
-            var viewModelResult = _dbContext.Dispositions
+
+            var query = _dbContext.Dispositions.AsQueryable();
+
+            var viewModelResult = query
                 .Include(d => d.Account)
                 .ThenInclude(a => a.Dispositions)
                 .ThenInclude(d => d.Customer)
@@ -107,7 +110,7 @@ namespace BankRepository.Services
                     DateOfCreation = d.Account.Created.ToString(),
                     Balance = d.Account.Balance
 
-                }).FirstOrDefault();
+                }).ToList();
 
             return viewModelResult;
 

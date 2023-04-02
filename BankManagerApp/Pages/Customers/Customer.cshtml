@@ -45,11 +45,11 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>AccountId:</td>
+                                <td>Customer Id:</td>
                                 <td>@Model.Customer.Id</td>
                             </tr>
                             <tr>
-                                <td>AccountId:</td>
+                                <td>Gender:</td>
                                 <td>@Model.Customer.Gender</td>
                             </tr>
                             <tr>
@@ -96,6 +96,31 @@
                                 <td>Email Address:</td>
                                 <td>@Model.Customer.EmailAddress</td>
                             </tr>
+
+
+                        </tbody>
+                    </table>
+                    <table class="title table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Accounts</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var acco in @Model.Accounts)
+                            {
+                                <tr>
+                                    <td>Id: @acco.AccountId </td>
+                                    <td>    <a class="btn btn-secondary"
+                                               asp-page="/Customers/Customers">
+                                        View
+                                    </a></td>
+                                </tr>
+                            }
+
                             <tr>
                                 <td>Total Customer Balance:</td>
                                 <td>@Model.Customer.TotalBalanceOfAllAccounts</td>
@@ -106,7 +131,7 @@
                                     {
 
                                         <a class="btn btn-secondary"
-                                           asp-page="/Customers/Customers">
+                                       asp-page="/Customers/Customers">
                                             Back
                                         </a>
 
@@ -114,17 +139,17 @@
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
                                         <a class="btn btn-secondary"
-                                           asp-page="/Customers/TopCustomersByCountry" asp-route-country="@Model.Country">
+                                       asp-page="/Customers/TopCustomersByCountry" asp-route-country="@Model.Country">
                                             Back
                                         </a>
                                     }
-                                    else if (@Model.PreviousPage == "account")
+                                    @*   else if (@Model.PreviousPage == "account")
                                     {
-                                        <a class="btn btn-secondary"
-                                       asp-page="/Accounts/account" asp-route-accountId="@Model.Account.AccountId">
-                                            Back
-                                        </a>
-                                    }
+                                    <a class="btn btn-secondary"
+                                    asp-page="/Accounts/account" asp-route-accountId="@Model.Account.AccountId">
+                                    Back
+                                    </a>
+                                    }*@
 
                                 </td>
                                 <td></td>
