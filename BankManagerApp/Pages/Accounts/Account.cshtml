@@ -48,10 +48,31 @@
                              <tr>
                                 <td>Owner:</td>
                                  <td>@Model.Customer.GivenName @Model.Customer.Surname</td>
-                                 <td> <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account">
-                                     Customer
-                                 </a></td>
+                                 <td>
+                                     
+                                     @if (@Model.PreviousPage == "customer")
+                                     {
+                                         <a class="btn btn-secondary"
+                                            asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customers" asp-route-accountId="@Model.Account.AccountId">
+                                             Customer
+                                         </a>
+                                     }
+                                    else if (@Model.PreviousPage == "accounts")
+                                     {
+                                         <a class="btn btn-secondary"
+                                            asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
+                                             Customer
+                                         </a>
+                                     }
+                                    else if (@Model.PreviousPage == "topCustomersByCountry")
+                                    {
+                                        <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@Model.Account.AccountId">
+                                            Customer
+                                        </a>
+                                    }
+
+                                 </td>
                             </tr>
 
 
@@ -112,9 +133,17 @@
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
                                         <a class="btn btn-secondary"
-                                       asp-page="/Customers/TopCustomersByCountry">
+                                       asp-page="/Customers/Customer" asp-route-previousPage="topCustomersByCountry" asp-route-customerId="@Model.Customer.Id">
                                             Back
                                         </a>
+                                    }
+
+                                    else if(@Model.PreviousPage == "customer")
+                                    {
+                                    <a class="btn btn-secondary"
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id">
+                                        Back
+                                    </a>
                                     }
 
                                     else

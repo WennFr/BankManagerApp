@@ -12,7 +12,7 @@
 <section class="job-list section pt-0">
     <div class="container">
         <div class="row">
-            <div class="col-10 col-lg-10 m-auto">
+            <div class="col-10 col-lg-11 m-auto">
                 <div class="block">
                     <div class="customer-top">
                         <h2 class="customer-name">@Model.Customer.GivenName @Model.Customer.Surname</h2>
@@ -41,121 +41,177 @@
                             <tr>
                                 <th scope="col">Customer Info</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Customer Id:</td>
                                 <td>@Model.Customer.Id</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>Gender:</td>
                                 <td>@Model.Customer.Gender</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Given Name:</td>
                                 <td>@Model.Customer.GivenName</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Surname:</td>
                                 <td>@Model.Customer.Surname</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Address:</td>
                                 <td>@Model.Customer.Address</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>City:</td>
                                 <td>@Model.Customer.City</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Zipcode:</td>
                                 <td>@Model.Customer.Zipcode</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Country:</td>
                                 <td>@Model.Customer.Country</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Birthday:</td>
                                 <td>@Model.Customer.BirthDay</td>
+                                <td></td>
+
                             </tr>
                             <tr>
-                                <td>National AccountId:</td>
+                                <td>National Id:</td>
                                 <td>@Model.Customer.NationalId</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Telephone Country Code:</td>
                                 <td>@Model.Customer.TelephoneCountryCode</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Telephone Number:</td>
                                 <td>@Model.Customer.TelephoneNumber</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Email Address:</td>
                                 <td>@Model.Customer.EmailAddress</td>
+                                <td></td>
+
                             </tr>
 
 
-                        </tbody>
-                    </table>
-                    <table class="title table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Accounts</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+
+                        <th scope="col">Accounts</th>
+                        <th></th>
+                        <th></th>
+
 
                             @foreach (var acco in @Model.Accounts)
                             {
-                                <tr>
-                                    <td>Id: @acco.AccountId </td>
-                                    <td>    <a class="btn btn-secondary"
-                                               asp-page="/Customers/Customers">
-                                        View
-                                    </a></td>
-                                </tr>
+                            <tr>
+                                <td>Account Id:  </td>
+                                <td>@acco.AccountId</td>
+                                <td>
+                                        @if (@Model.PreviousPage == "account")
+                                        {
+                                        <a class="btn btn-secondary"
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="accounts" asp-route-accountId="@acco.AccountId">
+                                            View
+                                        </a>
+                                        }
+                                        else if (@Model.PreviousPage == "customers")
+                                        {
+                                        <a class="btn btn-secondary"
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
+                                            View
+                                        </a>
+                                        }
+
+                                        else if (@Model.PreviousPage == "topCustomersByCountry")
+                                        {
+                                        <a class="btn btn-secondary"
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
+                                            View
+                                        </a>
+                                        }
+
+
+                                </td>
+                            </tr>
                             }
 
-                            <tr>
-                                <td>Total Customer Balance:</td>
-                                <td>@Model.Customer.TotalBalanceOfAllAccounts</td>
-                            </tr>
-                            <tr>
-                                <td>
+                        <tr>
+                            <td>Total Customer Balance:</td>
+                            <td>@Model.Customer.TotalBalanceOfAllAccounts</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
                                     @if (@Model.PreviousPage == "customers")
                                     {
 
-                                        <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customers">
-                                            Back
-                                        </a>
+                                    <a class="btn btn-secondary"
+                                   asp-page="/Customers/Customers">
+                                        Back
+                                    </a>
 
                                     }
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
-                                        <a class="btn btn-secondary"
-                                       asp-page="/Customers/TopCustomersByCountry" asp-route-country="@Model.Country">
-                                            Back
-                                        </a>
+                                    <a class="btn btn-secondary"
+                                   asp-page="/Customers/TopCustomersByCountry" asp-route-country="@Model.Country">
+                                        Back
+                                    </a>
                                     }
-                                    @*   else if (@Model.PreviousPage == "account")
+                                    else if (@Model.PreviousPage == "account")
                                     {
                                     <a class="btn btn-secondary"
-                                    asp-page="/Accounts/account" asp-route-accountId="@Model.Account.AccountId">
-                                    Back
+                                   asp-page="/Accounts/account" asp-route-accountId="@Model.AccountIdFromAccountPage" asp-route-previousPage="accounts">
+                                        Back
                                     </a>
-                                    }*@
+                                    }
+                                    else
+                                    {
+                                    <a class="btn btn-secondary"
+                                   asp-page="/Customers/Customers">
+                                        Back
+                                    </a>
 
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
+                                    }
+
+
+
+                            </td>
+                            <td></td>
+                            <td></td>
+
+                            </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
