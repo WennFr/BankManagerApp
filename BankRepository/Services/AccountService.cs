@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BankRepository.Services
@@ -75,7 +76,7 @@ namespace BankRepository.Services
             return viewModelResult;
         }
 
-        public AccountViewModel GetAccountById(int accountId)
+        public AccountViewModel GetAccountByAccountId(int accountId)
         {
             var viewModelResult = _dbContext.Accounts
                 .Where(a => a.AccountId == accountId)
@@ -92,7 +93,26 @@ namespace BankRepository.Services
         }
 
 
+        public AccountViewModel GetAccountByCustomerId(int customerId)
+        {
+            var viewModelResult = _dbContext.Dispositions
+                .Include(d => d.Account)
+                .ThenInclude(a => a.Dispositions)
+                .ThenInclude(d => d.Customer)
+                .Where(d => d.CustomerId == customerId && d.Type.ToLower() == "owner")
+                .Select(d => new AccountViewModel
+                {
+                    AccountId = d.Account.AccountId,
+                    Frequency = d.Account.Frequency,
+                    DateOfCreation = d.Account.Created.ToString(),
+                    Balance = d.Account.Balance
 
+                }).FirstOrDefault();
+
+            return viewModelResult;
+
+
+        }
 
 
 

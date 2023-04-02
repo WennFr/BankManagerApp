@@ -30,7 +30,7 @@ namespace BankManagerApp.Pages.Accounts
 
         public void OnGet(int accountId, string previousPage)
         {
-            Account = _accountService.GetAccountById(accountId);
+            Account = _accountService.GetAccountByAccountId(accountId);
             Transactions = _transactionService.GetAllAccountTransactions(accountId);
             Customer = _customerService.GetCustomerNameByAccountId(accountId);
             PreviousPage = previousPage;

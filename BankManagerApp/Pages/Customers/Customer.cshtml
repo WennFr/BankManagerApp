@@ -121,7 +121,7 @@
                                     else if (@Model.PreviousPage == "account")
                                     {
                                         <a class="btn btn-secondary"
-                                           asp-page="/Accounts/account">
+                                       asp-page="/Accounts/account" asp-route-accountId="@Model.Account.AccountId">
                                             Back
                                         </a>
                                     }

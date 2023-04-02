@@ -14,7 +14,10 @@ namespace BankRepository.Services
 
         List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder,int pageNo);
 
-        AccountViewModel GetAccountById(int accountId);
+        AccountViewModel GetAccountByAccountId(int accountId);
+
+        AccountViewModel GetAccountByCustomerId(int customerId);
+
 
     }
 }

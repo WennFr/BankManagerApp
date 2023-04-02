@@ -19,24 +19,31 @@
                             <tr>
                                 <th scope="col">Account Info</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>AccountId:</td>
                                 <td>@Model.Account.AccountId</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>Date of creation:</td>
                                 <td>@Model.Account.DateOfCreation</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Current Balance</td>
                                 <td>@Model.Account.Balance</td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td>Frequency:</td>
                                 <td>@Model.Account.Frequency</td>
+                                <td></td>
                             </tr>
                              <tr>
                                 <td>Owner:</td>
@@ -108,6 +115,15 @@
                                        asp-page="/Customers/TopCustomersByCountry">
                                             Back
                                         </a>
+                                    }
+
+                                    else
+                                    {
+                                        <a class="btn btn-secondary"
+                                           asp-page="/Accounts/Accounts">
+                                            Back
+                                        </a>
+
                                     }
 
                                 </td>

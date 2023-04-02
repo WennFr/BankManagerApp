@@ -17,6 +17,7 @@ namespace BankManagerApp.Pages.Customers
         private readonly IAccountService _accountService;
 
         public CustomerInformationViewModel Customer { get; set; }
+        public AccountViewModel Account { get; set; }
         public string PreviousPage { get; set; }
         public string Country { get; set; }
 
@@ -25,6 +26,7 @@ namespace BankManagerApp.Pages.Customers
         public void OnGet(int customerId, string previousPage)
         {
             Customer = _customerService.GetFullCustomerInformationById(customerId);
+            Account = _accountService.GetAccountByCustomerId(customerId);
             PreviousPage = previousPage;
             Country = Customer.Country;
         }
