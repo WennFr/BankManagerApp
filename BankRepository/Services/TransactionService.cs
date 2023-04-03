@@ -33,7 +33,7 @@ namespace BankRepository.Services
                 Amount = t.Amount,
                 BalanceAfterTransaction = t.Balance
 
-            }).ToList();
+            }).OrderByDescending(t => t.TransactionDate).ToList();
 
             return viewModelResult;
 
