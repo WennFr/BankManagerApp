@@ -31,21 +31,22 @@ namespace BankRepository.Services
         {
             var query = _dbContext.Dispositions.AsQueryable();
 
-            var result = query
-                .Include(d => d.Customer)
-                .Where(d => d.Customer.Country.ToLower() == country.ToLower() && d.Type.ToLower() == "owner")
-                .ToList()
-                .Select(d => new TopCustomerViewModel()
+            var result = _dbContext.Customers
+                .Where(c => c.Country.ToLower() == country.ToLower())
+                .Select(c => new TopCustomerViewModel()
                 {
-                    Id = d.Customer.CustomerId,
-                    GivenName = d.Customer.Givenname,
-                    Surname = d.Customer.Surname,
-                    City = d.Customer.City,
-                    Country = d.Customer.Country,
-                    TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(d.CustomerId)
-                }).OrderByDescending(c => c.TotalBalanceOfAllAccounts).Take(10).ToList();
-
-
+                    Id = c.CustomerId,
+                    GivenName = c.Givenname,
+                    Surname = c.Surname,
+                    City = c.City,
+                    Country = c.Country,
+                    TotalBalanceOfAllAccounts = _dbContext.Dispositions
+                        .Where(d => d.CustomerId == c.CustomerId && d.Type.ToLower() == "owner")
+                        .Sum(d => d.Account.Balance)
+                })
+                .OrderByDescending(c => c.TotalBalanceOfAllAccounts)
+                .Take(10)
+                .ToList();
 
             return result;
         }
