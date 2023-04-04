@@ -52,21 +52,21 @@
                                      
                                      @if (@Model.PreviousPage == "customer")
                                      {
-                                         <a class="btn btn-secondary"
+                                        <a class="btn btn-primary"
                                             asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customers" asp-route-accountId="@Model.Account.AccountId">
                                              Customer
                                          </a>
                                      }
                                     else if (@Model.PreviousPage == "accounts")
                                      {
-                                         <a class="btn btn-secondary"
+                                        <a class="btn btn-primary"
                                             asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
                                              Customer
                                          </a>
                                      }
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
-                                        <a class="btn btn-secondary"
+                                        <a class="btn btn-primary"
                                        asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@Model.Account.AccountId">
                                             Customer
                                         </a>
