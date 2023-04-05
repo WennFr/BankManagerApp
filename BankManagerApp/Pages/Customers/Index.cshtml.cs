@@ -8,9 +8,9 @@ using BankRepository.ViewModels;
 
 namespace BankManagerApp.Pages.Customers
 {
-    public class CustomersModel : PageModel
+    public class IndexModel : PageModel
     {
-        public CustomersModel(ICustomerService customerService)
+        public IndexModel(ICustomerService customerService)
         {
             _customerService = customerService;
         }

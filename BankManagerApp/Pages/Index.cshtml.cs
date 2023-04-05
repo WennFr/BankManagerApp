@@ -4,7 +4,7 @@ using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using static BankManagerApp.Pages.Customers.CustomersModel;
+using static BankManagerApp.Pages.Customers.IndexModel;
 
 namespace BankManagerApp.Pages
 {

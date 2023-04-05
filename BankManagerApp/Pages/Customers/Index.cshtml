@@ -1,5 +1,5 @@
 ﻿@page
-@model BankManagerApp.Pages.Customers.CustomersModel
+@model BankManagerApp.Pages.Customers.IndexModel
 @{
     ViewBag.BodyClass = "homelong";
 
@@ -21,14 +21,14 @@
                                 <th scope="col">AccountId</th>
                                 <th scope="col">
                                     First Name
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="First Name"
                                        asp-route-sortOrder="asc"
                                        style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="First Name"
                                        asp-route-sortOrder="desc"
                                        style="text-decoration: none">
@@ -38,14 +38,14 @@
                                 </th>
                                 <th scope="col">
                                     Last Name
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Last Name"
                                        asp-route-sortOrder="asc"
                                        style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Last Name"
                                        asp-route-sortOrder="desc"
                                        style="text-decoration: none">
@@ -55,14 +55,14 @@
                                 </th>
                                 <th scope="col">
                                     Address
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Address"
                                        asp-route-sortOrder="asc"
                                        style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Address"
                                        asp-route-sortOrder="desc"
                                        style="text-decoration: none">
@@ -72,14 +72,14 @@
                                 </th>
                                 <th scope="col">
                                     City
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="City"
                                        asp-route-sortOrder="asc"
                                        style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
 
                                     </a>
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="City"
                                        asp-route-sortOrder="desc"
                                        style="text-decoration: none">
@@ -89,13 +89,13 @@
                                 </th>
                                 <th scope="col">
                                     Country
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Country"
                                        asp-route-sortOrder="asc"
                                        style="text-decoration: none">
                                         <i class="fa-solid fa-angle-up"></i>
                                     </a>
-                                    <a asp-page="/Customers/Customers"
+                                    <a asp-page="/Customers/Index"
                                        asp-route-sortColumn="Country"
                                        asp-route-sortOrder="desc"
                                        style="text-decoration: none">
@@ -125,7 +125,7 @@
                                     @if (Model.CurrentPage != 1)
                                     {
                                         <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customers"
+                                       asp-page="/Customers/Index"
                                        asp-route-sortColumn="@Model.SortColumn"
                                        asp-route-sortOrder="@Model.SortOrder"
                                        asp-route-pageNo="@(Model.CurrentPage - 1)">
@@ -141,7 +141,7 @@
 
                                 <td>
                                     <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customers"
+                                       asp-page="/Customers/Index"
                                        asp-route-sortColumn="@Model.SortColumn"
                                        asp-route-sortOrder="@Model.SortOrder"
                                        asp-route-pageNo="@(Model.CurrentPage + 1)">

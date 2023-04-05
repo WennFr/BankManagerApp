@@ -19,14 +19,14 @@
                             <th scope="col">AccountId</th>
                             <th scope="col">
                                 Frequency
-                                <a asp-page="/Accounts/Accounts"
+                                <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Frequency"
                                    asp-route-sortOrder="asc"
                                    style="text-decoration: none">
                                     <i class="fa-solid fa-angle-up"></i>
 
                                 </a>
-                                <a asp-page="/Accounts/Accounts"
+                                    <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Frequency"
                                    asp-route-sortOrder="desc"
                                    style="text-decoration: none">
@@ -39,14 +39,14 @@
                             </th>
                             <th scope="col">
                                 Date Of Creation
-                                <a asp-page="/Accounts/Accounts"
+                                    <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Date Of Creation"
                                    asp-route-sortOrder="asc"
                                    style="text-decoration: none">
                                     <i class="fa-solid fa-angle-up"></i>
 
                                 </a>
-                                <a asp-page="/Accounts/Accounts"
+                                    <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Date Of Creation"
                                    asp-route-sortOrder="desc"
                                    style="text-decoration: none">
@@ -56,14 +56,14 @@
                             </th>
                             <th scope="col">
                                 Balance
-                                <a asp-page="/Accounts/Accounts"
+                                    <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Balance"
                                    asp-route-sortOrder="asc"
                                    style="text-decoration: none">
                                     <i class="fa-solid fa-angle-up"></i>
 
                                 </a>
-                                <a asp-page="/Accounts/Accounts"
+                                    <a asp-page="/Accounts/Index"
                                    asp-route-sortColumn="Balance"
                                    asp-route-sortOrder="desc"
                                    style="text-decoration: none">
@@ -92,7 +92,7 @@
                                 @if (Model.CurrentPage != 1)
                                 {
                                     <a class="btn btn-secondary"
-                                       asp-page="/Accounts/Accounts"
+                                       asp-page="/Accounts/Index"
                                        asp-route-sortColumn="@Model.SortColumn"
                                        asp-route-sortOrder="@Model.SortOrder"
                                        asp-route-pageNo="@(Model.CurrentPage - 1)">
@@ -105,7 +105,7 @@
                             <td></td>
                             <td>
                                 <a class="btn btn-secondary"
-                                   asp-page="/Accounts/Accounts"
+                                       asp-page="/Accounts/Index"
                                    asp-route-sortColumn="@Model.SortColumn"
                                    asp-route-sortOrder="@Model.SortOrder"
                                    asp-route-pageNo="@(Model.CurrentPage + 1)">

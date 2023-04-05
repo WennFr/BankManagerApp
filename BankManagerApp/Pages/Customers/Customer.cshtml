@@ -138,10 +138,6 @@
                                 <td>
                                         @if (@Model.PreviousPage == "account")
                                         {
-                                    @*    <a class="btn btn-primary"
-                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="accounts" asp-route-accountId="@acco.AccountId">
-                                            View
-                                        </a>*@
                                         }
                                         else if (@Model.PreviousPage == "customers")
                                         {
@@ -175,7 +171,7 @@
                                     {
 
                                     <a class="btn btn-secondary"
-                                   asp-page="/Customers/Customers">
+                                   asp-page="/Customers/Index">
                                         Back
                                     </a>
 
@@ -190,14 +186,14 @@
                                     else if (@Model.PreviousPage == "account")
                                     {
                                     <a class="btn btn-secondary"
-                                   asp-page="/Accounts/account" asp-route-accountId="@Model.AccountIdFromAccountPage" asp-route-previousPage="accounts">
+                                   asp-page="/Accounts/Account" asp-route-accountId="@Model.AccountIdFromAccountPage" asp-route-previousPage="accounts">
                                         Back
                                     </a>
                                     }
                                     else
                                     {
                                     <a class="btn btn-secondary"
-                                   asp-page="/Customers/Customers">
+                                   asp-page="/Customers/Index">
                                         Back
                                     </a>
 
