@@ -57,7 +57,7 @@
                 @foreach (var iData in Model.IndexPageData)
                 {
                     <div class="col-lg-3 col-md-6 mt-5 mt-md-0 text-center">
-                        <a asp-page="/Customers/TopCustomersByCountry" asp-route-country="@iData.Country">
+                        <a asp-page="/Country/Index" asp-route-country="@iData.Country">
 
                             @if (iData.Country == "Sweden")
                             {

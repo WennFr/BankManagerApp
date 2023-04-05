@@ -3,11 +3,11 @@ using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BankManagerApp.Pages.Customers
+namespace BankManagerApp.Pages.Country
 {
-    public class TopCustomersByCountryModel : PageModel
+    public class IndexModel : PageModel
     {
-        public TopCustomersByCountryModel(ICustomerService customerService)
+        public IndexModel(ICustomerService customerService)
         {
             _customerService = customerService;
         }
