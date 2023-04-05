@@ -6,10 +6,10 @@ using Microsoft.Data.SqlClient;
 
 namespace BankManagerApp.Pages.Accounts
 {
-    public class AccountsModel : PageModel
+    public class IndexModel : PageModel
     {
 
-        public AccountsModel(IAccountService accountService)
+        public IndexModel(IAccountService accountService)
         {
             _accountService = accountService;
         }
