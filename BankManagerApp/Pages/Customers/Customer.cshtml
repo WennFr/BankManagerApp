@@ -138,16 +138,16 @@
                                 <td>
                                         @if (@Model.PreviousPage == "account")
                                         {
-                                        <a class="btn btn-primary"
+                                    @*    <a class="btn btn-primary"
                                    asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="accounts" asp-route-accountId="@acco.AccountId">
                                             View
-                                        </a>
+                                        </a>*@
                                         }
                                         else if (@Model.PreviousPage == "customers")
                                         {
                                         <a class="btn btn-primary"
                                    asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
-                                            View
+                                            Account
                                         </a>
                                         }
 
@@ -155,7 +155,7 @@
                                         {
                                         <a class="btn btn-primary"
                                    asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
-                                            View
+                                            Account
                                         </a>
                                         }
 
