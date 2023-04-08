@@ -5,6 +5,7 @@ using System.Drawing;
 using BankRepository.BankAppData;
 using BankRepository.Services;
 using BankRepository.ViewModels;
+using BankRepository.Infrastructure.Paging;
 
 namespace BankManagerApp.Pages.Customers
 {
@@ -20,6 +21,7 @@ namespace BankManagerApp.Pages.Customers
         public List<CustomerViewModel> Customers { get; set; }
 
         public int CurrentPage { get; set; }
+        public int PageCount { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
 
@@ -33,10 +35,10 @@ namespace BankManagerApp.Pages.Customers
             if (pageNo == 0)
                 pageNo = 1;
             CurrentPage = pageNo;
-           
-
-            Customers = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
-
+            
+            var pagedViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
+            Customers = pagedViewModelResult.Customers;
+            PageCount = pagedViewModelResult.PageCount;
         }
 
       

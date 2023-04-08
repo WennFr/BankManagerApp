@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
+using BankRepository.Infrastructure.Paging;
 using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,7 @@ namespace BankRepository.Services
             return result;
         }
 
-        public List<CustomerViewModel> GetAllCustomers(string sortColumn, string sortOrder, int pageNo)
+        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo)
         {
 
             var query = _dbContext.Customers.AsQueryable();
@@ -85,15 +86,11 @@ namespace BankRepository.Services
                     query = query.OrderBy(c => c.Country);
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(c => c.Country);
+            
 
+            var pagedResult = query.GetPaged(pageNo, 50);
 
-            var firstItemIndex = (pageNo - 1) * 10;
-
-            query = query.Skip(firstItemIndex);
-            query = query.Take(10); 
-
-
-            var viewModelResult = query.Select(c => new CustomerViewModel
+            var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
             {
                 Id = c.CustomerId,
                 GivenName = c.Givenname,
@@ -104,7 +101,15 @@ namespace BankRepository.Services
                 
             }).ToList();
 
-            return viewModelResult;
+            var pagedCustomerViewModelResult = new PagedCustomerViewModel
+            {
+                Customers = customerViewModelResult,
+                PageCount = pagedResult.PageCount
+            };
+
+
+
+            return pagedCustomerViewModelResult;
         }
 
 
