@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using BankRepository.Infrastructure.Paging;
 
 namespace BankRepository.Services
 {
@@ -35,7 +36,7 @@ namespace BankRepository.Services
 
             return TotalAccountsBalance;
         }
-        public List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder, int pageNo)
+        public PagedAccountViewModel GetAllAccounts(string sortColumn, string sortOrder, int pageNo)
         {
 
             var query = _dbContext.Accounts.AsQueryable();
@@ -58,13 +59,9 @@ namespace BankRepository.Services
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(a => a.Balance);
 
+            var pagedResult = query.GetPaged(pageNo, 50);
 
-            var firstItemIndex = (pageNo - 1) * 10;
-
-            query = query.Skip(firstItemIndex);
-            query = query.Take(10);
-
-            var viewModelResult = query.Select(a => new AccountViewModel
+            var accountViewModelResult = pagedResult.Results.Select(a => new AccountViewModel
             {
                 AccountId = a.AccountId,
                 Frequency = a.Frequency,
@@ -73,7 +70,15 @@ namespace BankRepository.Services
 
             }).ToList();
 
-            return viewModelResult;
+
+            var pagedAccountViewModelResult = new PagedAccountViewModel
+            {
+                Accounts = accountViewModelResult,
+                PageCount = pagedResult.PageCount
+            };
+
+
+            return pagedAccountViewModelResult;
         }
 
         public AccountViewModel GetAccountByAccountId(int accountId)

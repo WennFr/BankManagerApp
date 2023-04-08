@@ -36,9 +36,9 @@ namespace BankManagerApp.Pages.Customers
                 pageNo = 1;
             CurrentPage = pageNo;
             
-            var pagedViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
-            Customers = pagedViewModelResult.Customers;
-            PageCount = pagedViewModelResult.PageCount;
+            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
+            Customers = pagedCustomerViewModelResult.Customers;
+            PageCount = pagedCustomerViewModelResult.PageCount;
         }
 
       

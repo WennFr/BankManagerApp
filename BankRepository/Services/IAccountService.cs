@@ -12,7 +12,7 @@ namespace BankRepository.Services
 
         decimal GetTotalCustomerAccountBalance(int customerId);
 
-        List<AccountViewModel> GetAllAccounts(string sortColumn, string sortOrder,int pageNo);
+        PagedAccountViewModel GetAllAccounts(string sortColumn, string sortOrder,int pageNo);
 
         AccountViewModel GetAccountByAccountId(int accountId);
 

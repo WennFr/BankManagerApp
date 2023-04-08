@@ -15,64 +15,63 @@
                 <div class="block">
                     <table class="title table ">
                         <thead>
-                        <tr>
-                            <th scope="col">AccountId</th>
-                            <th scope="col">
-                                Frequency
-                                <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Frequency"
-                                   asp-route-sortOrder="asc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-up"></i>
-
-                                </a>
+                            <tr>
+                                <h3>Page @Model.CurrentPage of @Model.PageCount</h3>
+                                <th scope="col">AccountId</th>
+                                <th scope="col">
+                                    Frequency
                                     <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Frequency"
-                                   asp-route-sortOrder="desc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-down"></i>
+                                       asp-route-sortColumn="Frequency"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-up"></i>
 
-                                </a>
-
-
-
-                            </th>
-                            <th scope="col">
-                                Date Of Creation
+                                    </a>
                                     <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Date Of Creation"
-                                   asp-route-sortOrder="asc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-up"></i>
+                                       asp-route-sortColumn="Frequency"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-down"></i>
 
-                                </a>
+                                    </a>
+
+                                </th>
+                                <th scope="col">
+                                    Date Of Creation
                                     <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Date Of Creation"
-                                   asp-route-sortOrder="desc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-down"></i>
+                                       asp-route-sortColumn="Date Of Creation"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-up"></i>
 
-                                </a>
-                            </th>
-                            <th scope="col">
-                                Balance
+                                    </a>
                                     <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Balance"
-                                   asp-route-sortOrder="asc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-up"></i>
+                                       asp-route-sortColumn="Date Of Creation"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-down"></i>
 
-                                </a>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Balance
                                     <a asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="Balance"
-                                   asp-route-sortOrder="desc"
-                                   style="text-decoration: none">
-                                    <i class="fa-solid fa-angle-down"></i>
+                                       asp-route-sortColumn="Balance"
+                                       asp-route-sortOrder="asc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-up"></i>
 
-                                </a>
-                            </th>
-                            <th></th>
-                        </tr>
+                                    </a>
+                                    <a asp-page="/Accounts/Index"
+                                       asp-route-sortColumn="Balance"
+                                       asp-route-sortOrder="desc"
+                                       style="text-decoration: none">
+                                        <i class="fa-solid fa-angle-down"></i>
+
+                                    </a>
+                                </th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
 
@@ -86,35 +85,55 @@
                                     <td><a asp-page="/Accounts/Account" asp-route-accountId="@acco.AccountId" asp-route-previousPage="accounts" class="btn btn-primary">View</a></td>
                                 </tr>
                             }
-                            
-                        <tr>
-                            <td>
-                                @if (Model.CurrentPage != 1)
-                                {
-                                    <a class="btn btn-secondary"
+
+                            <tr>
+                                <td>
+                                    @if (Model.CurrentPage != 1)
+                                    {
+                                        <a class="btn btn-secondary"
                                        asp-page="/Accounts/Index"
                                        asp-route-sortColumn="@Model.SortColumn"
                                        asp-route-sortOrder="@Model.SortOrder"
                                        asp-route-pageNo="@(Model.CurrentPage - 1)">
-                                        Prev
-                                    </a>
-                                }
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a class="btn btn-secondary"
+                                            Prev
+                                        </a>
+                                    }
+                                </td>
+                                <td></td>
+                                <td colspan="2">
+                                    @for (int i = 1; i <= @Model.PageCount; i++)
+                                    {
+                                        string activeLink = "btn-secondary";
+
+                                        if (i == Model.CurrentPage)
+                                        {
+                                            activeLink = "btn-primary";
+                                        }
+
+                                        <a class="btn @activeLink"
+                                       asp-page="/Customers/Index"
+                                       asp-route-sortColumn="@Model.SortColumn"
+                                       asp-route-sortOrder="@Model.SortOrder"
+                                       asp-route-pageNo="@i">
+                                            @i
+                                        </a>
+                                        @*asp-route-q="@Model.Q"*@
+                                    }
+                                </td>
+                                <td></td>
+                                <td>
+                                    @if (Model.CurrentPage != Model.PageCount)
+                                    {
+                                        <a class="btn btn-secondary"
                                        asp-page="/Accounts/Index"
-                                   asp-route-sortColumn="@Model.SortColumn"
-                                   asp-route-sortOrder="@Model.SortOrder"
-                                   asp-route-pageNo="@(Model.CurrentPage + 1)">
-                                    Next
-                                </a>
-                            </td>
-
-                        </tr>
-
+                                       asp-route-sortColumn="@Model.SortColumn"
+                                       asp-route-sortOrder="@Model.SortOrder"
+                                       asp-route-pageNo="@(Model.CurrentPage + 1)">
+                                            Next
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
