@@ -400,6 +400,10 @@ button:focus,
   padding: 13px 50px;
 }
 
+.transaction-solid {
+    margin-left: 1px;
+    color: #000;
+}
 
 header {
     top: 0;
