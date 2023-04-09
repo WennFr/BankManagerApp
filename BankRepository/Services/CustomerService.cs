@@ -52,10 +52,27 @@ namespace BankRepository.Services
             return result;
         }
 
-        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo)
+        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity)
         {
 
             var query = _dbContext.Customers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(qName))
+            {
+                query = query
+                    .Where(c => c.Givenname.Contains(qName) ||
+                                c.Surname.Contains(qName));
+            }
+
+            if (!string.IsNullOrEmpty(qCity))
+            {
+                query = query
+                    .Where(c => c.City.Contains(qCity));
+            }
+
+
+
+
 
             if (sortColumn == "First Name")
                 if (sortOrder == "asc")

@@ -22,13 +22,17 @@ namespace BankManagerApp.Pages.Customers
 
         public int CurrentPage { get; set; }
         public int PageCount { get; set; }
+        public string QName { get; set; }
+        public string QCity { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
 
 
 
-        public void OnGet(string sortColumn, string sortOrder,int pageNo)
+        public void OnGet(string sortColumn, string sortOrder,int pageNo, string qName, string qCity)
         {
+            QName = qName;
+            QCity = qCity;
             SortColumn = sortColumn;
             SortOrder = sortOrder;
 
@@ -36,7 +40,7 @@ namespace BankManagerApp.Pages.Customers
                 pageNo = 1;
             CurrentPage = pageNo;
             
-            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo);
+            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo, qName, qCity);
             Customers = pagedCustomerViewModelResult.Customers;
             PageCount = pagedCustomerViewModelResult.PageCount;
         }
