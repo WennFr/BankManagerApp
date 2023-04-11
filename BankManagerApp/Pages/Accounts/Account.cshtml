@@ -7,8 +7,6 @@
 
 <h1 class="text-center">Account</h1>
 
-
-
 <section class="job-list section pt-0">
     <div class="container">
         <div class="row">
@@ -45,33 +43,61 @@
                                 <td>@Model.Account.Frequency</td>
                                 <td></td>
                             </tr>
-                             <tr>
+                            <tr>
                                 <td>Owner:</td>
-                                 <td>@Model.Customer.GivenName @Model.Customer.Surname</td>
-                                 <td>
-                                     
-                                     @if (@Model.PreviousPage == "customer")
-                                     {
-                                      
-                                     }
+                                <td>@Model.Customer.GivenName @Model.Customer.Surname</td>
+                                <td>
+
+                                    @if (@Model.PreviousPage == "customer")
+                                    {
+                                    }
                                     else if (@Model.PreviousPage == "accounts")
-                                     {
+                                    {
                                         <a class="btn btn-primary"
-                                            asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
-                                             Customer
-                                         </a>
-                                     }
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
+                                            Customer
+                                        </a>
+                                    }
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
-                                       @* <a class="btn btn-primary"
-                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@Model.Account.AccountId">
-                                            Customer
-                                        </a>*@
                                     }
 
-                                 </td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Withdrawal
+                                </td>
+                                <td>
+                                    <div class="trans-icon">
+                                        <a asp-page="/Accounts/Withdrawal" asp-route-accountId="@Model.Account.AccountId"><i class="bx bx-money-withdraw"></i></a>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Deposit
+                                </td>
+                                <td>
+                                    <div class="trans-icon">
+                                        <a asp-page="/Accounts/Deposit" asp-route-accountId="@Model.Account.AccountId"><i class='bx bx-plus-circle'></i></a>
+                                    </div>
+                                </td>
+                                <td></td>
                             </tr>
 
+                            <tr>
+                                <td>
+                                    Transaction
+                                </td>
+                                <td>
+                                    <div class="trans-icon">
+                                        <a asp-page="/Accounts/Transaction" asp-route-accountId="@Model.Account.AccountId"><i class='bx bx-transfer'></i></a>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
 
                         </tbody>
                     </table>
@@ -79,7 +105,7 @@
                     <table class="title table">
                         <thead>
                             <tr>
-                                <th >Transactions</th>
+                                <th>Transactions</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -135,18 +161,18 @@
                                         </a>
                                     }
 
-                                    else if(@Model.PreviousPage == "customer")
+                                    else if (@Model.PreviousPage == "customer")
                                     {
-                                    <a class="btn btn-secondary"
+                                        <a class="btn btn-secondary"
                                        asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customers">
-                                        Back
-                                    </a>
+                                            Back
+                                        </a>
                                     }
 
                                     else
                                     {
                                         <a class="btn btn-secondary"
-                                           asp-page="/Accounts/Index">
+                                       asp-page="/Accounts/Index">
                                             Back
                                         </a>
 
