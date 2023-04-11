@@ -59,6 +59,11 @@ cite {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+
+.btn-switch {
+    width: 150px;
+}
+
 .row {
     display: flex;
     justify-content: space-between;
