@@ -9,7 +9,7 @@ namespace BankManagerApp.Pages.Accounts
     public class DepositModel : PageModel
     {
 
-        public DepositModel(IAccountService accountService,ITransactionService transactionService)
+        public DepositModel(IAccountService accountService, ITransactionService transactionService)
         {
             _accountService = accountService;
             _transactionService = transactionService;
@@ -31,7 +31,7 @@ namespace BankManagerApp.Pages.Accounts
             "Comment is to short, 5-250 characters required.")]
         [MaxLength(250, ErrorMessage =
             "Comment is to long, 5-250 characters required.")]
-        public string Comment { get; set; }      
+        public string Comment { get; set; }
 
         public void OnGet()
         {
@@ -43,12 +43,13 @@ namespace BankManagerApp.Pages.Accounts
 
             if (DepositDate < DateTime.Now)
             {
-                ModelState.AddModelError("DepositDate","Please select a current date.");
+                ModelState.AddModelError("DepositDate", "Please select a current date.");
             }
 
             if (ModelState.IsValid)
             {
-                _transactionService.RegisterDeposit(accountId, Amount);
+                var newBalance = _transactionService.RegisterDeposit(accountId, Amount);
+                _transactionService.RegisterTransaction(accountId, Amount, newBalance, DepositDate);
                 return RedirectToPage("/Accounts/Account", new { accountId = accountId });
             }
 

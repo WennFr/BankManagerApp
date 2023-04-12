@@ -39,13 +39,33 @@ namespace BankRepository.Services
 
         }
 
-       public void RegisterDeposit(int accountId, decimal Amount)
+       public decimal RegisterDeposit(int accountId, decimal amount)
        {
-            var account = _dbContext.Accounts.FirstOrDefault(a => a.AccountId == accountId);
-            account.Balance += Amount;
+            var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
+            account.Balance += amount;
+
             _dbContext.SaveChanges();
+            return account.Balance;
        }
 
+       public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, DateTime transactionDate)
+       {
+           _dbContext.Transactions.Add(new Transaction
+           {
+               AccountId = accountId,
+               Date = transactionDate,
+               Type = "Credit",
+               Operation = "Credit In Cash",
+               Amount = amount,
+               Balance = newBalance,
+               Symbol = "",
+               Bank = null,
+               Account = null
+           });
+
+           _dbContext.SaveChanges();
+
+       }
 
     }
 }

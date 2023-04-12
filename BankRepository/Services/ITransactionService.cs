@@ -11,7 +11,8 @@ namespace BankRepository.Services
     public interface ITransactionService
     {
         List<TransactionViewModel> GetAllAccountTransactions(int accountId);
-        void RegisterDeposit(int accountId, decimal Amount);
+        decimal RegisterDeposit(int accountId, decimal amount);
+        void RegisterTransaction(int accountId, decimal amount, decimal newBalance, DateTime transactionDate);
 
     }
 }
