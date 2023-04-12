@@ -43,32 +43,29 @@
                 <h2 class="mb-5 text-center"></h2>
             </div>
             <div class="col-12">
-                <form action="">
+                <form method="post">
                     <div class="row">
-                        <!-- Name -->
+                        <!-- Amount -->
                         <div class="col-md-6 mb-2">
-                            <p class="transaction-solid">Amount</p>
-                            <input class="form-control main" type="text" placeholder="0.00" required>
+                            <label asp-for="Amount" class="transaction-solid">Amount</label>
+                            <input class="form-control main" asp-for="Amount" required>
                         </div>
-                        <!-- Email -->
+                        <!-- Date -->
                         <div class="col-md-6 mb-2">
-                            <p class="transaction-solid">Date</p>
-                            <input class="form-control main" type="text" placeholder="" required>
+                            <label asp-for="DepositDate" class="transaction-solid">Date</label>
+                            <input class="form-control main" asp-for="DepositDate" required>
                         </div>
                         <!-- Message -->
                         <div class="col-md-12 mb-2">
-                            <p class="transaction-solid">Comment</p>
-                            <textarea class="form-control main" name="message"  placeholder=""></textarea>
+                            <label asp-for="Comment" class="transaction-solid">Comment</label>
+                            <textarea class="form-control main" asp-for="Comment" name="message"></textarea>
                         </div>
                         <!-- Submit Button -->
                         <div class="col-12 text-right">
-                            <button class="btn btn-primary">Deposit</button>
+                            <button type="submit" class="btn btn-primary">Deposit</button>
                         </div>
                     </div>
                 </form>
-
-
-
             </div>
         </div>
     </div>

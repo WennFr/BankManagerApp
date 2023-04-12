@@ -39,6 +39,13 @@ namespace BankRepository.Services
 
         }
 
+       public void RegisterDeposit(int accountId, decimal Amount)
+       {
+            var account = _dbContext.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+            account.Balance += Amount;
+            _dbContext.SaveChanges();
+       }
+
 
     }
 }
