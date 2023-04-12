@@ -1,6 +1,7 @@
 using BankRepository.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankManagerApp.Pages.Accounts
 {
@@ -17,22 +18,41 @@ namespace BankManagerApp.Pages.Accounts
         private readonly ITransactionService _transactionService;
 
 
+        [Range(100, 10000)]
         public decimal Amount { get; set; }
+
 
         public DateTime DepositDate { get; set; }
 
+
+        [Required(ErrorMessage =
+            "Comment is required.")]
+        [MinLength(5, ErrorMessage =
+            "Comment is to short, 5-250 characters required.")]
+        [MaxLength(250, ErrorMessage =
+            "Comment is to long, 5-250 characters required.")]
         public string Comment { get; set; }      
 
         public void OnGet()
         {
             DepositDate = DateTime.Now.AddHours(1);
-
         }
 
         public IActionResult OnPost(int accountId)
         {
-            _transactionService.RegisterDeposit(accountId,Amount);
-            return RedirectToPage("/Accounts/Account", new { accountId = accountId });
+
+            if (DepositDate < DateTime.Now)
+            {
+                ModelState.AddModelError("DepositDate","Please select a current date.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _transactionService.RegisterDeposit(accountId, Amount);
+                return RedirectToPage("/Accounts/Account", new { accountId = accountId });
+            }
+
+            return Page();
         }
     }
 }

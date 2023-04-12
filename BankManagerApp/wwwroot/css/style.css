@@ -64,6 +64,11 @@ cite {
     width: 150px;
 }
 
+
+.field-validation-error {
+    color: red;
+}
+
 .row {
     display: flex;
     justify-content: space-between;

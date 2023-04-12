@@ -49,16 +49,19 @@
                         <div class="col-md-6 mb-2">
                             <label asp-for="Amount" class="transaction-solid">Amount</label>
                             <input class="form-control main" asp-for="Amount" required>
+                            <span class="field-validation-error" asp-validation-for="Amount"></span>
                         </div>
                         <!-- Date -->
                         <div class="col-md-6 mb-2">
                             <label asp-for="DepositDate" class="transaction-solid">Date</label>
                             <input class="form-control main" asp-for="DepositDate" required>
+                            <span class="field-validation-error" asp-validation-for="DepositDate"></span>
                         </div>
                         <!-- Message -->
                         <div class="col-md-12 mb-2">
                             <label asp-for="Comment" class="transaction-solid">Comment</label>
                             <textarea class="form-control main" asp-for="Comment" name="message"></textarea>
+                            <span class="field-validation-error" asp-validation-for="Comment"></span>
                         </div>
                         <!-- Submit Button -->
                         <div class="col-12 text-right">
