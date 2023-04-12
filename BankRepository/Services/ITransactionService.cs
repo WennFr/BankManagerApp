@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
+using BankRepository.Infrastructure.Common;
 using BankRepository.ViewModels;
 
 namespace BankRepository.Services
@@ -12,7 +13,7 @@ namespace BankRepository.Services
     {
         List<TransactionViewModel> GetAllAccountTransactions(int accountId);
         decimal RegisterDeposit(int accountId, decimal amount);
-        void RegisterTransaction(int accountId, decimal amount, decimal newBalance, DateTime transactionDate);
+        void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string Operation, DateTime transactionDate, TransactionType Type);
 
     }
 }

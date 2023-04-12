@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using BankRepository.Infrastructure.Common;
 
 namespace BankRepository.Services
 {
@@ -33,7 +34,9 @@ namespace BankRepository.Services
                 Amount = t.Amount,
                 BalanceAfterTransaction = t.Balance
 
-            }).OrderByDescending(t => t.TransactionDate).ToList();
+            })
+                .OrderByDescending(t => t.TransactionDate)
+                .ThenByDescending(t => t.TransactionId).ToList();
 
             return viewModelResult;
 
@@ -48,7 +51,7 @@ namespace BankRepository.Services
             return account.Balance;
        }
 
-       public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, DateTime transactionDate)
+       public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string Operation, DateTime transactionDate, TransactionType Type)
        {
            _dbContext.Transactions.Add(new Transaction
            {
