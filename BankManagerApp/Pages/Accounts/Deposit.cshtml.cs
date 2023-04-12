@@ -32,7 +32,7 @@ namespace BankManagerApp.Pages.Accounts
         public IActionResult OnPost(int accountId)
         {
             _transactionService.RegisterDeposit(accountId,Amount);
-            return RedirectToPage("Index");
+            return RedirectToPage("/Accounts/Account", new { accountId = accountId });
         }
     }
 }
