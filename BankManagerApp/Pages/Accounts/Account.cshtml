@@ -30,7 +30,6 @@
                                 <td>Date of creation:</td>
                                 <td>@Model.Account.DateOfCreation</td>
                                 <td></td>
-
                             </tr>
                             <tr>
                                 <td>Current Balance</td>
@@ -64,7 +63,7 @@
                                     else
                                     {
                                         <a class="btn btn-primary"
-                                           asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
                                             Customer
                                         </a>
                                     }
@@ -96,11 +95,11 @@
 
                             <tr>
                                 <td>
-                                    Transaction:
+                                    Transfer:
                                 </td>
                                 <td>
                                     <div class="trans-icon">
-                                        <a asp-page="/Accounts/Transaction" asp-route-accountId="@Model.Account.AccountId"><i class='bx bx-transfer'></i></a>
+                                        <a asp-page="/Accounts/Transfer" asp-route-accountId="@Model.Account.AccountId"><i class='bx bx-transfer'></i></a>
                                     </div>
                                 </td>
                                 <td></td>
@@ -153,12 +152,10 @@
                                 <td>
                                     @if (@Model.PreviousPage == "accounts")
                                     {
-
                                         <a class="btn btn-secondary"
                                        asp-page="/Accounts/Index">
                                             Back
                                         </a>
-
                                     }
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
@@ -175,14 +172,12 @@
                                             Back
                                         </a>
                                     }
-
                                     else
                                     {
                                         <a class="btn btn-secondary"
                                        asp-page="/Accounts/Index">
                                             Back
                                         </a>
-
                                     }
 
                                 </td>

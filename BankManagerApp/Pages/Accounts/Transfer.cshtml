@@ -1,0 +1,121 @@
+﻿@page
+@model BankManagerApp.Pages.Accounts.TransferModel
+@{
+    ViewBag.BodyClass = "home";
+}
+<section class="section gradient-banner">
+    <div class="shapes-container">
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300"></div>
+        <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="500"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0"></div>
+        <div class="shape" data-aos="fade-down" data-aos-duration="500" data-aos-delay="0"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="0"></div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-2 order-md-1 text-center text-md-center mx-auto">
+                <h1 class="text-white font-weight-bold mb-4">Transfer</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section pt-0 position-relative pull-top">
+    <div class="container">
+        <div class="rounded shadow p-5 bg-white">
+
+            <div class="col-12">
+                <h2 class="mb-5 text-left">Balance: @Model.CurrentBalance</h2>
+                <div class="row">
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <form method="post">
+                            <input type="hidden" asp-for="CurrentBalance" />
+                            <h3 class="mt-4 text-capitalize h5 ">FROM AccountId:</h3>
+                            <p class="regular text-muted">Owner:</p>
+                            <div class="form-group">
+                                <label asp-for="Amount" class="transaction-solid">Amount</label>
+                                <input class="form-control main" asp-for="Amount" required>
+                                <span class="field-validation-error" asp-validation-for="Amount"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Transfer</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <form method="get">
+                            <h3 class="mt-4 text-capitalize h5 ">TO AccountId:</h3>
+                            <p class="regular text-muted">Owner:</p>
+                            <div class="form-group">
+                                <label asp-for="Q" class="transaction-solid">Search:</label>
+                                <input class="form-control main" placeholder="Account Id" asp-for="@Model.Q" class="form-control">
+                                <span class="field-validation-error" asp-validation-for="Q"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*
+<section class="section pt-0 position-relative pull-top">
+    <div class="container">
+        <div class="rounded shadow p-5 bg-white">
+            <div class="col-12 text-center">
+                <h2 class="mb-5">Balance: @Model.CurrentBalance</h2>
+                <div class="row">
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <form method="post">
+                            <input type="hidden" asp-for="CurrentBalance" />
+                            <h3 class="mt-4 text-capitalize h5">FROM AccountId:</h3>
+                            <p class="regular text-muted">Owner:</p>
+                            <div class="form-group">
+                                <label asp-for="Amount" class="transaction-solid">Amount</label>
+                                <input class="form-control main" asp-for="Amount" required>
+                                <span class="field-validation-error" asp-validation-for="Amount"></span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Transfer</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 mt-5 mt-lg-0">
+                        <form method="get">
+                            <h3 class="mt-4 text-capitalize h5">TO AccountId:</h3>
+                            <p class="regular text-muted">Owner:</p>
+                            <div class="form-group">
+                                <label asp-for="Q" class="transaction-solid">Search:</label>
+                                <input class="form-control main" placeholder="Account Id" asp-for="@Model.Q" class="form-control">
+                                <span class="field-validation-error" asp-validation-for="Q"></span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+*@
+
+
+
+
+
