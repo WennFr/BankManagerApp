@@ -45,20 +45,19 @@ namespace BankManagerApp.Pages.Accounts
             if (ModelState.IsValid)
             {
 
-                if (status == ErrorCode.OK)
+                if (status == TransactionErrorCode.OK)
                 {
-
                     var newBalance = _transactionService.RegisterWithdrawal(accountId, Amount);
                     _transactionService.RegisterTransaction(accountId, Amount, newBalance, OperationConstant.WithdrawalInCash, WithdrawalDate, TransactionType.Debit);
                     return RedirectToPage("/Accounts/Account", new { accountId = accountId });
                 }
 
-                if (status == ErrorCode.BalanceTooLow)
+                if (status == TransactionErrorCode.BalanceTooLow)
                 {
                     ModelState.AddModelError("Amount", "The requested withdrawal amount exceeds the available balance." );
                 }
 
-                if (status == ErrorCode.IncorrectAmount)
+                if (status == TransactionErrorCode.IncorrectAmount)
                 {
                     ModelState.AddModelError("Amount", "Allowed withdrawal amount is between 100 and 10000." );
                 }

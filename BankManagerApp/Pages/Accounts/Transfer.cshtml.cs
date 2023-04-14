@@ -26,6 +26,8 @@ namespace BankManagerApp.Pages.Accounts
         public decimal CurrentBalance { get; set; }
         public DateTime TransferDate { get; set; }
         public int FromAccountId { get; set; }
+
+        [Range(1, int.MaxValue)]
         public int ToAccountId { get; set; }
 
         public void OnGet(int accountId)
@@ -42,7 +44,7 @@ namespace BankManagerApp.Pages.Accounts
             if (ModelState.IsValid)
             {
 
-                if (status == ErrorCode.OK)
+                if (status == TransactionErrorCode.OK)
                 {
                     var newFromAccountBalance = _transactionService.RegisterWithdrawal(FromAccountId, Amount);
                     _transactionService.RegisterTransaction(FromAccountId, Amount, newFromAccountBalance, OperationConstant.WithdrawalInCash, TransferDate, TransactionType.Debit);
@@ -54,27 +56,50 @@ namespace BankManagerApp.Pages.Accounts
                     return RedirectToPage("/Accounts/Account", new { accountId = FromAccountId });
                 }
 
-                if (status == ErrorCode.BalanceTooLow)
+                if (status == TransactionErrorCode.BalanceTooLow)
                 {
-                    ModelState.AddModelError("Amount", "The requested withdrawal amount exceeds the available balance.");
+                    ModelState.AddModelError("Amount", "The requested transfer amount exceeds the available balance.");
                 }
 
-                if (status == ErrorCode.IncorrectAmount)
+                if (status == TransactionErrorCode.IncorrectAmount)
                 {
-                    ModelState.AddModelError("Amount", "Allowed withdrawal amount is between 100 and 10000.");
+                    ModelState.AddModelError("Amount", "Allowed transfer amount is between 100 and 10000.");
                 }
-
-
-
             }
 
             return Page();
         }
 
-        public IActionResult OnPostRetrieveToAccountId(int toAccountId)
+        public IActionResult OnPostRetrieveToAccountId()
         {
-            ToAccountId = _accountService.GetAccountByAccountId(toAccountId).AccountId;
 
+
+            if (FromAccountId == ToAccountId)
+            {
+                ModelState.AddModelError("ToAccountId", "Can not transfer to the same account.");
+            }
+
+            if (ModelState.IsValid && FromAccountId != ToAccountId)
+            {
+                var status = _accountService.ReturnValidationStatus(ToAccountId);
+                if (status == AccountErrorCode.OK)
+                {
+                    ToAccountId = _accountService.GetAccountByAccountId(ToAccountId).AccountId;
+                    return Page();
+                }
+
+                if (status == AccountErrorCode.AccountNotFound)
+                {
+                    ModelState.AddModelError("ToAccountId", "Account could not be found.");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("ToAccountId", "Invalid input");
+            }
+
+            ToAccountId = 0;
             return Page();
         }
 

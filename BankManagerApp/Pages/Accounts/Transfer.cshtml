@@ -42,7 +42,6 @@
                             <input type="hidden" asp-for="CurrentBalance" />
                             <input type="hidden" asp-for="FromAccountId" />
                             <input type="hidden" asp-for="ToAccountId" />
-
                             <h3 class="mt-4 text-capitalize h5 ">FROM AccountId: @Model.FromAccountId</h3>
                             <p class="regular text-muted">Owner:</p>
                             <div class="form-group">
@@ -55,15 +54,22 @@
                     </div>
                     <div class="col-lg-6 mt-5 mt-lg-0">
                         <form method="post" asp-page-handler="RetrieveToAccountId">
-                            <h3 class="mt-4 text-capitalize h5 ">TO AccountId: @Model.ToAccountId</h3>
+                            @if (@Model.ToAccountId > 0)
+                            {
+                                <h3 class="mt-4 text-capitalize h5 ">TO AccountId: @Model.ToAccountId</h3>
+                            }
+                            else
+                            {
+                                <h3 class="mt-4 text-capitalize h5 ">TO AccountId:</h3>
+                            }
                             <p class="regular text-muted">Owner:</p>
                             <div class="form-group">
                                 <label asp-for="ToAccountId" class="transaction-solid">Search:</label>
                                 <input class="form-control main" placeholder="Account Id" asp-for="@Model.ToAccountId" class="form-control">
-                                <span class="field-validation-error"></span>
+                                <span class="field-validation-error" asp-validation-for="ToAccountId"></span>
                             </div>
-                            <input type="hidden" asp-for="FromAccountId" />
-                            <input type="hidden" asp-for="CurrentBalance" />
+                            <input type="hidden" asp-for="FromAccountId"/>
+                            <input type="hidden" asp-for="CurrentBalance"/>
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
                     </div>

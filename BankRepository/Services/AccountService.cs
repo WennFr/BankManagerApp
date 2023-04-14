@@ -124,6 +124,18 @@ namespace BankRepository.Services
 
         }
 
+        public AccountErrorCode ReturnValidationStatus(int accountId)
+        {
+            
+            var account = _dbContext.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+            if (account == null)
+            {
+                return AccountErrorCode.AccountNotFound;
+            }
+
+            return AccountErrorCode.OK;
+        }
+
 
 
     }

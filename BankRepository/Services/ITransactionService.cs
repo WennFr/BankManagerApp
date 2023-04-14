@@ -7,7 +7,7 @@ using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
 using BankRepository.ViewModels;
 
-public enum ErrorCode
+public enum TransactionErrorCode
 {
     OK,
     BalanceTooLow,
@@ -20,7 +20,7 @@ namespace BankRepository.Services
     {
         List<TransactionViewModel> GetAllAccountTransactions(int accountId);
 
-        ErrorCode ReturnValidationStatus(decimal balance, decimal amount);
+        TransactionErrorCode ReturnValidationStatus(decimal balance, decimal amount);
 
         decimal RegisterDeposit(int accountId, decimal amount);
 

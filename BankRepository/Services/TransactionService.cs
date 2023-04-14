@@ -81,19 +81,19 @@ namespace BankRepository.Services
 
        }
 
-        public ErrorCode ReturnValidationStatus(decimal balance, decimal amount)
+        public TransactionErrorCode ReturnValidationStatus(decimal balance, decimal amount)
         {
             if (balance < amount)
             {
-                return ErrorCode.BalanceTooLow;
+                return TransactionErrorCode.BalanceTooLow;
             }
 
             if (amount < 100 || amount > 10000)
             {
-                return ErrorCode.IncorrectAmount;
+                return TransactionErrorCode.IncorrectAmount;
             }
 
-            return ErrorCode.OK;
+            return TransactionErrorCode.OK;
         }
 
     }

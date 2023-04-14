@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.ViewModels;
 
+public enum AccountErrorCode
+{
+    OK,
+    AccountNotFound
+}
+
 namespace BankRepository.Services
 {
     public interface IAccountService
@@ -17,6 +23,8 @@ namespace BankRepository.Services
         AccountViewModel GetAccountByAccountId(int accountId);
 
         List<AccountViewModel> GetAccountsByCustomerId(int customerId);
+
+        AccountErrorCode ReturnValidationStatus(int accountId);
 
 
     }
