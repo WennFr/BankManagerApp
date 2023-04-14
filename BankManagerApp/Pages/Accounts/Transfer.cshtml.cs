@@ -39,31 +39,6 @@ namespace BankManagerApp.Pages.Accounts
             TransferDate = DateTime.Now.AddHours(1);
             var status = _transactionService.ReturnValidationStatus(CurrentBalance, Amount);
 
-
-            //if (!ModelState.IsValid)
-            //{
-            //    var errors = new List<string>();
-
-            //    foreach (var entry in ModelState.Values)
-            //    {
-            //        foreach (var error in entry.Errors)
-            //        {
-            //            string errorMessage = error.ErrorMessage;
-            //            // You can also customize the alert message to your liking
-            //            string alertMessage = $"Error: {errorMessage}";
-            //            // Show the alert message using JavaScript
-            //            string script = $"<script>alert('{alertMessage}');</script>";
-            //            Response.WriteAsync(script);
-            //        }
-            //    }
-
-            //    // Do something with the errors list, such as logging or returning an error response
-              
-            //}
-
-
-
-
             if (ModelState.IsValid)
             {
 
