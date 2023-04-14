@@ -14,7 +14,7 @@ namespace BankRepository.Infrastructure.Common
 
     public static class OperationConstant
     {
-        public const string CreditInCash = "Credit In Cash";
-        public const string WithdrawalOfCash = "Withdrawal of Cash";
+        public const string CreditInCash = "Credit in Cash";
+        public const string WithdrawalInCash = "Withdrawal in Cash";
     }
 }

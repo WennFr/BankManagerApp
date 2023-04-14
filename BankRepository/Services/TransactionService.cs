@@ -51,14 +51,25 @@ namespace BankRepository.Services
             return account.Balance;
        }
 
-       public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string Operation, DateTime transactionDate, TransactionType Type)
+
+
+       public decimal RegisterWithdrawal(int accountId, decimal amount)
+       {
+           var account = _dbContext.Accounts.First(a => a.AccountId == accountId);
+           account.Balance -= amount;
+
+           _dbContext.SaveChanges();
+           return account.Balance;
+       }
+
+        public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string operation, DateTime transactionDate, TransactionType type)
        {
            _dbContext.Transactions.Add(new Transaction
            {
                AccountId = accountId,
                Date = transactionDate,
-               Type = "Credit",
-               Operation = "Credit In Cash",
+               Type = type.ToString(),
+               Operation = operation,
                Amount = amount,
                Balance = newBalance,
                Symbol = "",
@@ -69,6 +80,21 @@ namespace BankRepository.Services
            _dbContext.SaveChanges();
 
        }
+
+        public ErrorCode ReturnValidationStatus(decimal balance, decimal amount)
+        {
+            if (balance < amount)
+            {
+                return ErrorCode.BalanceTooLow;
+            }
+
+            if (amount < 100 || amount > 10000)
+            {
+                return ErrorCode.IncorrectAmount;
+            }
+
+            return ErrorCode.OK;
+        }
 
     }
 }

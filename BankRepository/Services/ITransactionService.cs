@@ -7,13 +7,26 @@ using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
 using BankRepository.ViewModels;
 
+public enum ErrorCode
+{
+    OK,
+    BalanceTooLow,
+    IncorrectAmount
+}
+
 namespace BankRepository.Services
 {
     public interface ITransactionService
     {
         List<TransactionViewModel> GetAllAccountTransactions(int accountId);
+
+        ErrorCode ReturnValidationStatus(decimal balance, decimal amount);
+
         decimal RegisterDeposit(int accountId, decimal amount);
-        void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string Operation, DateTime transactionDate, TransactionType Type);
+
+        decimal RegisterWithdrawal(int accountId, decimal amount);
+
+        void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string operation, DateTime transactionDate, TransactionType type);
 
     }
 }

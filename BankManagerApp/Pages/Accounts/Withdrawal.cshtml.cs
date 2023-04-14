@@ -3,45 +3,67 @@ using BankRepository.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankManagerApp.Pages.Accounts
 {
+
+    [BindProperties]
     public class WithdrawalModel : PageModel
     {
 
-        public WithdrawalModel(ITransactionService transactionService)
+        public WithdrawalModel(IAccountService accountService,ITransactionService transactionService)
         {
+            _accountService = accountService;
             _transactionService = transactionService;
         }
+
+        private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
 
 
         [Range(100, 10000)]
         public decimal Amount { get; set; }
-
+        public decimal CurrentBalance { get; set; }
         public DateTime WithdrawalDate { get; set; }
 
 
 
 
-        public void OnGet()
+        public void OnGet(int accountId)
         {
-            WithdrawalDate = DateTime.Now.AddHours(1);
+            CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
         }
 
         public IActionResult OnPost(int accountId)
         {
-
-            //if ()
-            //{
-            //    ModelState.AddModelError("DepositDate", "Please select a current date.");
-            //}
+            CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
+            WithdrawalDate = DateTime.Now.AddHours(1);
+            var status = _transactionService.ReturnValidationStatus(CurrentBalance, Amount);
 
             if (ModelState.IsValid)
             {
-                var newBalance = _transactionService.RegisterDeposit(accountId, Amount);
-                _transactionService.RegisterTransaction(accountId, Amount, newBalance, OperationConstant.CreditInCash, WithdrawalDate, TransactionType.Credit);
-                return RedirectToPage("/Accounts/Account", new { accountId = accountId });
+
+                if (status == ErrorCode.OK)
+                {
+
+                    var newBalance = _transactionService.RegisterWithdrawal(accountId, Amount);
+                    _transactionService.RegisterTransaction(accountId, Amount, newBalance, OperationConstant.WithdrawalInCash, WithdrawalDate, TransactionType.Debit);
+                    return RedirectToPage("/Accounts/Account", new { accountId = accountId });
+                }
+
+                if (status == ErrorCode.BalanceTooLow)
+                {
+                    ModelState.AddModelError("Amount", "The requested withdrawal amount exceeds the available balance." );
+                }
+
+                if (status == ErrorCode.IncorrectAmount)
+                {
+                    ModelState.AddModelError("Amount", "Allowed withdrawal amount is between 100 and 10000." );
+                }
+
+
+                
             }
 
             return Page();
