@@ -25,7 +25,9 @@ namespace BankManagerApp.Pages.Accounts
         [Range(100, 10000)]
         public decimal Amount { get; set; }
         public decimal CurrentBalance { get; set; }
+
         public DateTime WithdrawalDate { get; set; }
+
 
 
 
@@ -37,7 +39,6 @@ namespace BankManagerApp.Pages.Accounts
 
         public IActionResult OnPost(int accountId)
         {
-            CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
             WithdrawalDate = DateTime.Now.AddHours(1);
             var status = _transactionService.ReturnValidationStatus(CurrentBalance, Amount);
 
