@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using BankRepository.Infrastructure.Paging;
+using System.Xml.Linq;
 
 namespace BankRepository.Services
 {
@@ -83,6 +84,7 @@ namespace BankRepository.Services
 
         public AccountViewModel GetAccountByAccountId(int accountId)
         {
+            
             var viewModelResult = _dbContext.Accounts
                 .Where(a => a.AccountId == accountId)
                 .Select(a => new AccountViewModel()

@@ -34,14 +34,16 @@
 <section class="section pt-0 position-relative pull-top">
     <div class="container">
         <div class="rounded shadow p-5 bg-white">
-
             <div class="col-12">
                 <h2 class="mb-5 text-left">Balance: @Model.CurrentBalance</h2>
                 <div class="row">
                     <div class="col-lg-6 mt-5 mt-lg-0">
-                        <form method="post">
+                        <form method="post" asp-page-handler="TransferFunds">
                             <input type="hidden" asp-for="CurrentBalance" />
-                            <h3 class="mt-4 text-capitalize h5 ">FROM AccountId:</h3>
+                            <input type="hidden" asp-for="FromAccountId" />
+                            <input type="hidden" asp-for="ToAccountId" />
+
+                            <h3 class="mt-4 text-capitalize h5 ">FROM AccountId: @Model.FromAccountId</h3>
                             <p class="regular text-muted">Owner:</p>
                             <div class="form-group">
                                 <label asp-for="Amount" class="transaction-solid">Amount</label>
@@ -52,14 +54,16 @@
                         </form>
                     </div>
                     <div class="col-lg-6 mt-5 mt-lg-0">
-                        <form method="get">
-                            <h3 class="mt-4 text-capitalize h5 ">TO AccountId:</h3>
+                        <form method="post" asp-page-handler="RetrieveToAccountId">
+                            <h3 class="mt-4 text-capitalize h5 ">TO AccountId: @Model.ToAccountId</h3>
                             <p class="regular text-muted">Owner:</p>
                             <div class="form-group">
-                                <label asp-for="Q" class="transaction-solid">Search:</label>
-                                <input class="form-control main" placeholder="Account Id" asp-for="@Model.Q" class="form-control">
-                                <span class="field-validation-error" asp-validation-for="Q"></span>
+                                <label asp-for="ToAccountId" class="transaction-solid">Search:</label>
+                                <input class="form-control main" placeholder="Account Id" asp-for="@Model.ToAccountId" class="form-control">
+                                <span class="field-validation-error"></span>
                             </div>
+                            <input type="hidden" asp-for="FromAccountId" />
+                            <input type="hidden" asp-for="CurrentBalance" />
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
                     </div>
@@ -69,51 +73,6 @@
     </div>
 </section>
 
-
-
-@*
-<section class="section pt-0 position-relative pull-top">
-    <div class="container">
-        <div class="rounded shadow p-5 bg-white">
-            <div class="col-12 text-center">
-                <h2 class="mb-5">Balance: @Model.CurrentBalance</h2>
-                <div class="row">
-                    <div class="col-lg-6 mt-5 mt-lg-0">
-                        <form method="post">
-                            <input type="hidden" asp-for="CurrentBalance" />
-                            <h3 class="mt-4 text-capitalize h5">FROM AccountId:</h3>
-                            <p class="regular text-muted">Owner:</p>
-                            <div class="form-group">
-                                <label asp-for="Amount" class="transaction-solid">Amount</label>
-                                <input class="form-control main" asp-for="Amount" required>
-                                <span class="field-validation-error" asp-validation-for="Amount"></span>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Transfer</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6 mt-5 mt-lg-0">
-                        <form method="get">
-                            <h3 class="mt-4 text-capitalize h5">TO AccountId:</h3>
-                            <p class="regular text-muted">Owner:</p>
-                            <div class="form-group">
-                                <label asp-for="Q" class="transaction-solid">Search:</label>
-                                <input class="form-control main" placeholder="Account Id" asp-for="@Model.Q" class="form-control">
-                                <span class="field-validation-error" asp-validation-for="Q"></span>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-*@
 
 
 
