@@ -27,7 +27,7 @@ namespace BankRepository.Services
            var query = _dbContext.Transactions
                .Where(t=> t.AccountId == accountId)
                .OrderByDescending(t => t.Date)
-               .ThenByDescending(t => t.TransactionId).ToList()
+               .ThenByDescending(t => t.TransactionId)
                .AsQueryable();
             
             var viewModelResult = query
@@ -35,13 +35,13 @@ namespace BankRepository.Services
                 .Select(t => new TransactionViewModel()
             {
                 TransactionId = t.TransactionId,
-                TransactionDate = t.Date.ToString(),
+                TransactionDate = t.Date.ToString("yyyy-MM-dd"),
                 Type = t.Type,
                 Operation = t.Operation,
                 Amount = t.Amount,
                 BalanceAfterTransaction = t.Balance
 
-            }).ToList();
+                }).ToList();
                
 
             return viewModelResult;
