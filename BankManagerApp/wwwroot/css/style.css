@@ -64,6 +64,9 @@ cite {
     width: 150px;
 }
 
+.btn btn-primary show-more{
+    width: 800px !important;
+}
 
 .field-validation-error {
     color: red;
