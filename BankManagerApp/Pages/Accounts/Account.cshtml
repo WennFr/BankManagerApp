@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-10 col-lg-10 m-auto">
                 <div class="block">
-                    <table class="title table table-responsive-md">
+                    <table class="title table">
                         <thead>
                             <tr>
                                 <th scope="col">Account Info</th>
@@ -22,30 +22,30 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="py-2">AccountId:</td>
-                                <td class="py-2">@Model.Account.AccountId</td>
-                                <td class="py-2"></td>
+                                <td>AccountId:</td>
+                                <td>@Model.Account.AccountId</td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td class="py-2">Date of creation:</td>
-                                <td class="py-2">@Model.Account.DateOfCreation</td>
-                                <td class="py-2"></td>
+                                <td>Date of creation:</td>
+                                <td>@Model.Account.DateOfCreation</td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td class="py-2">Current Balance</td>
-                                <td class="py-2">@Model.Account.Balance</td>
-                                <td class="py-2"></td>
+                                <td>Current Balance</td>
+                                <td>@Model.Account.Balance</td>
+                                <td></td>
 
                             </tr>
                             <tr>
-                                <td class="py-2">Frequency:</td>
-                                <td class="py-2">@Model.Account.Frequency</td>
-                                <td class="py-2"></td>
+                                <td>Frequency:</td>
+                                <td>@Model.Account.Frequency</td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td class="py-2">Owner:</td>
-                                <td class="py-2">@Model.Customer.GivenName @Model.Customer.Surname</td>
-                                <td class="py-2" style="width: 150px">
+                                <td>Owner:</td>
+                                <td>@Model.Customer.GivenName @Model.Customer.Surname</td>
+                                <td style="width: 150px">
 
                                     @if (@Model.PreviousPage == "customer")
                                     {
@@ -71,22 +71,26 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="py-2">Withdrawal:</td>
-                                <td class="py-2">
+                                <td>
+                                    Withdrawal:
+                                </td>
+                                <td>
                                     <div class="trans-icon">
                                         <a asp-page="/Accounts/Withdrawal" asp-route-accountId="@Model.Account.AccountId"><i class="bx bx-money-withdraw"></i></a>
                                     </div>
                                 </td>
-                                <td class="py-2"></td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td class="py-2">Deposit:</td>
-                                <td class="py-2">
+                                <td>
+                                    Deposit:
+                                </td>
+                                <td>
                                     <div class="trans-icon">
                                         <a asp-page="/Accounts/Deposit" asp-route-accountId="@Model.Account.AccountId"><i class='bx bx-plus-circle'></i></a>
                                     </div>
                                 </td>
-                                <td class="py-2"></td>
+                                <td></td>
                             </tr>
 
                             <tr>
