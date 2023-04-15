@@ -18,7 +18,7 @@ namespace BankRepository.Services
 {
     public interface ITransactionService
     {
-        List<TransactionViewModel> GetAllAccountTransactions(int accountId);
+        List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo);
 
         TransactionErrorCode ReturnValidationStatus(decimal balance, decimal amount);
 

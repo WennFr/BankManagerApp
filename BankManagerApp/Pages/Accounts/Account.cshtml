@@ -108,7 +108,7 @@
                         </tbody>
                     </table>
 
-                    <table class="title table">
+                    <table class="title table" id="posts-table">
                         <thead>
                             <tr>
                                 <th>Transactions</th>
@@ -118,7 +118,6 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-
                             </tr>
                             <tr>
                                 <th scope="col">Id</th>
@@ -131,23 +130,9 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
-
-                            @foreach (var tran in Model.Transactions)
-                            {
-                                <tr>
-
-                                    <td>@tran.TransactionId</td>
-                                    <td>@tran.Type</td>
-                                    <td>@tran.Operation</td>
-                                    <td>@tran.Amount</td>
-                                    <td>@tran.BalanceAfterTransaction</td>
-                                    <td>@tran.TransactionDate</td>
-                                </tr>
-
-                            }
-
+                            <!-- transaction data here -->
+                        </tbody>
+                        <tfoot>
                             <tr>
                                 <td>
                                     @if (@Model.PreviousPage == "accounts")
@@ -164,7 +149,6 @@
                                             Back
                                         </a>
                                     }
-
                                     else if (@Model.PreviousPage == "customer")
                                     {
                                         <a class="btn btn-secondary"
@@ -179,18 +163,53 @@
                                             Back
                                         </a>
                                     }
-
                                 </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td><a class="btn btn-primary" href="javascript:showMore();">Show More</a></td>
                                 <td></td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+@section Scripts
+    {
+    <script>
+        pageNo = 1;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            showMore();
+        });
+
+        function showMore() {
+            fetch("Account?handler=ShowMore&pageNo=" + pageNo + "&accountId=@Model.Account.AccountId")
+                .then((response) => response.json())
+                .then((json) => {
+                    pageNo = pageNo + 1
+                    json.transactions.forEach(drawElements);
+                });
+        }
+
+        function drawElements(element) {
+            document.querySelector('#posts-table tbody').innerHTML +=
+                `<tr>
+                    <td>${element.transactionId}</td>
+                    <td>${element.type}</td>
+                    <td>${element.operation}</td>
+                    <td>${element.amount}</td>
+                    <td>${element.balanceAfterTransaction}</td>
+                    <td>${element.transactionDate}</td>
+                    <td></td>
+                 </tr>`;
+        }
+
+    </script>
+}

@@ -1,7 +1,9 @@
+using BankRepository.BankAppData;
 using BankRepository.Services;
 using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankManagerApp.Pages.Accounts
 {
@@ -23,17 +25,21 @@ namespace BankManagerApp.Pages.Accounts
 
         public AccountViewModel Account { get; set; }
         public CustomerViewModel Customer { get; set; }
-        public List<TransactionViewModel> Transactions { get; set; }
-
         public string PreviousPage { get; set; }
 
 
         public void OnGet(int accountId, string previousPage)
         {
             Account = _accountService.GetAccountByAccountId(accountId);
-            Transactions = _transactionService.GetAllAccountTransactions(accountId);
             Customer = _customerService.GetCustomerNameByAccountId(accountId);
             PreviousPage = previousPage;
         }
+
+        public IActionResult OnGetShowMore(int accountId, int pageNo)
+        {
+            var listOfTransactions = _transactionService.GetAllAccountTransactions(accountId, pageNo);
+            return new JsonResult(new { transactions = listOfTransactions });
+        }
+
     }
 }

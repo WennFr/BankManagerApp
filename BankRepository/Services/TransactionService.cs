@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BankRepository.BankAppData;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using BankRepository.Infrastructure.Common;
+using BankRepository.Infrastructure.Paging;
 
 namespace BankRepository.Services
 {
@@ -20,12 +21,18 @@ namespace BankRepository.Services
 
         private readonly BankAppDataContext _dbContext;
 
-       public List<TransactionViewModel> GetAllAccountTransactions(int accountId)
+       public List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo)
        {
 
-           var query = _dbContext.Transactions.Where(t=> t.AccountId == accountId).AsQueryable();
+           var query = _dbContext.Transactions
+               .Where(t=> t.AccountId == accountId)
+               .OrderByDescending(t => t.Date)
+               .ThenByDescending(t => t.TransactionId).ToList()
+               .AsQueryable();
             
-            var viewModelResult = query.Select(t => new TransactionViewModel()
+            var viewModelResult = query
+                .GetPaged(pageNo, 20).Results
+                .Select(t => new TransactionViewModel()
             {
                 TransactionId = t.TransactionId,
                 TransactionDate = t.Date.ToString(),
@@ -34,9 +41,8 @@ namespace BankRepository.Services
                 Amount = t.Amount,
                 BalanceAfterTransaction = t.Balance
 
-            })
-                .OrderByDescending(t => t.TransactionDate)
-                .ThenByDescending(t => t.TransactionId).ToList();
+            }).ToList();
+               
 
             return viewModelResult;
 
