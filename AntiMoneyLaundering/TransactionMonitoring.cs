@@ -55,9 +55,9 @@ namespace AntiMoneyLaundering
                         {
                             CustomerName = fullName,
                             AccountId = account.AccountId,
-                            TransactionDate = transaction.TransactionDate,
+                            TransactionDate = new List<string> { transaction.TransactionDate },
                             TransactionIds = new List<int> { transaction.TransactionId },
-                            Amount = transaction.Amount,
+                            Amount = new List<decimal> { transaction.Amount },
                         };
                         suspectedTransactionsByCountry.Add(suspectedTransaction);
                     }
@@ -74,10 +74,14 @@ namespace AntiMoneyLaundering
                         {
                             CustomerName = fullName,
                             AccountId = account.AccountId,
+                            TransactionDate = new List<string>(),
                             TransactionIds = new List<int>(),
+                            Amount = new List<decimal>()
 
                         };
                         suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t => t.TransactionId));
+                        suspectedTransaction.TransactionDate.AddRange(latestAccountTransactions.Select(t => t.TransactionDate));
+                        suspectedTransaction.Amount.AddRange(latestAccountTransactions.Select(t => t.Amount));
 
                         suspectedTransactionsByCountry.Add(suspectedTransaction);
                     }
@@ -98,8 +102,8 @@ namespace AntiMoneyLaundering
                             writer.WriteLine($"Customer Name: {transaction.CustomerName}");
                             writer.WriteLine($"Account ID: {transaction.AccountId}");
                             writer.WriteLine($"Transaction IDs: {string.Join(", ", transaction.TransactionIds)}");
-                            writer.WriteLine($"Amount: {transaction.Amount}");
-                            writer.WriteLine($"Transaction Date: {transaction.TransactionDate}");
+                            writer.WriteLine($"Amount: {string.Join(", ", transaction.Amount)}");
+                            writer.WriteLine($"Transaction Date: {string.Join(", ", transaction.TransactionDate)}");
                             writer.WriteLine("----------------------------");
                         }
                     }

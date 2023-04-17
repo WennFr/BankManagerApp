@@ -10,8 +10,8 @@ namespace AntiMoneyLaundering
     {
         public string CustomerName { get; set; }
         public int AccountId { get; set; }
-        public decimal Amount { get; set; }
-        public string TransactionDate { get; set; }
+        public List<decimal> Amount { get; set; }
+        public List<string> TransactionDate { get; set; }
         public List<int> TransactionIds { get; set; }
     }
 }
