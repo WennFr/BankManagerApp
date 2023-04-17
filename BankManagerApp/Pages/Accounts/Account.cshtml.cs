@@ -37,7 +37,7 @@ namespace BankManagerApp.Pages.Accounts
 
         public IActionResult OnGetShowMore(int accountId, int pageNo)
         {
-            var listOfTransactions = _transactionService.GetAllAccountTransactions(accountId, pageNo);
+            var listOfTransactions = _transactionService.GetAllAccountTransactions(accountId, pageNo,50);
             return new JsonResult(new { transactions = listOfTransactions });
         }
 

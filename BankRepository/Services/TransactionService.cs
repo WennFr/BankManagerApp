@@ -21,7 +21,7 @@ namespace BankRepository.Services
 
         private readonly BankAppDataContext _dbContext;
 
-       public List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo)
+       public List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo, int pageSize)
        {
 
            var query = _dbContext.Transactions
@@ -31,7 +31,7 @@ namespace BankRepository.Services
                .AsQueryable();
             
             var viewModelResult = query
-                .GetPaged(pageNo, 20).Results
+                .GetPaged(pageNo, pageSize).Results
                 .Select(t => new TransactionViewModel()
             {
                 TransactionId = t.TransactionId,

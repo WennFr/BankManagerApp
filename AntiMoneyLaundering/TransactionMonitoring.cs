@@ -30,12 +30,11 @@ namespace AntiMoneyLaundering
         public void Execute()
         {
             suspectedTransactionsByCountry = new List<SuspectedTransaction>();
-            var allCustomers = _customerService.GetAllCustomers(null,null,1,null,null, true).Customers;
+            var allCustomers = _customerService.GetAllCustomers(null, null, 1, null, null, true).Customers;
             var counter = 1;
 
             foreach (var country in allCustomers.Select(c => c.Country).Distinct())
             {
-                
                 var accountsPerCountry = allCustomers
                     .Where(c => c.Country == country)
                     .SelectMany(c => _accountService.GetAccountsByCustomerId(c.Id))
@@ -47,16 +46,18 @@ namespace AntiMoneyLaundering
                     var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
                     var fullName = $"{customer.GivenName} {customer.Surname}";
 
-                    var transactions = _transactionService.GetAllAccountTransactions(account.AccountId, 1);
-                    var transaction = transactions.FirstOrDefault(t => t.Amount > 15000);
-                    
-                    if (transaction != null)
+
+                    var transactions = _transactionService.GetAllAccountTransactions(account.AccountId, 1, 20000);
+
+                    foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
                     {
                         var suspectedTransaction = new SuspectedTransaction
                         {
                             CustomerName = fullName,
                             AccountId = account.AccountId,
-                            TransactionIds = new List<int> { transaction.TransactionId }
+                            TransactionDate = transaction.TransactionDate,
+                            TransactionIds = new List<int> { transaction.TransactionId },
+                            Amount = transaction.Amount,
                         };
                         suspectedTransactionsByCountry.Add(suspectedTransaction);
                     }
@@ -73,8 +74,10 @@ namespace AntiMoneyLaundering
                         {
                             CustomerName = fullName,
                             AccountId = account.AccountId,
+                            TransactionIds = new List<int>(),
+
                         };
-                        suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t=> t.TransactionId));
+                        suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t => t.TransactionId));
 
                         suspectedTransactionsByCountry.Add(suspectedTransaction);
                     }
@@ -95,11 +98,13 @@ namespace AntiMoneyLaundering
                             writer.WriteLine($"Customer Name: {transaction.CustomerName}");
                             writer.WriteLine($"Account ID: {transaction.AccountId}");
                             writer.WriteLine($"Transaction IDs: {string.Join(", ", transaction.TransactionIds)}");
+                            writer.WriteLine($"Amount: {transaction.Amount}");
+                            writer.WriteLine($"Transaction Date: {transaction.TransactionDate}");
                             writer.WriteLine("----------------------------");
                         }
                     }
                 }
-                
+
             }
 
             Console.WriteLine("Done...");
