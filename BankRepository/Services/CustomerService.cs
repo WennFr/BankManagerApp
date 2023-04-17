@@ -52,7 +52,7 @@ namespace BankRepository.Services
             return result;
         }
 
-        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity)
+        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity, bool IsAntiMoneyLaundering)
         {
 
             var query = _dbContext.Customers.AsQueryable();
@@ -96,16 +96,23 @@ namespace BankRepository.Services
                 if (sortOrder == "asc")
                     query = query.OrderBy(c => c.City);
                 else if (sortOrder == "desc")
-                    query = query.OrderByDescending(c =>c.City);
+                    query = query.OrderByDescending(c => c.City);
 
             if (sortColumn == "Country")
                 if (sortOrder == "asc")
                     query = query.OrderBy(c => c.Country);
                 else if (sortOrder == "desc")
                     query = query.OrderByDescending(c => c.Country);
-            
 
-            var pagedResult = query.GetPaged(pageNo, 50);
+
+
+
+            var pagedResult = query.GetPaged(pageNo, 20000);
+
+            if (!IsAntiMoneyLaundering)
+            {
+                pagedResult = query.GetPaged(pageNo, 50);
+            }
 
             var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
             {
@@ -115,7 +122,7 @@ namespace BankRepository.Services
                 Address = c.Streetaddress,
                 City = c.City,
                 Country = c.Country,
-                
+
             }).ToList();
 
             var pagedCustomerViewModelResult = new PagedCustomerViewModel
@@ -133,28 +140,28 @@ namespace BankRepository.Services
         public CustomerInformationViewModel GetFullCustomerInformationById(int customerId)
         {
 
-           var viewModelResult = _dbContext.Customers
-                .Where(c => c.CustomerId == customerId)
-                .Select(c => new CustomerInformationViewModel
-                {
-                    Id = c.CustomerId,
-                    Gender = c.Gender,
-                    GivenName = c.Givenname,
-                    Surname = c.Surname,
-                    Address = c.Streetaddress,
-                    City = c.City,
-                    Zipcode = c.Zipcode,
-                    Country = c.Country,
-                    CountryCode = c.CountryCode,
-                    BirthDay = c.Birthday.ToString(),
-                    NationalId = c.NationalId,
-                    TelephoneCountryCode = c.Telephonecountrycode,
-                    TelephoneNumber = c.Telephonenumber,
-                    EmailAddress = c.Emailaddress,
-                    TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerId)
+            var viewModelResult = _dbContext.Customers
+                 .Where(c => c.CustomerId == customerId)
+                 .Select(c => new CustomerInformationViewModel
+                 {
+                     Id = c.CustomerId,
+                     Gender = c.Gender,
+                     GivenName = c.Givenname,
+                     Surname = c.Surname,
+                     Address = c.Streetaddress,
+                     City = c.City,
+                     Zipcode = c.Zipcode,
+                     Country = c.Country,
+                     CountryCode = c.CountryCode,
+                     BirthDay = c.Birthday.ToString(),
+                     NationalId = c.NationalId,
+                     TelephoneCountryCode = c.Telephonecountrycode,
+                     TelephoneNumber = c.Telephonenumber,
+                     EmailAddress = c.Emailaddress,
+                     TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerId)
 
-                })
-                .FirstOrDefault();
+                 })
+                 .FirstOrDefault();
 
             return viewModelResult;
         }
@@ -180,6 +187,10 @@ namespace BankRepository.Services
 
 
         }
+
+
+
+
 
 
     }

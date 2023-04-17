@@ -40,7 +40,7 @@ namespace BankManagerApp.Pages.Customers
                 pageNo = 1;
             CurrentPage = pageNo;
             
-            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo, qName, qCity);
+            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(sortColumn, sortOrder, pageNo, qName, qCity, false);
             Customers = pagedCustomerViewModelResult.Customers;
             PageCount = pagedCustomerViewModelResult.PageCount;
         }

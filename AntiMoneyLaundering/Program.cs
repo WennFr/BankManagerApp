@@ -1,2 +1,4 @@
-﻿var app = new Application();
+﻿using AntiMoneyLaundering;
+
+var app = new Application();
 app.Run();

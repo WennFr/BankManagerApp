@@ -13,8 +13,8 @@ namespace AntiMoneyLaundering
 
         public void Run()
         {
-            var transactionmonitoring = 
-            transactionmonitoring.execute();
+            var transactionMonitoring = InitDI.InitTransactionMonitoring(); 
+            transactionMonitoring.Execute();
 
         }
 

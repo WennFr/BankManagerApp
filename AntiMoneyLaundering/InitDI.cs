@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankRepository.DataAccess;
 
 namespace AntiMoneyLaundering
 {
@@ -13,7 +14,9 @@ namespace AntiMoneyLaundering
         public static TransactionMonitoring InitTransactionMonitoring()
         {
             var dbContext = new BankAppDataContext();
-            return new TransactionMonitoring(new CustomerService(dbContext, new AccountService(dbContext)));
+
+            var accountService = new AccountService(dbContext);
+            return new TransactionMonitoring(new CustomerService(dbContext, accountService),accountService, new TransactionService(dbContext));
         }
     }
 
