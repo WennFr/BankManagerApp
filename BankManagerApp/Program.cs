@@ -30,7 +30,9 @@ builder.Services.AddDbContext<BankAppDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
+
+//This includes all MappingProfiles
+builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly); 
 
 
 var app = builder.Build();

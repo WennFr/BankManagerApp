@@ -13,11 +13,10 @@ namespace BankRepository.Infrastructure.Profiles
     {
         public AccountProfile()
         {
-            CreateMap<Account, AccountViewModel>().ReverseMap()
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created.ToString()));
-
+            CreateMap<Account, AccountViewModel>()
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created.ToString("yyyy-MM-dd")))
+                .ReverseMap();
             CreateMap<Disposition, AccountViewModel>().ReverseMap();
-
 
         }
     }

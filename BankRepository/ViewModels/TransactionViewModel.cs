@@ -10,7 +10,7 @@ namespace BankRepository.ViewModels
     {
         public int TransactionId { get; set; }
 
-        public string TransactionDate { get; set; }
+        public string Date { get; set; }
 
         public string Type { get; set; }
 
@@ -18,6 +18,6 @@ namespace BankRepository.ViewModels
 
         public decimal Amount { get; set; }
 
-        public decimal BalanceAfterTransaction { get; set; }
+        public decimal Balance { get; set; }
     }
 }

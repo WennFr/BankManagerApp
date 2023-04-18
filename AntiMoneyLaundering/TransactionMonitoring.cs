@@ -55,7 +55,7 @@ namespace AntiMoneyLaundering
                         {
                             CustomerName = fullName,
                             AccountId = account.AccountId,
-                            TransactionDate = new List<string> { transaction.TransactionDate },
+                            TransactionDate = new List<string> { transaction.Date },
                             TransactionIds = new List<int> { transaction.TransactionId },
                             Amount = new List<decimal> { transaction.Amount },
                         };
@@ -63,7 +63,7 @@ namespace AntiMoneyLaundering
                     }
 
                     var latestAccountTransactions = transactions
-                        .Where(t => DateTime.Parse(t.TransactionDate) >= DateTime.Now.AddDays(-3))
+                        .Where(t => DateTime.Parse(t.Date) >= DateTime.Now.AddDays(-3))
                         .ToList();
 
                     var totalSumOfLatestAccountTransactions = latestAccountTransactions.Sum(t => t.Amount);
@@ -80,7 +80,7 @@ namespace AntiMoneyLaundering
 
                         };
                         suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t => t.TransactionId));
-                        suspectedTransaction.TransactionDate.AddRange(latestAccountTransactions.Select(t => t.TransactionDate));
+                        suspectedTransaction.TransactionDate.AddRange(latestAccountTransactions.Select(t => t.Date));
                         suspectedTransaction.Amount.AddRange(latestAccountTransactions.Select(t => t.Amount));
 
                         suspectedTransactionsByCountry.Add(suspectedTransaction);
