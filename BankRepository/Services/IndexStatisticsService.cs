@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using BankRepository.BankAppData;
 using BankRepository.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace BankRepository.Services
         }
 
         private readonly BankAppDataContext _dbContext;
+
         public IEnumerable<IndexDataViewModel> GetIndexCountryStatistics()
         {
             foreach (var country in _dbContext.Customers.Select(c => c.Country).Distinct())
@@ -37,13 +39,6 @@ namespace BankRepository.Services
                     Country = country
                 };
             }
-
-
-
-
-
-
-
         }
     }
 }
