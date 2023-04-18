@@ -79,18 +79,13 @@ namespace BankRepository.Services
 
         public AccountViewModel GetAccountByAccountId(int accountId)
         {
-            
-            var viewModelResult = _dbContext.Accounts
-                .Where(a => a.AccountId == accountId)
-                .Select(a => new AccountViewModel()
-                {
-                    AccountId = a.AccountId,
-                    Frequency = a.Frequency,
-                    Created = a.Created.ToString(),
-                    Balance = a.Balance
-                }).FirstOrDefault();
 
-            return viewModelResult;
+            var account = _dbContext.Accounts
+                .Where(a => a.AccountId == accountId).First();
+            
+            var accountViewModelResult = _mapper.Map<AccountViewModel>(account);
+
+            return accountViewModelResult;
 
         }
 
