@@ -35,24 +35,6 @@ namespace BankRepository.Services
         {
             var query = _dbContext.Dispositions.AsQueryable();
 
-            //var result = _dbContext.Customers
-            //    .Where(c => c.Country.ToLower() == country.ToLower())
-            //    .Select(c => new TopCustomerViewModel()
-            //    {
-            //        CustomerId = c.CustomerId,
-            //        Givenname = c.Givenname,
-            //        Surname = c.Surname,    
-            //        City = c.City,
-            //        Country = c.Country,
-            //        TotalBalanceOfAllAccounts = _dbContext.Dispositions
-            //            .Where(d => d.CustomerId == c.CustomerId && d.Type.ToLower() == "owner")
-            //            .Sum(d => d.Account.Balance)
-            //    })
-            //    .OrderByDescending(c => c.TotalBalanceOfAllAccounts)
-            //    .Take(10)
-            //    .ToList();
-
-
             var customers = _dbContext.Customers
                 .Where(c => c.Country.ToLower() == country.ToLower())
                 .Include(c => c.Dispositions)
@@ -67,9 +49,7 @@ namespace BankRepository.Services
 
             foreach (var customer in viewModelResult)
             {
-                customer.TotalBalanceOfAllAccounts =
-                    _accountService.GetTotalCustomerAccountBalance(customer.CustomerId);
-
+                customer.TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customer.CustomerId);
             }
 
             return viewModelResult;
@@ -160,21 +140,19 @@ namespace BankRepository.Services
         public CustomerViewModel GetCustomerNameByAccountId(int accountId)
         {
 
-            var viewModelResult = _dbContext.Dispositions
+            var result = _dbContext.Dispositions
                 .Include(d => d.Account)
                 .ThenInclude(a => a.Dispositions)
                 .ThenInclude(d => d.Customer)
                 .Where(d => d.AccountId == accountId && d.Type.ToLower() == "owner")
-                .Select(d => new CustomerViewModel
-                {
-                    CustomerId = d.Customer.CustomerId,
-                    Givenname = d.Customer.Givenname,
-                    Surname = d.Customer.Surname,
+                .First();
 
-                })
-                .FirstOrDefault();
 
-            return viewModelResult;
+            var customerViewModel = _mapper.Map<CustomerViewModel>(result.Customer);
+
+
+
+            return customerViewModel;
 
 
         }

@@ -20,6 +20,9 @@ namespace BankRepository.Infrastructure.Profiles
 
             CreateMap<Customer, CustomerInformationViewModel>().ReverseMap();
 
+            CreateMap<Disposition, CustomerViewModel>().ReverseMap();
+
+
         }
     }
 }
