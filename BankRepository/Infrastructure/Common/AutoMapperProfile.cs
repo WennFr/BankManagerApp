@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankRepository.BankAppData;
+using BankRepository.ViewModels;
 
 namespace BankRepository.Infrastructure.Common
 {
@@ -13,7 +15,7 @@ namespace BankRepository.Infrastructure.Common
         {
             // Källa => Mål
             // CreateEmployeeViewModel => Employee
-            CreateMap<Customer, Employee>()
+            CreateMap<CustomerViewModel, Customer>()
                 .ReverseMap();
         }
     }
