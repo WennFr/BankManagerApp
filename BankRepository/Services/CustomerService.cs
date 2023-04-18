@@ -117,16 +117,22 @@ namespace BankRepository.Services
                 pagedResult = query.GetPaged(pageNo, 50);
             }
 
-            var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
-            {
-                CustomerId = c.CustomerId,
-                GivenName = c.Givenname,
-                Surname = c.Surname,
-                Streetaddress = c.Streetaddress,
-                City = c.City,
-                Country = c.Country,
+            //var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
+            //{
+            //    CustomerId = c.CustomerId,
+            //    GivenName = c.Givenname,
+            //    Surname = c.Surname,
+            //    Streetaddress = c.Streetaddress,
+            //    City = c.City,
+            //    Country = c.Country,
 
-            }).ToList();
+            //}).ToList();
+
+            var customerViewModelResult = _mapper.Map<List<CustomerViewModel>>(pagedResult.Results);
+
+            //var customerViewModelResult = _mapper.Map<PagedResult<CustomerViewModel>>(pagedResult).Results.ToList();
+
+
 
             var pagedCustomerViewModelResult = new PagedCustomerViewModel
             {
@@ -180,7 +186,7 @@ namespace BankRepository.Services
                 .Select(d => new CustomerViewModel
                 {
                     CustomerId = d.Customer.CustomerId,
-                    GivenName = d.Customer.Givenname,
+                    Givenname = d.Customer.Givenname,
                     Surname = d.Customer.Surname,
 
                 })

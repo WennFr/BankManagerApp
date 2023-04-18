@@ -44,7 +44,7 @@ namespace AntiMoneyLaundering
                 {
 
                     var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
-                    var fullName = $"{customer.GivenName} {customer.Surname}";
+                    var fullName = $"{customer.Givenname} {customer.Surname}";
 
 
                     var transactions = _transactionService.GetAllAccountTransactions(account.AccountId, 1, 20000);

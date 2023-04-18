@@ -1,5 +1,6 @@
 using BankRepository.BankAppData;
 using BankRepository.Data;
+using BankRepository.Infrastructure.Profiles;
 using BankRepository.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,7 @@ builder.Services.AddDbContext<BankAppDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 
 
 var app = builder.Build();
