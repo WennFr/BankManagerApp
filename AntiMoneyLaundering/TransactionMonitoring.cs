@@ -35,6 +35,7 @@ namespace AntiMoneyLaundering
 
             foreach (var country in allCustomers.Select(c => c.Country).Distinct())
             {
+
                 var accountsPerCountry = allCustomers
                     .Where(c => c.Country == country)
                     .SelectMany(c => _accountService.GetAccountsByCustomerId(c.CustomerId))
@@ -45,8 +46,6 @@ namespace AntiMoneyLaundering
 
                     var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
                     var fullName = $"{customer.Givenname} {customer.Surname}";
-
-
                     var transactions = _transactionService.GetAllAccountTransactions(account.AccountId, 1, 20000);
 
                     foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
@@ -93,9 +92,18 @@ namespace AntiMoneyLaundering
 
                 if (suspectedTransactionsByCountry != null)
                 {
-                    string fileName = "suspected_transactions.txt";
-                    string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
-                    using (StreamWriter writer = new StreamWriter(filePath))
+                    string fileName = $"suspected_transactions_{country}.txt";
+                    string folderPath = Path.Combine(Environment.CurrentDirectory,"MonitoringData");
+                    string filePath = Path.Combine("MonitoringData", fileName);
+                    string fullPath = Path.Combine(folderPath, fileName);
+
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+
+
+                    using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/{fileName}", append: false))
                     {
                         foreach (var transaction in suspectedTransactionsByCountry)
                         {
@@ -104,8 +112,13 @@ namespace AntiMoneyLaundering
                             writer.WriteLine($"Transaction IDs: {string.Join(", ", transaction.TransactionIds)}");
                             writer.WriteLine($"Amount: {string.Join(", ", transaction.Amount)}");
                             writer.WriteLine($"Transaction Date: {string.Join(", ", transaction.TransactionDate)}");
-                            writer.WriteLine("----------------------------");
+                            writer.WriteLine("------------------------------------");
                         }
+                    }
+                    using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastDate", append: true))
+                    {
+                        var date = DateTime.Now;
+                        writer.WriteLine($"{date}");
                     }
                 }
 

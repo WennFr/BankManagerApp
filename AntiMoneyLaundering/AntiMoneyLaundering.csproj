@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BankRepository\BankRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MonitoringData\" />
+  </ItemGroup>
+
 </Project>
