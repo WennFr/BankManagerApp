@@ -16,8 +16,9 @@ namespace BankRepository.Infrastructure.Profiles
         {
             CreateMap<Customer, CustomerViewModel>().ReverseMap();
 
-            //CreateMap<PagedResult<Customer>, PagedResult<CustomerViewModel>>()
-            //    .ReverseMap();
+            CreateMap<Customer, TopCustomerViewModel>();
+
+            CreateMap<Customer, CustomerInformationViewModel>().ReverseMap();
 
         }
     }

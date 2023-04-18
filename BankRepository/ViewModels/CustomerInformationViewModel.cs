@@ -8,11 +8,11 @@ namespace BankRepository.ViewModels
 {
     public class CustomerInformationViewModel
     {
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
         public string Gender { get; set; }
-        public string GivenName { get; set; }
+        public string Givenname { get; set; }
         public string Surname { get; set; }
-        public string Address { get; set; }
+        public string StreetAddress { get; set; }
         public string City { get; set; }
         public string Zipcode { get; set; }
         public string Country { get; set; }

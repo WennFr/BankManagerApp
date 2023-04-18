@@ -15,7 +15,7 @@
             <div class="col-10 col-lg-11 m-auto">
                 <div class="block">
                     <div class="customer-top">
-                        <h2 class="customer-name">@Model.Customer.GivenName @Model.Customer.Surname</h2>
+                        <h2 class="customer-name">@Model.Customer.Givenname @Model.Customer.Surname</h2>
 
 
                         @if (@Model.Customer.Gender == "male")
@@ -47,7 +47,7 @@
                         <tbody>
                             <tr>
                                 <td>Customer Id:</td>
-                                <td>@Model.Customer.Id</td>
+                                <td>@Model.Customer.CustomerId</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -58,7 +58,7 @@
                             </tr>
                             <tr>
                                 <td>Given Name:</td>
-                                <td>@Model.Customer.GivenName</td>
+                                <td>@Model.Customer.Givenname</td>
                                 <td></td>
 
                             </tr>
@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td>Address:</td>
-                                <td>@Model.Customer.Address</td>
+                                <td>@Model.Customer.StreetAddress</td>
                                 <td></td>
 
                             </tr>
@@ -142,7 +142,7 @@
                                         else if (@Model.PreviousPage == "customers")
                                         {
                                         <a class="btn btn-primary"
-                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
                                             Account
                                         </a>
                                         }
@@ -150,7 +150,7 @@
                                         else if (@Model.PreviousPage == "topCustomersByCountry")
                                         {
                                         <a class="btn btn-primary"
-                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
                                             Account
                                         </a>
                                         }

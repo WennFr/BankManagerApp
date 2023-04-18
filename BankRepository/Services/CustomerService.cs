@@ -35,24 +35,44 @@ namespace BankRepository.Services
         {
             var query = _dbContext.Dispositions.AsQueryable();
 
-            var result = _dbContext.Customers
+            //var result = _dbContext.Customers
+            //    .Where(c => c.Country.ToLower() == country.ToLower())
+            //    .Select(c => new TopCustomerViewModel()
+            //    {
+            //        CustomerId = c.CustomerId,
+            //        Givenname = c.Givenname,
+            //        Surname = c.Surname,    
+            //        City = c.City,
+            //        Country = c.Country,
+            //        TotalBalanceOfAllAccounts = _dbContext.Dispositions
+            //            .Where(d => d.CustomerId == c.CustomerId && d.Type.ToLower() == "owner")
+            //            .Sum(d => d.Account.Balance)
+            //    })
+            //    .OrderByDescending(c => c.TotalBalanceOfAllAccounts)
+            //    .Take(10)
+            //    .ToList();
+
+
+            var customers = _dbContext.Customers
                 .Where(c => c.Country.ToLower() == country.ToLower())
-                .Select(c => new TopCustomerViewModel()
-                {
-                    CustomerId = c.CustomerId,
-                    GivenName = c.Givenname,
-                    Surname = c.Surname,
-                    City = c.City,
-                    Country = c.Country,
-                    TotalBalanceOfAllAccounts = _dbContext.Dispositions
-                        .Where(d => d.CustomerId == c.CustomerId && d.Type.ToLower() == "owner")
-                        .Sum(d => d.Account.Balance)
-                })
-                .OrderByDescending(c => c.TotalBalanceOfAllAccounts)
+                .Include(c => c.Dispositions)
+                .ThenInclude(d => d.Account)
+                .OrderByDescending(c => c.Dispositions
+                    .Where(d => d.Type.ToLower() == "owner")
+                    .Sum(d => d.Account.Balance))
                 .Take(10)
                 .ToList();
 
-            return result;
+            var viewModelResult = _mapper.Map<List<TopCustomerViewModel>>(customers);
+
+            foreach (var customer in viewModelResult)
+            {
+                customer.TotalBalanceOfAllAccounts =
+                    _accountService.GetTotalCustomerAccountBalance(customer.CustomerId);
+
+            }
+
+            return viewModelResult;
         }
 
         public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity, bool IsAntiMoneyLaundering)
@@ -72,10 +92,6 @@ namespace BankRepository.Services
                 query = query
                     .Where(c => c.City.Contains(qCity));
             }
-
-
-
-
 
             if (sortColumn == "First Name")
                 if (sortOrder == "asc")
@@ -117,22 +133,7 @@ namespace BankRepository.Services
                 pagedResult = query.GetPaged(pageNo, 50);
             }
 
-            //var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
-            //{
-            //    CustomerId = c.CustomerId,
-            //    GivenName = c.Givenname,
-            //    Surname = c.Surname,
-            //    Streetaddress = c.Streetaddress,
-            //    City = c.City,
-            //    Country = c.Country,
-
-            //}).ToList();
-
             var customerViewModelResult = _mapper.Map<List<CustomerViewModel>>(pagedResult.Results);
-
-            //var customerViewModelResult = _mapper.Map<PagedResult<CustomerViewModel>>(pagedResult).Results.ToList();
-
-
 
             var pagedCustomerViewModelResult = new PagedCustomerViewModel
             {
@@ -149,30 +150,11 @@ namespace BankRepository.Services
         public CustomerInformationViewModel GetFullCustomerInformationById(int customerId)
         {
 
-            var viewModelResult = _dbContext.Customers
-                 .Where(c => c.CustomerId == customerId)
-                 .Select(c => new CustomerInformationViewModel
-                 {
-                     Id = c.CustomerId,
-                     Gender = c.Gender,
-                     GivenName = c.Givenname,
-                     Surname = c.Surname,
-                     Address = c.Streetaddress,
-                     City = c.City,
-                     Zipcode = c.Zipcode,
-                     Country = c.Country,
-                     CountryCode = c.CountryCode,
-                     BirthDay = c.Birthday.ToString(),
-                     NationalId = c.NationalId,
-                     TelephoneCountryCode = c.Telephonecountrycode,
-                     TelephoneNumber = c.Telephonenumber,
-                     EmailAddress = c.Emailaddress,
-                     TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerId)
+            var customer = _dbContext.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+            var customerViewModel = _mapper.Map<CustomerInformationViewModel>(customer);
+            customerViewModel.TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerViewModel.CustomerId);
 
-                 })
-                 .FirstOrDefault();
-
-            return viewModelResult;
+            return customerViewModel;
         }
 
         public CustomerViewModel GetCustomerNameByAccountId(int accountId)
