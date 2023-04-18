@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Paging;
 using BankRepository.ViewModels;
@@ -16,16 +17,18 @@ namespace BankRepository.Services
     public class CustomerService : ICustomerService
     {
 
-        public CustomerService(BankAppDataContext dbContext, IAccountService accountService)
+        public CustomerService(BankAppDataContext dbContext, IAccountService accountService, IMapper mapper)
         {
 
             _dbContext = dbContext;
             _accountService = accountService;
+            _mapper = mapper;
 
         }
 
         private readonly BankAppDataContext _dbContext;
         private readonly IAccountService _accountService;
+        private readonly IMapper _mapper;
 
 
         public List<TopCustomerViewModel> GetTopCustomersByCountry(string country)
@@ -36,7 +39,7 @@ namespace BankRepository.Services
                 .Where(c => c.Country.ToLower() == country.ToLower())
                 .Select(c => new TopCustomerViewModel()
                 {
-                    Id = c.CustomerId,
+                    CustomerId = c.CustomerId,
                     GivenName = c.Givenname,
                     Surname = c.Surname,
                     City = c.City,
@@ -116,10 +119,10 @@ namespace BankRepository.Services
 
             var customerViewModelResult = pagedResult.Results.Select(c => new CustomerViewModel
             {
-                Id = c.CustomerId,
+                CustomerId = c.CustomerId,
                 GivenName = c.Givenname,
                 Surname = c.Surname,
-                Address = c.Streetaddress,
+                Streetaddress = c.Streetaddress,
                 City = c.City,
                 Country = c.Country,
 
@@ -176,7 +179,7 @@ namespace BankRepository.Services
                 .Where(d => d.AccountId == accountId && d.Type.ToLower() == "owner")
                 .Select(d => new CustomerViewModel
                 {
-                    Id = d.Customer.CustomerId,
+                    CustomerId = d.Customer.CustomerId,
                     GivenName = d.Customer.Givenname,
                     Surname = d.Customer.Surname,
 

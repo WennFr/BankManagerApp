@@ -37,7 +37,7 @@ namespace AntiMoneyLaundering
             {
                 var accountsPerCountry = allCustomers
                     .Where(c => c.Country == country)
-                    .SelectMany(c => _accountService.GetAccountsByCustomerId(c.Id))
+                    .SelectMany(c => _accountService.GetAccountsByCustomerId(c.CustomerId))
                     .ToList();
 
                 foreach (var account in accountsPerCountry)

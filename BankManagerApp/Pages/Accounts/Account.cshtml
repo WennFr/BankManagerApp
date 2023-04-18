@@ -53,7 +53,7 @@
                                     else if (@Model.PreviousPage == "accounts")
                                     {
                                         <a class="btn btn-primary"
-                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
                                             Customer
                                         </a>
                                     }
@@ -63,7 +63,7 @@
                                     else
                                     {
                                         <a class="btn btn-primary"
-                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="account" asp-route-accountId="@Model.Account.AccountId">
                                             Customer
                                         </a>
                                     }
@@ -145,14 +145,14 @@
                                     else if (@Model.PreviousPage == "topCustomersByCountry")
                                     {
                                         <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customer" asp-route-previousPage="topCustomersByCountry" asp-route-customerId="@Model.Customer.Id">
+                                       asp-page="/Customers/Customer" asp-route-previousPage="topCustomersByCountry" asp-route-customerId="@Model.Customer.CustomerId">
                                             Back
                                         </a>
                                     }
                                     else if (@Model.PreviousPage == "customer")
                                     {
                                         <a class="btn btn-secondary"
-                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.Id" asp-route-previousPage="customers">
+                                       asp-page="/Customers/Customer" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="customers">
                                             Back
                                         </a>
                                     }

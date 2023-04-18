@@ -37,13 +37,13 @@
                                         <tr class="job">
                                             <tr class="container">
                                                 <td>@(counter++).</td>
-                                                <td>@cust.Id</td>
+                                                <td>@cust.CustomerId</td>
                                                 <td>@cust.GivenName</td>
                                                 <td>@cust.Surname</td>
                                                 <td>@cust.City</td>
                                                 <td>@cust.Country</td>
                                                 <td>@cust.TotalBalanceOfAllAccounts</td>
-                                    <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.Id" asp-route-previousPage="topCustomersByCountry" class="btn btn-primary">View</a></td>
+                                    <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="topCustomersByCountry" class="btn btn-primary">View</a></td>
                                             </tr>
                                         </tr>
                                     }
