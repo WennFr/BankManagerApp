@@ -79,14 +79,13 @@ namespace BankRepository.Services
 
         public AccountViewModel GetAccountByAccountId(int accountId)
         {
-
             var account = _dbContext.Accounts
-                .Where(a => a.AccountId == accountId).First();
+                .Where(a => a.AccountId == accountId)
+                .First();
             
             var accountViewModelResult = _mapper.Map<AccountViewModel>(account);
 
             return accountViewModelResult;
-
         }
 
 
@@ -95,23 +94,15 @@ namespace BankRepository.Services
 
             var query = _dbContext.Dispositions.AsQueryable();
 
-            var viewModelResult = query
+            var accounts = query
                 .Include(d => d.Account)
                 .ThenInclude(a => a.Dispositions)
                 .ThenInclude(d => d.Customer)
-                .Where(d => d.CustomerId == customerId && d.Type.ToLower() == "owner")
-                .Select(d => new AccountViewModel
-                {
-                    AccountId = d.Account.AccountId,
-                    Frequency = d.Account.Frequency,
-                    Created = d.Account.Created.ToString(),
-                    Balance = d.Account.Balance
+                .Where(d => d.CustomerId == customerId && d.Type.ToLower() == "owner");
+            
+            var accountViewModelResult = _mapper.Map<List<AccountViewModel>>(accounts);
 
-                }).ToList();
-
-            return viewModelResult;
-
-
+            return accountViewModelResult;
         }
 
         public AccountErrorCode ReturnValidationStatus(int accountId)

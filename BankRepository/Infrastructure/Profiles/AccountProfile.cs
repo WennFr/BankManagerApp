@@ -16,6 +16,7 @@ namespace BankRepository.Infrastructure.Profiles
             CreateMap<Account, AccountViewModel>().ReverseMap()
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created.ToString()));
 
+            CreateMap<Disposition, AccountViewModel>().ReverseMap();
 
 
         }
