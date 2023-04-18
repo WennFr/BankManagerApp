@@ -12,7 +12,7 @@ namespace BankRepository.ViewModels
 
             public string Frequency { get; set; }
 
-            public string DateOfCreation { get; set; }
+            public string Created { get; set; }
             
             public decimal Balance { get; set; }
 

@@ -11,20 +11,21 @@ using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using BankRepository.Infrastructure.Paging;
 using System.Xml.Linq;
+using AutoMapper;
 
 namespace BankRepository.Services
 {
     public class AccountService : IAccountService
     {
 
-        public AccountService(BankAppDataContext dbContext)
+        public AccountService(BankAppDataContext dbContext, IMapper mapper)
         {
-
             _dbContext = dbContext;
-
+            _mapper = mapper;
         }
 
         private readonly BankAppDataContext _dbContext;
+        private readonly IMapper _mapper;
 
 
         public decimal GetTotalCustomerAccountBalance(int customerId)
@@ -62,15 +63,9 @@ namespace BankRepository.Services
 
             var pagedResult = query.GetPaged(pageNo, 50);
 
-            var accountViewModelResult = pagedResult.Results.Select(a => new AccountViewModel
-            {
-                AccountId = a.AccountId,
-                Frequency = a.Frequency,
-                DateOfCreation = a.Created.ToString(),
-                Balance = a.Balance
 
-            }).ToList();
 
+            var accountViewModelResult = _mapper.Map<List<AccountViewModel>>(pagedResult.Results);
 
             var pagedAccountViewModelResult = new PagedAccountViewModel
             {
@@ -91,7 +86,7 @@ namespace BankRepository.Services
                 {
                     AccountId = a.AccountId,
                     Frequency = a.Frequency,
-                    DateOfCreation = a.Created.ToString(),
+                    Created = a.Created.ToString(),
                     Balance = a.Balance
                 }).FirstOrDefault();
 
@@ -114,7 +109,7 @@ namespace BankRepository.Services
                 {
                     AccountId = d.Account.AccountId,
                     Frequency = d.Account.Frequency,
-                    DateOfCreation = d.Account.Created.ToString(),
+                    Created = d.Account.Created.ToString(),
                     Balance = d.Account.Balance
 
                 }).ToList();
