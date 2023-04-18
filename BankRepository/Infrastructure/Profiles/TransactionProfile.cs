@@ -14,9 +14,9 @@ namespace BankRepository.Infrastructure.Profiles
         public TransactionProfile()
         {
 
-            CreateMap<Transaction, TransactionViewModel>().ReverseMap()
-                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date.ToString()));
-
+            CreateMap<Transaction, TransactionViewModel>()
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date.ToString("yyyy-MM-dd")))
+                .ReverseMap();
         }
 
     }
