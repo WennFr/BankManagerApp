@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Small Apps | Bootstrap App Landing Template</title>
+    <title>Blue Ridge Bank</title>
 
     <!-- Mobile Specific Metas
     ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Bootstrap App Landing Template">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="author" content="Themefisher">
-    <meta name="generator" content="Themefisher Small Apps Template v1.0">
+    <meta name="author" content="Blue Ridge Bank">
+    <meta name="generator" content="Blue Ridge Bank">
 
     <!-- theme meta -->
     <meta name="theme-name" content="bank-app" />
@@ -75,6 +75,9 @@
 
                         @if (User.IsInRole("Admin"))
                         {
+                            <li class="nav-item  @@register">
+                                <a class="nav-link text-dark"asp-page="/Administrator/Index">Manage Users</a>
+                            </li>
                             <li class="nav-item @@privacy">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                             </li>
@@ -175,7 +178,7 @@
             </div>
         </div>
         <div class="text-center bg-dark py-4">
-            <small class="text-secondary">Copyright &copy; <script>document.write(new Date().getFullYear())</script>. <a>Blue Ridge Bank</a></small>
+            <small class="text-secondary">Copyright &copy; <script>document.write(new Date().getFullYear())</script>. <a>Blue Ridge Bank || .NET Project by Frederick Wennborg</a></small>
         </div>
     </footer>
 
