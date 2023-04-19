@@ -8,6 +8,7 @@ using BankRepository.Services.TransactionService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using BankRepository.Services.IdentityUserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddTransient<IIndexStatisticsService, IndexStatisticsService>()
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
+builder.Services.AddTransient<IIdentityUserService, IdentityUserService>();
 
 
 builder.Services.AddDbContext<BankAppDataContext>(options =>
