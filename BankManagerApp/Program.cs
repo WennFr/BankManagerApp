@@ -1,7 +1,10 @@
 using BankRepository.BankAppData;
 using BankRepository.Data;
 using BankRepository.Infrastructure.Profiles;
-using BankRepository.Services;
+using BankRepository.Services.AccountService;
+using BankRepository.Services.CustomerService;
+using BankRepository.Services.IndexService;
+using BankRepository.Services.TransactionService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

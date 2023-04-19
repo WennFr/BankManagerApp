@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
 
-namespace BankRepository.ViewModels
+namespace BankRepository.ViewModels.AccountView
 {
     public class PagedAccountViewModel
     {

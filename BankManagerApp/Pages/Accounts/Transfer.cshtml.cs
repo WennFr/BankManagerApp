@@ -1,5 +1,7 @@
 using BankRepository.Infrastructure.Common;
-using BankRepository.Services;
+using BankRepository.Services.AccountService;
+using BankRepository.Services.CustomerService;
+using BankRepository.Services.TransactionService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.JSInterop;

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Paging;
-using BankRepository.ViewModels;
+using BankRepository.Services.AccountService;
+using BankRepository.ViewModels.CustomerView;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace BankRepository.Services
+namespace BankRepository.Services.CustomerService
 {
     public class CustomerService : ICustomerService
     {

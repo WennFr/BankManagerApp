@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BankRepository.ViewModels;
+using BankRepository.ViewModels.AccountView;
 
 public enum AccountErrorCode
 {
@@ -11,14 +11,14 @@ public enum AccountErrorCode
     AccountNotFound
 }
 
-namespace BankRepository.Services
+namespace BankRepository.Services.AccountService
 {
     public interface IAccountService
     {
 
         decimal GetTotalCustomerAccountBalance(int customerId);
 
-        PagedAccountViewModel GetAllAccounts(string sortColumn, string sortOrder,int pageNo);
+        PagedAccountViewModel GetAllAccounts(string sortColumn, string sortOrder, int pageNo);
 
         AccountViewModel GetAccountByAccountId(int accountId);
 

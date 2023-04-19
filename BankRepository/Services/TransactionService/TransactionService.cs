@@ -1,5 +1,4 @@
-﻿using BankRepository.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +9,9 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using BankRepository.Infrastructure.Common;
 using BankRepository.Infrastructure.Paging;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BankRepository.ViewModels.TransactionView;
 
-namespace BankRepository.Services
+namespace BankRepository.Services.TransactionService
 {
     public class TransactionService : ITransactionService
     {

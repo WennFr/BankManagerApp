@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BankRepository.BankAppData;
-using BankRepository.ViewModels;
+using BankRepository.ViewModels.AccountView;
 using System;
 using System.Collections.Generic;
 using System.Linq;

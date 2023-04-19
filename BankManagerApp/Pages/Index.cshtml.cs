@@ -1,6 +1,6 @@
 ﻿using BankRepository.BankAppData;
-using BankRepository.Services;
-using BankRepository.ViewModels;
+using BankRepository.Services.IndexService;
+using BankRepository.ViewModels.IndexView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

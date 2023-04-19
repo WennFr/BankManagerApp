@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BankRepository.ViewModels;
+using BankRepository.ViewModels.CustomerView;
 
-namespace BankRepository.Services
+namespace BankRepository.Services.CustomerService
 {
     public interface ICustomerService
     {

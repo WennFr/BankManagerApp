@@ -1,5 +1,4 @@
 ﻿using BankRepository.BankAppData;
-using BankRepository.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System;
@@ -12,8 +11,9 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using BankRepository.Infrastructure.Paging;
 using System.Xml.Linq;
 using AutoMapper;
+using BankRepository.ViewModels.AccountView;
 
-namespace BankRepository.Services
+namespace BankRepository.Services.AccountService
 {
     public class AccountService : IAccountService
     {
@@ -82,7 +82,7 @@ namespace BankRepository.Services
             var account = _dbContext.Accounts
                 .Where(a => a.AccountId == accountId)
                 .First();
-            
+
             var accountViewModelResult = _mapper.Map<AccountViewModel>(account);
 
             return accountViewModelResult;
@@ -99,7 +99,7 @@ namespace BankRepository.Services
                 .ThenInclude(a => a.Dispositions)
                 .ThenInclude(d => d.Customer)
                 .Where(d => d.CustomerId == customerId && d.Type.ToLower() == "owner");
-            
+
             var accountViewModelResult = _mapper.Map<List<AccountViewModel>>(accounts);
 
             return accountViewModelResult;
@@ -107,7 +107,7 @@ namespace BankRepository.Services
 
         public AccountErrorCode ReturnValidationStatus(int accountId)
         {
-            
+
             var account = _dbContext.Accounts.FirstOrDefault(a => a.AccountId == accountId);
             if (account == null)
             {

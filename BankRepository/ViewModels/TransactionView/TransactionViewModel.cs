@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankRepository.ViewModels
+namespace BankRepository.ViewModels.TransactionView
 {
     public class TransactionViewModel
     {

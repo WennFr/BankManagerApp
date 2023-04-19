@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
-using BankRepository.ViewModels;
 using BankRepository.Infrastructure.Paging;
+using BankRepository.ViewModels.CustomerView;
 
 namespace BankRepository.Infrastructure.Profiles
 {

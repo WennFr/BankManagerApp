@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics.Metrics;
 using System.Drawing;
 using BankRepository.BankAppData;
-using BankRepository.Services;
-using BankRepository.ViewModels;
 using BankRepository.Infrastructure.Paging;
+using BankRepository.Services.CustomerService;
+using BankRepository.ViewModels.CustomerView;
 
 namespace BankManagerApp.Pages.Customers
 {

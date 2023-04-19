@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankRepository.ViewModels
+namespace BankRepository.ViewModels.IndexView
 {
     public class IndexDataViewModel
     {
@@ -13,7 +13,7 @@ namespace BankRepository.ViewModels
         public decimal TotalSumOfAccounts { get; set; }
         public string Country { get; set; }
 
-        
+
 
     }
 }

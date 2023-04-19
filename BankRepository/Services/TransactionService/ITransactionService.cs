@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
-using BankRepository.ViewModels;
+using BankRepository.ViewModels.TransactionView;
 
 public enum TransactionErrorCode
 {
@@ -14,7 +14,7 @@ public enum TransactionErrorCode
     IncorrectAmount
 }
 
-namespace BankRepository.Services
+namespace BankRepository.Services.TransactionService
 {
     public interface ITransactionService
     {

@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BankRepository.BankAppData;
-using BankRepository.ViewModels;
+using BankRepository.ViewModels.IndexView;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankRepository.Services
+namespace BankRepository.Services.IndexService
 {
     public class IndexStatisticsService : IIndexStatisticsService
     {

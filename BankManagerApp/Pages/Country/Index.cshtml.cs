@@ -1,5 +1,5 @@
-using BankRepository.Services;
-using BankRepository.ViewModels;
+using BankRepository.Services.CustomerService;
+using BankRepository.ViewModels.CustomerView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

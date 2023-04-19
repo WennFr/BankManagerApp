@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
 
-namespace BankRepository.ViewModels
+namespace BankRepository.ViewModels.CustomerView
 {
-    public class TopCustomerViewModel 
+    public class TopCustomerViewModel
     {
         public int CustomerId { get; set; }
         public string Givenname { get; set; }
