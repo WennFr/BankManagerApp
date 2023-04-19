@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankRepository.Services
 {
-    internal class IdentityUserService
+    public class IdentityUserService
     {
     }
 }
