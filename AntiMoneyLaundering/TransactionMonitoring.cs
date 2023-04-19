@@ -51,7 +51,7 @@ namespace AntiMoneyLaundering
                     var fullName = $"{customer.Givenname} {customer.Surname}";
                     var transactions = _transactionService
                         .GetAllAccountTransactions(account.AccountId, 1, 20000)
-                        .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate); 
+                        .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate);
 
                     foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
                     {
@@ -141,20 +141,11 @@ namespace AntiMoneyLaundering
             return date;
         }
 
-
         public void RegisterSuspectedTransactions(List<SuspectedTransaction> suspectedTransactions, string country)
         {
             if (suspectedTransactionsByCountry != null)
             {
                 string fileName = $"suspected_transactions_{country}.txt";
-                string folderPath = Path.Combine(Environment.CurrentDirectory, "MonitoringData");
-
-
-                if (!Directory.Exists(folderPath))
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-
 
                 using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/{fileName}", append: false))
                 {
@@ -171,7 +162,6 @@ namespace AntiMoneyLaundering
             }
 
         }
-
 
         public void CreateMonitoringDate()
         {
