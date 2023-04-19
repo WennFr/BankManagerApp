@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,33 +30,15 @@ namespace AntiMoneyLaundering
 
         public void Execute()
         {
-            suspectedTransactionsByCountry = new List<SuspectedTransaction>();
             var allCustomers = _customerService.GetAllCustomers(null, null, 1, null, null, true).Customers;
             var counter = 1;
-            DateTime lastMonitoringDate = DateTime.Now;
 
-
-            if (!File.Exists("../../../MonitoringData/lastTransactionMonitoring.txt"))
-            {
-                using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastTransactionMonitoring.txt", append: true))
-                {
-                    var date = new DateTime(2010, 1, 1);
-                    writer.WriteLine($"{date}");
-                }
-            }
-
-            if (File.Exists("../../../MonitoringData/lastTransactionMonitoring.txt"))
-            {
-                using (StreamReader reader = new StreamReader("../../../MonitoringData/lastTransactionMonitoring.txt"))
-                {
-                    string dateString = reader.ReadLine();
-                    lastMonitoringDate = DateTime.Parse(dateString);
-                }
-            }
+            var lastMonitoringDate = ReadLastMonitoringDate();
 
             foreach (var country in allCustomers.Select(c => c.Country).Distinct())
             {
 
+                suspectedTransactionsByCountry = new List<SuspectedTransaction>();
                 var accountsPerCountry = allCustomers
                     .Where(c => c.Country == country)
                     .SelectMany(c => _accountService.GetAccountsByCustomerId(c.CustomerId))
@@ -68,7 +51,7 @@ namespace AntiMoneyLaundering
                     var fullName = $"{customer.Givenname} {customer.Surname}";
                     var transactions = _transactionService
                         .GetAllAccountTransactions(account.AccountId, 1, 20000)
-                        .Where(t=> DateTime.Parse(t.Date) > lastMonitoringDate);
+                        .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate); 
 
                     foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
                     {
@@ -112,48 +95,96 @@ namespace AntiMoneyLaundering
 
                 }
 
-                if (suspectedTransactionsByCountry != null)
-                {
-                    string fileName = $"suspected_transactions_{country}.txt";
-                    string filePath = Path.Combine("MonitoringData", fileName);
-                    string folderPath = Path.Combine(Environment.CurrentDirectory, "MonitoringData");
-                    string fullPath = Path.Combine(folderPath, fileName);
-
-
-                    if (!Directory.Exists(folderPath))
-                    {
-                        Directory.CreateDirectory(folderPath);
-                    }
-
-
-                    using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/{fileName}", append: false))
-                    {
-                        foreach (var transaction in suspectedTransactionsByCountry)
-                        {
-                            writer.WriteLine($"Customer Name: {transaction.CustomerName}");
-                            writer.WriteLine($"Account ID: {transaction.AccountId}");
-                            writer.WriteLine($"Transaction IDs: {string.Join(", ", transaction.TransactionIds)}");
-                            writer.WriteLine($"Amount: {string.Join(", ", transaction.Amount)}");
-                            writer.WriteLine($"Transaction Date: {string.Join(", ", transaction.TransactionDate)}");
-                            writer.WriteLine("------------------------------------");
-                        }
-                    }
-                }
+                RegisterSuspectedTransactions(suspectedTransactionsByCountry, country);
 
             }
 
-
-
-
-            using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastTransactionMonitoring.txt", append: false))
-            {
-                var date = DateTime.Now;
-                writer.WriteLine($"{date}");
-            }
-
+            CreateMonitoringDate();
             Console.WriteLine("Done...");
             Console.ReadKey();
         }
+
+
+
+        public DateTime ReadLastMonitoringDate()
+        {
+            var date = new DateTime();
+            var folder = "../../../MonitoringData";
+            var filePath = "../../../MonitoringData/lastTransactionMonitoring.txt";
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            if (!File.Exists(filePath))
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, append: true))
+                {
+                    date = new DateTime(2010, 1, 1);
+                    writer.WriteLine($"{date}");
+                }
+            }
+
+            if (File.Exists(filePath))
+            {
+
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+
+                    string dateString = reader.ReadLine();
+                    date = DateTime.Parse(dateString);
+                    date = date.Date;
+                }
+            }
+
+            return date;
+        }
+
+
+        public void RegisterSuspectedTransactions(List<SuspectedTransaction> suspectedTransactions, string country)
+        {
+            if (suspectedTransactionsByCountry != null)
+            {
+                string fileName = $"suspected_transactions_{country}.txt";
+                string folderPath = Path.Combine(Environment.CurrentDirectory, "MonitoringData");
+
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+
+                using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/{fileName}", append: false))
+                {
+                    foreach (var transaction in suspectedTransactionsByCountry)
+                    {
+                        writer.WriteLine($"Customer Name: {transaction.CustomerName}");
+                        writer.WriteLine($"Account ID: {transaction.AccountId}");
+                        writer.WriteLine($"Transaction ID: {string.Join(", ", transaction.TransactionIds)}");
+                        writer.WriteLine($"Amount: {string.Join(", ", transaction.Amount)}");
+                        writer.WriteLine($"Transaction Date: {string.Join(", ", transaction.TransactionDate)}");
+                        writer.WriteLine("------------------------------------");
+                    }
+                }
+            }
+
+        }
+
+
+        public void CreateMonitoringDate()
+        {
+
+            using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastTransactionMonitoring.txt", append: false))
+            {
+                var date = DateTime.Now.Date;
+                writer.WriteLine($"{date}");
+            }
+
+        }
+
+
     }
 }
 
