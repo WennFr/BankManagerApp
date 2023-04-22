@@ -1,0 +1,113 @@
+﻿@page
+@model BankManagerApp.Pages.CustomerManagement.CreateCustomerModel
+@{
+    ViewBag.BodyClass = "homelong";
+}
+
+
+<h1 class="text-center">Customer</h1>
+
+
+
+<section class="job-list section pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-lg-11 m-auto">
+                <div class="block">
+                    <div class="customer-top">
+                        <h2 class="customer-name">New Customer</h2>
+
+
+                   @*     @if (@Model.Customer.Gender == "male")
+                        {
+                            <div>
+                                <img class="customer-img" src="/images/team/marketing-team-02.jpg" alt="client">
+                            </div>
+
+                        }
+                        else if (@Model.Customer.Gender == "female")
+                        {
+                            <div>
+                                <img class="customer-img" src="/images/team/marketing-team-03.jpg" alt="client">
+                            </div>
+
+                        }*@
+
+                    </div>
+
+                    <table class="title table">
+                        <thead>
+
+                            <tr>
+                                <th scope="col">Customer Info</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <
+
+
+
+                        <th scope="col">Accounts</th>
+                        <th></th>
+                        <th></th>
+
+
+                          @*  @foreach (var acco in @Model.Accounts)
+                            {
+                            <tr>
+                                <td>Account Id:  </td>
+                                <td>@acco.AccountId</td>
+                                <td style="width: 150px">
+                                        @if (@Model.PreviousPage == "account")
+                                        {
+                                        }
+                                        else if (@Model.PreviousPage == "customers")
+                                        {
+                                        <a class="btn btn-primary"
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
+                                            Account
+                                        </a>
+                                        }
+
+                                        else if (@Model.PreviousPage == "topCustomersByCountry")
+                                        {
+                                        <a class="btn btn-primary"
+                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
+                                            Account
+                                        </a>
+                                        }
+
+
+                                </td>
+                            </tr>*@
+                            }
+
+                      @*  <tr>
+                            <td>Total Customer Balance:</td>
+                            <td>@Model.Customer.TotalBalanceOfAllAccounts</td>
+                            <td></td>
+                        </tr>*@
+                @*        <tr>
+                            <td>
+                                    @if (@Model.PreviousPage == "customers")
+                                    {
+
+                                    <a class="btn btn-secondary"
+                                   asp-page="/Customers/Index">
+                                        Back
+                                    </a>
+
+                                    }
+
+                            </td>
+                            <td></td>
+                            <td></td>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

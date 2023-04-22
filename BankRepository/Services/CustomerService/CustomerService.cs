@@ -56,7 +56,7 @@ namespace BankRepository.Services.CustomerService
             return viewModelResult;
         }
 
-        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity, bool IsAntiMoneyLaundering)
+        public PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo,int pageSize ,string qName, string qCity)
         {
 
             var query = _dbContext.Customers.AsQueryable();
@@ -107,12 +107,7 @@ namespace BankRepository.Services.CustomerService
 
 
 
-            var pagedResult = query.GetPaged(pageNo, 20000);
-
-            if (!IsAntiMoneyLaundering)
-            {
-                pagedResult = query.GetPaged(pageNo, 50);
-            }
+            var pagedResult = query.GetPaged(pageNo, pageSize);
 
             var customerViewModelResult = _mapper.Map<List<CustomerViewModel>>(pagedResult.Results);
 

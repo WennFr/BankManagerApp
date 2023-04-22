@@ -44,14 +44,13 @@
                     <div class="job">
                         <div class="content">
                             <!-- Job Title -->
-                            <!-- Job Title -->
-                            <h3>Customer </h3>
+                            <h3>Customers </h3>
                             <!-- Location -->
                             <p>Register and edit Blue Ridge Bank customers.</p>
                         </div>
-                        <!-- Action Button -->
+                        <!-- Create Button -->
                         <div class="apply-button">
-                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-main-sm">Create</a>
+                            <a asp-page="/CustomerManagement/CreateCustomer" class="btn btn-main-sm">Create</a>
                             <a class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Edit</a>
                             <!-- Modal -->
                             <div class="modal fade jd-modal" id="android-developer" tabindex="-1">
@@ -72,7 +71,8 @@
 
                                                             <tr>
                                                                 <th scope="col">Id</th>
-                                                                <th scope="col">Email</th>
+                                                                <th scope="col">First Name</th>
+                                                                <th scope="col">Second Name</th>
                                                                 <th></th>
                                                             </tr>
 
@@ -85,14 +85,13 @@
                                                                 <td>@cust.CustomerId</td>
                                                                 <td>@cust.Givenname</td>
                                                                 <td>@cust.Surname</td>
-                                                                <td><a asp-page="" asp-route-Id="@cust.CustomerId" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
+                                                                    <td><a asp-page="/CustomerManagement/Index" asp-route-Id="@cust.CustomerId" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
                                                             </tr>
                                                         }
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -109,46 +108,3 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-<script>
-    // Find the form element
-    const form = document.getElementById("registerForm");
-
-    // Add an event listener for form submission
-    form.addEventListener("submit", function (event) {
-        // Prevent the default form submission behavior
-        event.preventDefault();
-
-        // Get the form fields and their values
-        const emailInput = form.elements.email;
-        const passwordInput = form.elements.password;
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        // Validate the form fields
-        let errors = [];
-        if (email === "") {
-            errors.push("Please enter your email address.");
-        }
-        if (password === "") {
-            errors.push("Please enter your password.");
-        }
-
-        // If there are errors, show them to the user
-        if (errors.length > 0) {
-            const errorList = document.createElement("ul");
-            errors.forEach(function (error) {
-                const errorItem = document.createElement("li");
-                errorItem.textContent = error;
-                errorList.appendChild(errorItem);
-            });
-            const errorDiv = document.getElementById("errorDiv");
-            errorDiv.innerHTML = "";
-            errorDiv.appendChild(errorList);
-        }
-
-        // If there are no errors, submit the form
-        else {
-            form.submit();
-        }
-    });
-</script>

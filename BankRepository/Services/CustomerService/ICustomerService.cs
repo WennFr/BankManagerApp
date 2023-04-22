@@ -11,7 +11,7 @@ namespace BankRepository.Services.CustomerService
     {
         List<TopCustomerViewModel> GetTopCustomersByCountry(string country);
 
-        PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo, string qName, string qCity, bool IsAntiMoneyLaundering);
+        PagedCustomerViewModel GetAllCustomers(string sortColumn, string sortOrder, int pageNo,int pageSize ,string qName, string qCity);
 
         CustomerInformationViewModel GetFullCustomerInformationById(int customerId);
 

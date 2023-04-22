@@ -31,7 +31,7 @@ namespace AntiMoneyLaundering
 
         public void Execute()
         {
-            var allCustomers = _customerService.GetAllCustomers(null, null, 1, null, null, true).Customers;
+            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 2000, null, null).Customers;
             var counter = 1;
 
             var lastMonitoringDate = ReadLastMonitoringDate();
