@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
-using BankRepository.DataAccess;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.Services.TransactionService;
@@ -145,7 +144,7 @@ namespace AntiMoneyLaundering
 
         public void RegisterSuspectedTransactions(List<SuspectedTransaction> suspectedTransactions, string country)
         {
-            if (suspectedTransactionsByCountry != null)
+            if (suspectedTransactionsByCountry != null || suspectedTransactionsByCountry.Count > 0)
             {
                 string fileName = $"suspected_transactions_{country}.txt";
 

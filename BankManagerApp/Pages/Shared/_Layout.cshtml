@@ -75,8 +75,8 @@
 
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item  @@register">
-                                <a class="nav-link text-dark"asp-page="/Administrator/Index">Manage Users</a>
+                            <li class="nav-item  @@administrate users">
+                                <a class="nav-link text-dark"asp-page="/Administrator/Index">Administrate Users</a>
                             </li>
                             <li class="nav-item @@privacy">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
@@ -93,6 +93,10 @@
                             <li class="nav-item  @@accounts">
                                 <a class="nav-link text-dark" asp-area=""
                                    asp-page="/Accounts/Index">Accounts</a>
+                            </li>
+
+                            <li class="nav-item  @@register">
+                                <a class="nav-link text-dark"asp-page="/CustomerManagement/Index">Manage Clients</a>
                             </li>
                         }
                     </ul>

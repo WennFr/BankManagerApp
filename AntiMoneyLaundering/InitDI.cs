@@ -6,8 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BankRepository.DataAccess;
 using BankRepository.Infrastructure.Profiles;
+using BankRepository.Services.AccountService;
+using BankRepository.Services.CustomerService;
+using BankRepository.Services.TransactionService;
 
 namespace AntiMoneyLaundering
 {

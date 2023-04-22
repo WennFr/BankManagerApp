@@ -1,0 +1,154 @@
+﻿@page
+@model BankManagerApp.Pages.CustomerManagement.IndexModel
+@{
+    ViewBag.BodyClass = "home";
+
+}
+
+<section class="section gradient-banner">
+    <div class="shapes-container">
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="1000" data-aos-delay="100"></div>
+        <div class="shape" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300"></div>
+        <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-right" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="zoom-out" data-aos-duration="2000" data-aos-delay="500"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="200"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-up" data-aos-duration="500" data-aos-delay="0"></div>
+        <div class="shape" data-aos="fade-down" data-aos-duration="500" data-aos-delay="0"></div>
+        <div class="shape" data-aos="fade-up-right" data-aos-duration="500" data-aos-delay="100"></div>
+        <div class="shape" data-aos="fade-down-left" data-aos-duration="500" data-aos-delay="0"></div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-2 order-md-1 text-center text-md-center mx-auto">
+                <h1 class="text-white font-weight-bold mb-4">Cashier</h1>
+                <p class="text-white mb-5">
+                    Manage customers and accounts by creating new ones or modifying existing ones.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="job-list section pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-10 m-auto">
+                <div class="block">
+                    <div class="job">
+                        <div class="content">
+                            <!-- Job Title -->
+                            <!-- Job Title -->
+                            <h3>Customer </h3>
+                            <!-- Location -->
+                            <p>Register and edit Blue Ridge Bank customers.</p>
+                        </div>
+                        <!-- Action Button -->
+                        <div class="apply-button">
+                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-main-sm">Create</a>
+                            <a class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Edit</a>
+                            <!-- Modal -->
+                            <div class="modal fade jd-modal" id="android-developer" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Choose User</h5>
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Application Form -->
+                                            <div class="col-12 col-lg-12 m-auto">
+                                                <div class="block">
+                                                    <table class="title table ">
+                                                        <thead>
+
+                                                            <tr>
+                                                                <th scope="col">Id</th>
+                                                                <th scope="col">Email</th>
+                                                                <th></th>
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach (var cust in Model.Customers)
+                                                        {
+
+                                                            <tr>
+                                                                <td>@cust.CustomerId</td>
+                                                                <td>@cust.Givenname</td>
+                                                                <td>@cust.Surname</td>
+                                                                <td><a asp-page="" asp-route-Id="@cust.CustomerId" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
+                                                            </tr>
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    // Find the form element
+    const form = document.getElementById("registerForm");
+
+    // Add an event listener for form submission
+    form.addEventListener("submit", function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Get the form fields and their values
+        const emailInput = form.elements.email;
+        const passwordInput = form.elements.password;
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Validate the form fields
+        let errors = [];
+        if (email === "") {
+            errors.push("Please enter your email address.");
+        }
+        if (password === "") {
+            errors.push("Please enter your password.");
+        }
+
+        // If there are errors, show them to the user
+        if (errors.length > 0) {
+            const errorList = document.createElement("ul");
+            errors.forEach(function (error) {
+                const errorItem = document.createElement("li");
+                errorItem.textContent = error;
+                errorList.appendChild(errorItem);
+            });
+            const errorDiv = document.getElementById("errorDiv");
+            errorDiv.innerHTML = "";
+            errorDiv.appendChild(errorList);
+        }
+
+        // If there are no errors, submit the form
+        else {
+            form.submit();
+        }
+    });
+</script>
