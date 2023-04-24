@@ -4,38 +4,46 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using AutoMapper;
 using BankManagerApp.DropDowns;
+using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
+using BankRepository.ViewModels.CustomerView;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
     [BindProperties]
     public class CreateCustomerModel : PageModel
     {
-       
 
-        public CreateCustomerModel(ICustomerService customerService, ICustomerDropDown customerDropDown)
+
+        public CreateCustomerModel(ICustomerService customerService,IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
         {
             _customerService = customerService;
+            _accountService = accountService;
             _customerDropDown = customerDropDown;
+            _mapper = mapper;
         }
 
         private readonly ICustomerService _customerService;
+        private readonly IAccountService _accountService;
         private readonly ICustomerDropDown _customerDropDown;
+        private readonly IMapper _mapper;
 
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
         public List<SelectListItem> Genders { get; set; }
 
-        public string Gender { get; set; }
-
         [MaxLength(100)]
         [Required]
         public string Givenname { get; set; }
 
+        [MaxLength(100)]
+        [Required]
         public string Surname { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string StreetAddress { get; set; }
 
         [StringLength(50)]
@@ -43,24 +51,22 @@ namespace BankManagerApp.Pages.CustomerManagement
         public string City { get; set; }
 
         [StringLength(10)]
+        [Required]
         public string Zipcode { get; set; }
 
         [Range(1, 99, ErrorMessage = "Please choose a listed country.")]
         public CountryEnum CountryCustomer { get; set; }
         public List<SelectListItem> Countries { get; set; }
+        public DateTime BirthDay { get; set; } = DateTime.Today.AddYears(-18).AddDays(-1);
 
-        public string CountryCode { get; set; }
-
-        public DateTime BirthDay { get; set; }
-
-        public string? NationalId { get; set; }
-
+        [Required]
         [Range(1, 500, ErrorMessage = "Please choose a listed country code.")]
         public TelephoneCountryCode TelephoneCountryCodeCustomer { get; set; }
         public List<SelectListItem> TelephoneCountryCodes { get; set; }
 
-        public string? TelephoneNumber { get; set; }
+        public string TelephoneNumber { get; set; }
 
+        public string NationalId { get; set; }
 
 
         [StringLength(150)]
@@ -72,26 +78,38 @@ namespace BankManagerApp.Pages.CustomerManagement
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
 
-
         }
 
         public IActionResult OnPost()
         {
+            Genders = _customerDropDown.FillGenderList();
+            Countries = _customerDropDown.FillCountryList();
+            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
 
-            if (BirthDay < DateTime.Now)
+
+
+            //add solution for leap years
+            var age = DateTime.Today - BirthDay;
+            if (age.TotalDays < 18 * 365.25)
             {
-                ModelState.AddModelError("DepositDate", "Please select a current date.");
+                ModelState.AddModelError("BirthDay", "Customer must be at least 18 years old to be registered.");
             }
+
 
             if (ModelState.IsValid)
             {
+                var customerViewModel = _mapper.Map<CustomerInformationViewModel>(this);
+
+                var newCustomerId = _customerService.RegisterNewCustomer(customerViewModel);
+
+
                 return RedirectToPage("Index");
             }
 
             return Page();
         }
 
-  
+
 
 
 

@@ -49,9 +49,11 @@ namespace BankManagerApp.Pages.Accounts
                 if (status == TransactionErrorCode.OK)
                 {
                     var newFromAccountBalance = _transactionService.RegisterWithdrawal(FromAccountId, Amount);
+
                     _transactionService.RegisterTransaction(FromAccountId, Amount, newFromAccountBalance, OperationConstant.WithdrawalInCash, TransferDate, TransactionType.Debit);
 
                     var newToAccountBalance = _transactionService.RegisterDeposit(ToAccountId, Amount);
+
                     _transactionService.RegisterTransaction(ToAccountId, Amount, newToAccountBalance, OperationConstant.CreditInCash, TransferDate, TransactionType.Credit);
 
 

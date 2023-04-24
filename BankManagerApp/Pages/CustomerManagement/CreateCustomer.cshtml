@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="StreetAddress">StreetAddress</label>
-                            <input class="form-control" asp-for="EmailAddress">
+                            <input class="form-control" asp-for="StreetAddress">
                             <span asp-validation-for="StreetAddress" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="BirthDay" class="">Date of Birth</label>
-                            <input class="form-control" asp-for="BirthDay" required>
+                            <input class="form-control" asp-for="BirthDay" type="date">
                             <span class="field-validation-error" asp-validation-for="BirthDay"></span>
                         </div>
                         <div class="form-group">
@@ -101,7 +101,7 @@
                         <div class="form-group">
                             <label asp-for="NationalId">National Id</label>
                             <input class="form-control" asp-for="NationalId" placeholder="*Optional">
-                            <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                            @*<span asp-validation-for="NationalId" class="field-validation-error"></span>*@
                         </div>
 
 

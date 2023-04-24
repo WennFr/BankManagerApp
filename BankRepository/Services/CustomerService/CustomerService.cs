@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BankRepository.BankAppData;
+using BankRepository.Infrastructure.Common;
 using BankRepository.Infrastructure.Paging;
 using BankRepository.Services.AccountService;
 using BankRepository.ViewModels.CustomerView;
@@ -146,13 +147,35 @@ namespace BankRepository.Services.CustomerService
 
             var customerViewModel = _mapper.Map<CustomerViewModel>(result.Customer);
 
-
-
             return customerViewModel;
-
-
         }
 
+        public int RegisterNewCustomer(CustomerInformationViewModel customerViewModel)
+        {
+            var customer = new Customer();
+            customer = _mapper.Map<Customer>(customerViewModel);
+
+            switch (customer.Country)
+            {
+                case "Sweden":
+                    customer.CountryCode = "SE";
+                    break;
+                case "Norway":
+                    customer.CountryCode = "NO";
+                    break;
+                case "Finland":
+                    customer.CountryCode = "FI";
+                    break;
+                case "Denmark":
+                    customer.CountryCode = "DK";
+                    break;
+            }
+
+            _dbContext.Customers.Add(customer);
+            _dbContext.SaveChanges();
+
+            return customer.CustomerId;
+        }
 
 
 

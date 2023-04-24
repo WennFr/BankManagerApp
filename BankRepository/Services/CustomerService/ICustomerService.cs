@@ -17,7 +17,7 @@ namespace BankRepository.Services.CustomerService
 
         CustomerViewModel GetCustomerNameByAccountId(int accountId);
 
-
+        int RegisterNewCustomer(CustomerInformationViewModel customerViewModel);
 
     }
 }
