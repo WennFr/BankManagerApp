@@ -8,7 +8,6 @@ namespace BankRepository.Infrastructure.Common
 {
     public enum TelephoneCountryCode
     {
-        Choose = 0,
         Sweden = 46,
         Finland = 358,
         Norway = 47,
