@@ -1,23 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using BankManagerApp.DropDowns;
+using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
+using BankRepository.Services.AccountService;
+using BankRepository.Services.CustomerService;
+using BankRepository.ViewModels.AccountView;
+using BankRepository.ViewModels.CustomerView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using AutoMapper;
-using BankManagerApp.DropDowns;
-using BankRepository.Services.AccountService;
-using BankRepository.Services.CustomerService;
-using BankRepository.ViewModels.CustomerView;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
-    [BindProperties]
-    public class CreateCustomerModel : PageModel
+    public class UpdateCustomerModel : PageModel
     {
 
-
-        public CreateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
+        public UpdateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
         {
             _customerService = customerService;
             _accountService = accountService;
@@ -29,6 +28,7 @@ namespace BankManagerApp.Pages.CustomerManagement
         private readonly IAccountService _accountService;
         private readonly ICustomerDropDown _customerDropDown;
         private readonly IMapper _mapper;
+
 
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
@@ -72,45 +72,23 @@ namespace BankManagerApp.Pages.CustomerManagement
         [StringLength(150)]
         [EmailAddress]
         public string EmailAddress { get; set; }
-        public void OnGet()
+
+
+        public CustomerInformationViewModel Customer { get; set; }
+        public List<AccountViewModel> Accounts { get; set; }
+
+
+        public void OnGet(int customerId)
         {
             Genders = _customerDropDown.FillGenderList();
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
 
+            Customer = _customerService.GetFullCustomerInformationById(customerId);
+            Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+
+            _mapper.Map(Customer, this);
+
         }
-
-        public IActionResult OnPost()
-        {
-            Genders = _customerDropDown.FillGenderList();
-            Countries = _customerDropDown.FillCountryList();
-            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
-
-            //add solution for leap years
-            var age = DateTime.Today - BirthDay;
-            if (age.TotalDays < 18 * 365.25)
-            {
-                ModelState.AddModelError("BirthDay", "Customer must be at least 18 years old to be registered.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                var customerViewModel = _mapper.Map<CustomerInformationViewModel>(this);
-
-                var newCustomerId = _customerService.RegisterNewCustomer(customerViewModel);
-
-                _accountService.RegisterNewAccountByCustomerId(newCustomerId);
-
-                return RedirectToPage("Index");
-            }
-
-            return Page();
-        }
-
-
-
-
-
-
     }
 }

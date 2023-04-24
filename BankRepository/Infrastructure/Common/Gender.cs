@@ -9,9 +9,9 @@ namespace BankRepository.Infrastructure.Common
     public enum Gender
     {
         Choose = 0,
-        Male = 1,
-        Female = 2,
-        Other = 3
+        male = 1,
+        female = 2,
+        other = 3
     }
 
 }

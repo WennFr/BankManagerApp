@@ -26,11 +26,13 @@ namespace BankManagerApp.Pages.Customers
         public string QCity { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
+        public string PreviousPage { get; set; }
 
 
 
-        public void OnGet(string sortColumn, string sortOrder,int pageNo, string qName, string qCity)
+        public void OnGet(string sortColumn, string sortOrder,int pageNo, string qName, string qCity, string previousPage)
         {
+            PreviousPage = previousPage;
             QName = qName;
             QCity = qCity;
             SortColumn = sortColumn;

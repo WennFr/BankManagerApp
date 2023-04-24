@@ -25,10 +25,8 @@ namespace BankManagerApp.Pages.Accounts
 
         public int PageCount { get; set; }
 
-
         public void OnGet(string sortColumn, string sortOrder, int pageNo)
         {
-
             SortColumn = sortColumn;
             SortOrder = sortOrder;
 
