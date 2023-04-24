@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using BankManagerApp.DropDowns;
 using BankRepository.Services.CustomerService;
 
 namespace BankManagerApp.Pages.CustomerManagement
@@ -11,14 +12,18 @@ namespace BankManagerApp.Pages.CustomerManagement
     [BindProperties]
     public class CreateCustomerModel : PageModel
     {
-        private readonly ICustomerService _customerService;
+       
 
-        public CreateCustomerModel(ICustomerService customerService)
+        public CreateCustomerModel(ICustomerService customerService, ICustomerDropDown customerDropDown)
         {
             _customerService = customerService;
+            _customerDropDown = customerDropDown;
         }
 
-        [Range(1, 99, ErrorMessage = "Please choose a valid gender!")]
+        private readonly ICustomerService _customerService;
+        private readonly ICustomerDropDown _customerDropDown;
+
+        [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
         public List<SelectListItem> Genders { get; set; }
 
@@ -40,8 +45,9 @@ namespace BankManagerApp.Pages.CustomerManagement
         [StringLength(10)]
         public string Zipcode { get; set; }
 
-        [StringLength(2)]
-        public string Country { get; set; }
+        [Range(1, 99, ErrorMessage = "Please choose a listed country.")]
+        public CountryEnum CountryCustomer { get; set; }
+        public List<SelectListItem> Countries { get; set; }
 
         public string CountryCode { get; set; }
 
@@ -49,25 +55,24 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public string? NationalId { get; set; }
 
-        public string? TelephoneCountryCode { get; set; }
+        [Range(1, 500, ErrorMessage = "Please choose a listed country code.")]
+        public TelephoneCountryCode TelephoneCountryCodeCustomer { get; set; }
+        public List<SelectListItem> TelephoneCountryCodes { get; set; }
 
         public string? TelephoneNumber { get; set; }
 
 
-
-        [Range(0, 100000, ErrorMessage = "Skriv ett tal mellan 0 och 100000")]
-
-       
-
-   
 
         [StringLength(150)]
         [EmailAddress]
         public string EmailAddress { get; set; }
         public void OnGet()
         {
-            FillGenderList();
-           
+            Genders = _customerDropDown.FillGenderList();
+            Countries = _customerDropDown.FillCountryList();
+            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+
+
         }
 
         public IActionResult OnPost()

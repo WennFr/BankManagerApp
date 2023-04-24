@@ -14,5 +14,27 @@ namespace BankManagerApp.DropDowns
                     Text = g.ToString()
                 }).ToList();
         }
+
+        public List<SelectListItem> FillCountryList()
+        {
+            return Enum.GetValues<CountryEnum>()
+                .Select(g => new SelectListItem
+                {
+                    Value = g.ToString(),
+                    Text = g.ToString()
+                }).ToList();
+        }
+
+        public List<SelectListItem> FillCountryCodeList()
+        {
+            return Enum.GetValues<TelephoneCountryCode>()
+                .Select(g => new SelectListItem
+                {
+                    Value = ((int)g).ToString(),
+                    Text = g.ToString()
+                }).ToList();
+        }
+
+
     }
 }

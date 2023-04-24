@@ -67,9 +67,9 @@
                             <span asp-validation-for="Zipcode" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Country">Country</label>
-                            <input class="form-control" asp-for="Country">
-                            <span asp-validation-for="Country" class="field-validation-error"></span>
+                            <label asp-for="CountryCustomer">Country</label>
+                            <select class="form-control" asp-for="CountryCustomer" asp-items="@Model.Countries"></select>
+                            <span asp-validation-for="CountryCustomer" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="BirthDay" class="">Date of Birth</label>
@@ -82,15 +82,23 @@
                             <span asp-validation-for="EmailAddress" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="NationalId">National Id</label>
-                            <input class="form-control" asp-for="NationalId">
-                            <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                            <label asp-for="TelephoneCountryCodeCustomer">Telephone CountryCode</label>
+                            <select class="form-control" asp-for="TelephoneCountryCodeCustomer" asp-items="@Model.TelephoneCountryCodes">
+                                <option value="">-- Select --</option>
+                            </select>
+                            <span asp-validation-for="TelephoneCountryCodeCustomer" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="TelephoneNumber">Telephone Number</label>
                             <input class="form-control" asp-for="TelephoneNumber">
                             <span asp-validation-for="TelephoneNumber" class="field-validation-error"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="NationalId">National Id</label>
+                            <input class="form-control" asp-for="NationalId" placeholder="*Optional">
+                            <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                        </div>
+                      
                         
 
                         <button type="submit" class="form-group btn-primary">Save</button>
