@@ -17,7 +17,7 @@ namespace BankManagerApp.Pages.CustomerManagement
     {
 
 
-        public CreateCustomerModel(ICustomerService customerService,IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
+        public CreateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
         {
             _customerService = customerService;
             _accountService = accountService;
@@ -102,6 +102,7 @@ namespace BankManagerApp.Pages.CustomerManagement
 
                 var newCustomerId = _customerService.RegisterNewCustomer(customerViewModel);
 
+                _accountService.RegisterNewAccountByCustomerId(newCustomerId);
 
                 return RedirectToPage("Index");
             }

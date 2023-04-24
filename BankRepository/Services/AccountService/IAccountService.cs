@@ -26,6 +26,8 @@ namespace BankRepository.Services.AccountService
 
         AccountErrorCode ReturnValidationStatus(int accountId);
 
+        void RegisterNewAccountByCustomerId(int customerId);
+
 
     }
 }

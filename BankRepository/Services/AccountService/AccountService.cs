@@ -117,6 +117,31 @@ namespace BankRepository.Services.AccountService
             return AccountErrorCode.OK;
         }
 
+        public void RegisterNewAccountByCustomerId(int customerId)
+        {
+            var customer = _dbContext.Customers.First(c => c.CustomerId == customerId);
+
+            var newAccount = new Account()
+            {
+                Frequency = "Monthly",
+                Created = DateTime.Now.Date,
+                Balance = 0.00m
+            };
+
+            _dbContext.Accounts.Add(newAccount);
+            _dbContext.SaveChanges();
+
+            _dbContext.Dispositions.Add(new Disposition()
+            {
+                CustomerId = customer.CustomerId,
+                AccountId = newAccount.AccountId,
+                Type = "OWNER"
+            });
+
+            _dbContext.SaveChanges();
+        }
+
+
 
 
     }
