@@ -37,9 +37,9 @@
 
                     <form method="post">
                         <div class="form-group">
-                            <label asp-for="Gender">Gender</label>
-                            <input class="form-control" asp-for="Gender">
-                            <span asp-validation-for="Gender" class="field-validation-error"></span>
+                            <label asp-for="GenderCustomer">Gender</label>
+                            <select class="form-control" asp-for="GenderCustomer" asp-items="@Model.Genders"></select>
+                            <span asp-validation-for="GenderCustomer" class="field-validation-error"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Givenname">First Name</label>
@@ -71,9 +71,9 @@
                             <input class="form-control" asp-for="Country">
                             <span asp-validation-for="Country" class="field-validation-error"></span>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <label asp-for="BirthDay" class="transaction-solid">Date of Birth</label>
-                            <input class="form-control main" asp-for="BirthDay" required>
+                        <div class="form-group">
+                            <label asp-for="BirthDay" class="">Date of Birth</label>
+                            <input class="form-control" asp-for="BirthDay" required>
                             <span class="field-validation-error" asp-validation-for="BirthDay"></span>
                         </div>
                         <div class="form-group">
@@ -93,7 +93,7 @@
                         </div>
                         
 
-                        <button type="submit" class="btn">Save</button>
+                        <button type="submit" class="form-group btn-primary">Save</button>
                     </form>
 
 
