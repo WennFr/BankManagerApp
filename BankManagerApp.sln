@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankRepository", "BankRepos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntiMoneyLaundering", "AntiMoneyLaundering\AntiMoneyLaundering.csproj", "{29153C3A-B37F-461F-859B-DBAE4FC74B6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankWebAPI", "BankWebAPI\BankWebAPI.csproj", "{83505ABD-9657-413A-AE0B-E39608A5CD9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{29153C3A-B37F-461F-859B-DBAE4FC74B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29153C3A-B37F-461F-859B-DBAE4FC74B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29153C3A-B37F-461F-859B-DBAE4FC74B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83505ABD-9657-413A-AE0B-E39608A5CD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83505ABD-9657-413A-AE0B-E39608A5CD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83505ABD-9657-413A-AE0B-E39608A5CD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83505ABD-9657-413A-AE0B-E39608A5CD9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
