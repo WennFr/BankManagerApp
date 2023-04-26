@@ -6,6 +6,7 @@ using System.Data;
 using BankRepository.BankAppData;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
+using BankRepository.ViewModels.CustomerView;
 
 namespace BankWebAPI.Controllers
 {
@@ -23,10 +24,29 @@ namespace BankWebAPI.Controllers
         private readonly IAccountService _accountService;
 
 
+
+
+
+
+        // Get ONE ///////////////////////////////////////////////////////
+        /// <summary>
+        /// Retrieve Customer Information From The Database
+        /// </summary>
+        /// <returns>
+        /// Customer Information
+        /// </returns>
+        /// <remarks>
+        /// Example end point: GET /api/Me/2
+        /// </remarks>
+        /// <response code="200">
+        /// Successfully Returned Customer Information
+        /// </response>
+
+
         [HttpGet]
         [Route("{id}")]
         //[Authorize(Roles = "Admin, User")]
-        public async Task<ActionResult<Customer>> GetOne(int id)
+        public async Task<ActionResult<CustomerInformationViewModel>> GetOne(int id)
         {
             var customerViewModel = _customerService.GetFullCustomerInformationById(id);
 

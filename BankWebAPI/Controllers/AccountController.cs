@@ -24,6 +24,23 @@ namespace BankWebAPI.Controllers
         private readonly ITransactionService _transactionService;
 
 
+
+
+
+        // GET ALL ///////////////////////////////////////////////////////
+        /// <summary>
+        /// Retrieve Account Transactions By Limit And Offset
+        /// </summary>
+        /// <returns>
+        /// Account Transactions
+        /// </returns>
+        /// <remarks>
+        /// Example end point: GET /api/Account/2/20/10 
+        /// </remarks>
+        /// <response code="200">
+        /// Successfully Returned Account Transactions
+        /// </response>
+
         [HttpGet]
         [Route("{id}/{limit}/{offset}")]
         //[Authorize(Roles = "Admin, User")]
