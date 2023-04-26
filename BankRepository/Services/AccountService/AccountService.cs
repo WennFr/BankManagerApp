@@ -81,7 +81,7 @@ namespace BankRepository.Services.AccountService
         {
             var account = _dbContext.Accounts
                 .Where(a => a.AccountId == accountId)
-                .First();
+                .FirstOrDefault();
 
             var accountViewModelResult = _mapper.Map<AccountViewModel>(account);
 

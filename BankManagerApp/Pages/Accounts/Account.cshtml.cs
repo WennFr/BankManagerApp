@@ -13,7 +13,7 @@ namespace BankManagerApp.Pages.Accounts
     public class AccountModel : PageModel
     {
 
-        public AccountModel(IAccountService accountService,ITransactionService transactionService, ICustomerService customerService)
+        public AccountModel(IAccountService accountService, ITransactionService transactionService, ICustomerService customerService)
         {
             _accountService = accountService;
             _transactionService = transactionService;
@@ -40,7 +40,10 @@ namespace BankManagerApp.Pages.Accounts
 
         public IActionResult OnGetShowMore(int accountId, int pageNo)
         {
-            var listOfTransactions = _transactionService.GetAllAccountTransactions(accountId, pageNo,20);
+            var limit = 20;
+            var offset = 0;
+
+            var listOfTransactions = _transactionService.GetAllAccountTransactions(accountId, pageNo, limit, offset);
             return new JsonResult(new { transactions = listOfTransactions });
         }
 

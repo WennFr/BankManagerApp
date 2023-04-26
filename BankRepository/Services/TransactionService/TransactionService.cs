@@ -25,16 +25,17 @@ namespace BankRepository.Services.TransactionService
         private readonly BankAppDataContext _dbContext;
         private readonly IMapper _mapper;
 
-        public List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo, int pageSize)
+        public List<TransactionViewModel> GetAllAccountTransactions(int accountId, int pageNo, int limit, int offset)
         {
 
             var query = _dbContext.Transactions
                 .Where(t => t.AccountId == accountId)
                 .OrderByDescending(t => t.Date)
                 .ThenByDescending(t => t.TransactionId)
-                .AsQueryable();
+                .AsQueryable()
+                .Skip(offset);
 
-            var pagedResult = query.GetPaged(pageNo, pageSize);
+            var pagedResult = query.GetPaged(pageNo, limit);
 
             var transactionViewModelResult = _mapper.Map<List<TransactionViewModel>>(pagedResult.Results);
 
