@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using BankRepository.BankAppData;
+using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 
 namespace BankWebAPI.Controllers
@@ -12,13 +13,14 @@ namespace BankWebAPI.Controllers
     [ApiController]
     public class MeController : ControllerBase
     {
-        public MeController(ICustomerService customerService)
+        public MeController(ICustomerService customerService, IAccountService accountService)
         {
             _customerService = customerService;
+            _accountService = accountService;
         }
 
         private readonly ICustomerService _customerService;
-
+        private readonly IAccountService _accountService;
 
 
         [HttpGet]
