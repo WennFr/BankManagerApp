@@ -46,8 +46,17 @@ namespace BankWebAPI.Controllers
         [HttpGet]
         [Route("{id}/{limit}/{offset}")]
         [Authorize(Roles = "User")]
+        [Authorize(Policy = "CustomerIdPolicy")]
         public async Task<ActionResult<Transaction>> GetALL(int id, int limit, int offset)
         {
+
+            var loggedInCustomerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+            var loggedInCustomerAccounts = _accountService.GetAccountsByCustomerId(Convert.ToInt32(loggedInCustomerId));
+
+            if (!loggedInCustomerAccounts.Any(l => l.AccountId == id))
+            {
+                return Unauthorized();
+            }
 
             var account = _accountService.GetAccountByAccountId(id);
 

@@ -72,6 +72,7 @@ namespace BankWebAPI.Controllers
                 new Claim(ClaimTypes.GivenName, user.GivenName),
                 new Claim(ClaimTypes.Surname, user.SurName),
                 new Claim(ClaimTypes.Role, user.Role),
+                new Claim("CustomerId", user.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value)
             };
 
             var token = new JwtSecurityToken(

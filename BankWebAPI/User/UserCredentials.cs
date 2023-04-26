@@ -1,4 +1,5 @@
-﻿using BankRepository.Services.CustomerService;
+﻿using System.Security.Claims;
+using BankRepository.Services.CustomerService;
 
 namespace BankWebAPI.User
 {
@@ -38,7 +39,12 @@ namespace BankWebAPI.User
                 Password = c.CustomerId.ToString(),
                 GivenName = c.Givenname,
                 SurName = c.Surname,
-                Role = "User"
+                Role = "User",
+                Claims = new List<Claim>
+                {
+                    new Claim("CustomerId", c.CustomerId.ToString())
+                }
+
             }).ToList();
 
             // Add the new users to the static Users list

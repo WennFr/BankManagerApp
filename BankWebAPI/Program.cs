@@ -26,6 +26,15 @@ builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CustomerIdPolicy", policy =>
+        policy.RequireClaim("CustomerId"));
+});
+
+
+
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
