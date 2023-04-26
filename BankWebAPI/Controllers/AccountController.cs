@@ -6,11 +6,13 @@ using System.Data;
 using BankRepository.BankAppData;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;
+using Microsoft.AspNetCore.Cors;
 
 namespace BankWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class AccountController : ControllerBase
     {
 
@@ -43,7 +45,7 @@ namespace BankWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}/{limit}/{offset}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<Transaction>> GetALL(int id, int limit, int offset)
         {
 

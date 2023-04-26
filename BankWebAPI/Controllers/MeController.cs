@@ -7,11 +7,13 @@ using BankRepository.BankAppData;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
+using Microsoft.AspNetCore.Cors;
 
 namespace BankWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class MeController : ControllerBase
     {
         public MeController(ICustomerService customerService, IAccountService accountService)
@@ -45,7 +47,7 @@ namespace BankWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<CustomerInformationViewModel>> GetOne(int id)
         {
             var customerViewModel = _customerService.GetFullCustomerInformationById(id);
