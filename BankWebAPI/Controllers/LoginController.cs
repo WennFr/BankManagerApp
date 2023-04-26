@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using BankRepository.Services.CustomerService;
 
 namespace BankWebAPI.Controllers
 {
@@ -16,10 +17,12 @@ namespace BankWebAPI.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
+        private readonly ICustomerService _customerService;
 
-        public LoginController(IConfiguration config)
+        public LoginController(IConfiguration config, ICustomerService customerService)
         {
             _config = config;
+            _customerService = customerService;
         }
 
         [AllowAnonymous]
@@ -42,6 +45,9 @@ namespace BankWebAPI.Controllers
 
         private UserModel Authenticate(UserLogin userLogin)
         {
+            var userCredentials = new UserCredentials(_customerService);
+            userCredentials.GetUsers();
+
             var currentUser = UserCredentials.Users
                 .FirstOrDefault(u =>
                 u.UserName.ToLower() == userLogin.UserName.ToLower() &&

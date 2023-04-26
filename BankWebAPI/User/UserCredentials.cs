@@ -4,13 +4,13 @@ namespace BankWebAPI.User
 {
     public class UserCredentials
     {
-        private readonly ICustomerService _customerService;
 
         public UserCredentials(ICustomerService customerService)
         {
             _customerService = customerService;
         }
 
+        private readonly ICustomerService _customerService;
 
 
         public static List<UserModel> Users = new List<UserModel>()
@@ -24,8 +24,30 @@ namespace BankWebAPI.User
                 SurName = "Chalk",
                 Role = "User",
             }
-
         };
+
+        
+        public List<UserModel> GetUsers()
+        {
+            var customers = _customerService.GetAllCustomers("", "", 1, int.MaxValue, "", "").Customers;
+
+            var users = customers.Select(c => new UserModel
+            {
+                UserName = $"user_{c.CustomerId}",
+                EmailAddress = $"{c.Givenname.ToLower()}_{c.Surname.ToLower()}@bank.com",
+                Password = c.CustomerId.ToString(),
+                GivenName = c.Givenname,
+                SurName = c.Surname,
+                Role = "User"
+            }).ToList();
+
+            // Add the new users to the static Users list
+            Users.AddRange(users);
+
+            return users;
+        }
+
+
     }
 
 }
