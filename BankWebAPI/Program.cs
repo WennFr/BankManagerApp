@@ -5,6 +5,7 @@ using BankRepository.BankAppData;
 using BankRepository.Data;
 using Microsoft.EntityFrameworkCore;
 using BankRepository.Infrastructure.Profiles;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,22 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Added general description for Swagger
+builder.Services.AddSwaggerGen(sw =>
+{
+    sw.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1.0",
+        Title = "Blue Ridge Bank Web API",
+        Description = @"API for retrieving customer and account transaction info to mobile app.",
+        Contact = new OpenApiContact
+        {
+            Name = "Frederick Wennborg",
+            Email = "frederick.wennborg@gmail.com",
+        },
+    });
+});
+
 
 
 
