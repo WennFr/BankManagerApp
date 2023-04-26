@@ -48,7 +48,7 @@ namespace BankWebAPI.Controllers
         [Route("{id}/{limit}/{offset}")]
         [Authorize(Roles = "Admin, User")]
         [Authorize(Policy = "CustomerIdPolicy")]
-        public async Task<ActionResult<Transaction>> GetALL(int id, int limit, int offset)
+        public async Task<ActionResult<Transaction>> GetAll(int id, int limit, int offset)
         {
 
             var loggedInCustomerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
