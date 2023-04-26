@@ -47,13 +47,13 @@ namespace BankWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
         [Authorize(Policy = "CustomerIdPolicy")]
         public async Task<ActionResult<CustomerInformationViewModel>> GetOne(int id)
         {
             var loggedInCustomerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
 
-            if (id.ToString() != loggedInCustomerId)
+            if (id.ToString() != loggedInCustomerId && User.IsInRole("User"))
             {
                 return Unauthorized();
             }

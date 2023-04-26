@@ -10,7 +10,7 @@ namespace BankWebAPI.User
         public string Role { get; set; }
         public string SurName { get; set; }
         public string GivenName { get; set; }
-        public List<Claim> Claims { get; set; }
+        public List<Claim>? Claims { get; set; }
     }
 
 }

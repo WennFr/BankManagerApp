@@ -7,6 +7,7 @@ using BankRepository.BankAppData;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BankWebAPI.Controllers
 {
@@ -45,7 +46,7 @@ namespace BankWebAPI.Controllers
 
         [HttpGet]
         [Route("{id}/{limit}/{offset}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         [Authorize(Policy = "CustomerIdPolicy")]
         public async Task<ActionResult<Transaction>> GetALL(int id, int limit, int offset)
         {
@@ -53,7 +54,7 @@ namespace BankWebAPI.Controllers
             var loggedInCustomerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
             var loggedInCustomerAccounts = _accountService.GetAccountsByCustomerId(Convert.ToInt32(loggedInCustomerId));
 
-            if (!loggedInCustomerAccounts.Any(l => l.AccountId == id))
+            if (!loggedInCustomerAccounts.Any(l => l.AccountId == id) && User.IsInRole("User"))
             {
                 return Unauthorized();
             }
