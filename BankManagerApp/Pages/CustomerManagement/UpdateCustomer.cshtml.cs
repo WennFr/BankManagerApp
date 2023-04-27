@@ -10,6 +10,7 @@ using BankRepository.ViewModels.CustomerView;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
@@ -33,6 +34,7 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         private int CustomerId { get; set; }
 
+        [Required]
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
         public List<SelectListItem> Genders { get; set; }
@@ -71,7 +73,6 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public string? NationalId { get; set; }
 
-
         [StringLength(150)]
         [EmailAddress]
         public string EmailAddress { get; set; }
@@ -79,7 +80,7 @@ namespace BankManagerApp.Pages.CustomerManagement
 
 
 
-        public CustomerInformationViewModel Customer { get; set; }
+        //public CustomerInformationViewModel Customer { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
 
 
@@ -89,21 +90,16 @@ namespace BankManagerApp.Pages.CustomerManagement
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
 
-            Customer = _customerService.GetFullCustomerInformationById(customerId);
+            var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
             Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
 
-            _mapper.Map(Customer, this);
+            _mapper.Map(customerViewModel, this);
 
         }
 
         public IActionResult OnPost(int customerId)
         {
-            Genders = _customerDropDown.FillGenderList();
-            Countries = _customerDropDown.FillCountryList();
-            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
-
-
-
+            
             var age = DateTime.Today - BirthDay;
             if (age.TotalDays < 18 * 365.25)
             {
@@ -118,6 +114,16 @@ namespace BankManagerApp.Pages.CustomerManagement
                 return RedirectToPage("Index");
             }
 
+
+
+            Genders = _customerDropDown.FillGenderList();
+            Countries = _customerDropDown.FillCountryList();
+            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+
+            var customer = _customerService.GetFullCustomerInformationById(customerId);
+            Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+
+            _mapper.Map(customer, this);
 
             return Page();
         }

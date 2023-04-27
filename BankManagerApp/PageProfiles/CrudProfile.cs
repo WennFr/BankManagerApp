@@ -6,9 +6,9 @@ using BankRepository.ViewModels.CustomerView;
 
 namespace BankManagerApp.PageProfiles
 {
-    public class CreateProfile : Profile
+    public class CrudProfile : Profile
     {
-        public CreateProfile()
+        public CrudProfile()
         {
             CreateMap<CreateCustomerModel, CustomerInformationViewModel>()
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.GenderCustomer.ToString()))
@@ -21,6 +21,7 @@ namespace BankManagerApp.PageProfiles
                 .ForMember(dest => dest.CountryCustomer, opt => opt.MapFrom(src => Enum.Parse(typeof(CountryEnum), src.Country)))
                 .ForMember(dest => dest.TelephoneCountryCodeCustomer, opt => opt.MapFrom(src => Enum.Parse(typeof(TelephoneCountryCode), src.TelephoneCountryCode)))
                 .ReverseMap();
+               
 
         }
     }

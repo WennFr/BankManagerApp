@@ -28,8 +28,5 @@ namespace BankRepository.ViewModels.CustomerView
 
 
 
-
-
-
     }
 }
