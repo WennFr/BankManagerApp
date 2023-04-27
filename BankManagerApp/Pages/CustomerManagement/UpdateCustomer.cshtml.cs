@@ -77,10 +77,8 @@ namespace BankManagerApp.Pages.CustomerManagement
         [EmailAddress]
         public string EmailAddress { get; set; }
 
+        public string CountryCode { get; set; }
 
-
-
-        //public CustomerInformationViewModel Customer { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
 
 
@@ -108,8 +106,10 @@ namespace BankManagerApp.Pages.CustomerManagement
 
             if (ModelState.IsValid)
             {
-                var customerViewModel = _mapper.Map<CustomerInformationViewModel>(this);
-                _customerService.EditCustomer(customerViewModel);
+                var customerToUpdate = _mapper.Map<CustomerInformationViewModel>(this);
+                customerToUpdate.CustomerId = customerId;
+
+                _customerService.EditCustomer(customerToUpdate);
 
                 return RedirectToPage("Index");
             }
@@ -120,10 +120,10 @@ namespace BankManagerApp.Pages.CustomerManagement
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
 
-            var customer = _customerService.GetFullCustomerInformationById(customerId);
+            var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
             Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
 
-            _mapper.Map(customer, this);
+            _mapper.Map(customerViewModel, this);
 
             return Page();
         }

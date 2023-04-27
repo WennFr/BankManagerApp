@@ -20,8 +20,11 @@ namespace BankManagerApp.PageProfiles
                 .ForMember(dest => dest.GenderCustomer, opt => opt.MapFrom(src => Enum.Parse(typeof(Gender), src.Gender)))
                 .ForMember(dest => dest.CountryCustomer, opt => opt.MapFrom(src => Enum.Parse(typeof(CountryEnum), src.Country)))
                 .ForMember(dest => dest.TelephoneCountryCodeCustomer, opt => opt.MapFrom(src => Enum.Parse(typeof(TelephoneCountryCode), src.TelephoneCountryCode)))
-                .ReverseMap();
-               
+                .ReverseMap()
+                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.GenderCustomer.ToString()))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.CountryCustomer.ToString()))
+                .ForMember(dest => dest.TelephoneCountryCode, opt => opt.MapFrom(src => src.TelephoneCountryCodeCustomer.ToString()));
+
 
         }
     }

@@ -155,21 +155,7 @@ namespace BankRepository.Services.CustomerService
             var customer = new Customer();
             customer = _mapper.Map<Customer>(customerViewModel);
 
-            switch (customer.Country)
-            {
-                case "Sweden":
-                    customer.CountryCode = "SE";
-                    break;
-                case "Norway":
-                    customer.CountryCode = "NO";
-                    break;
-                case "Finland":
-                    customer.CountryCode = "FI";
-                    break;
-                case "Denmark":
-                    customer.CountryCode = "DK";
-                    break;
-            }
+        
 
             _dbContext.Customers.Add(customer);
             _dbContext.SaveChanges();
@@ -187,6 +173,21 @@ namespace BankRepository.Services.CustomerService
         }
 
 
+        public string GetCountryCode(string country)
+        {
+            switch (country)
+            {
+                case "Sweden":
+                    return "SE";
+                case "Norway":
+                    return "NO";
+                case "Finland":
+                    return "FI";
+                case "Denmark":
+                    return"DK";
+            }
+            return "";
+        }
 
     }
 }

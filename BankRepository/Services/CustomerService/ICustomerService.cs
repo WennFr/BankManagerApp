@@ -21,5 +21,7 @@ namespace BankRepository.Services.CustomerService
 
         void EditCustomer(CustomerInformationViewModel customerViewModel);
 
+        string GetCountryCode(string country);
+
     }
 }
