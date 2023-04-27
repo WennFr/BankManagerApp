@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
+    [BindProperties]
     public class UpdateCustomerModel : PageModel
     {
 
@@ -29,6 +30,8 @@ namespace BankManagerApp.Pages.CustomerManagement
         private readonly ICustomerDropDown _customerDropDown;
         private readonly IMapper _mapper;
 
+
+        private int CustomerId { get; set; }
 
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
@@ -66,12 +69,14 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public string TelephoneNumber { get; set; }
 
-        public string NationalId { get; set; }
+        public string? NationalId { get; set; }
 
 
         [StringLength(150)]
         [EmailAddress]
         public string EmailAddress { get; set; }
+
+
 
 
         public CustomerInformationViewModel Customer { get; set; }
@@ -90,5 +95,33 @@ namespace BankManagerApp.Pages.CustomerManagement
             _mapper.Map(Customer, this);
 
         }
+
+        public IActionResult OnPost(int customerId)
+        {
+            Genders = _customerDropDown.FillGenderList();
+            Countries = _customerDropDown.FillCountryList();
+            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+
+
+
+            var age = DateTime.Today - BirthDay;
+            if (age.TotalDays < 18 * 365.25)
+            {
+                ModelState.AddModelError("BirthDay", "Customer must be at least 18 years old to be registered.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var customerViewModel = _mapper.Map<CustomerInformationViewModel>(this);
+                _customerService.EditCustomer(customerViewModel);
+
+                return RedirectToPage("Index");
+            }
+
+
+            return Page();
+        }
+
+
     }
 }

@@ -19,5 +19,7 @@ namespace BankRepository.Services.CustomerService
 
         int RegisterNewCustomer(CustomerInformationViewModel customerViewModel);
 
+        void EditCustomer(CustomerInformationViewModel customerViewModel);
+
     }
 }

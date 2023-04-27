@@ -63,10 +63,9 @@ namespace BankManagerApp.Pages.CustomerManagement
         [Range(1, 500, ErrorMessage = "Please choose a listed country code.")]
         public TelephoneCountryCode TelephoneCountryCodeCustomer { get; set; }
         public List<SelectListItem> TelephoneCountryCodes { get; set; }
-
         public string TelephoneNumber { get; set; }
 
-        public string NationalId { get; set; }
+        public string? NationalId { get; set; }
 
 
         [StringLength(150)]
