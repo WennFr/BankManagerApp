@@ -95,6 +95,7 @@ namespace BankManagerApp.Pages.CustomerManagement
             if (ModelState.IsValid)
             {
                 var customerViewModel = _mapper.Map<CustomerInformationViewModel>(this);
+                customerViewModel.CountryCode = _customerService.GetCountryCode(customerViewModel.Country);
 
                 var newCustomerId = _customerService.RegisterNewCustomer(customerViewModel);
 

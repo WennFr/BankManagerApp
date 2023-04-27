@@ -166,7 +166,7 @@ namespace BankRepository.Services.CustomerService
         public void EditCustomer(CustomerInformationViewModel customerViewModel)
         {
             var customerToUpdate = _dbContext.Customers.First(c => c.CustomerId == customerViewModel.CustomerId);
-            customerToUpdate = _mapper.Map<Customer>(customerViewModel);
+            _mapper.Map(customerViewModel, customerToUpdate);
 
             _dbContext.SaveChanges();
 

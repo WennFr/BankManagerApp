@@ -31,9 +31,6 @@ namespace BankManagerApp.Pages.CustomerManagement
         private readonly ICustomerDropDown _customerDropDown;
         private readonly IMapper _mapper;
 
-
-        private int CustomerId { get; set; }
-
         [Required]
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
@@ -61,12 +58,15 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         [Range(1, 99, ErrorMessage = "Please choose a listed country.")]
         public CountryEnum CountryCustomer { get; set; }
+
         public List<SelectListItem> Countries { get; set; }
+
         public DateTime BirthDay { get; set; } = DateTime.Today.AddYears(-18).AddDays(-1);
 
         [Required]
         [Range(1, 500, ErrorMessage = "Please choose a listed country code.")]
         public TelephoneCountryCode TelephoneCountryCodeCustomer { get; set; }
+
         public List<SelectListItem> TelephoneCountryCodes { get; set; }
 
         public string TelephoneNumber { get; set; }
@@ -76,8 +76,6 @@ namespace BankManagerApp.Pages.CustomerManagement
         [StringLength(150)]
         [EmailAddress]
         public string EmailAddress { get; set; }
-
-        public string CountryCode { get; set; }
 
         public List<AccountViewModel> Accounts { get; set; }
 
@@ -106,10 +104,11 @@ namespace BankManagerApp.Pages.CustomerManagement
 
             if (ModelState.IsValid)
             {
-                var customerToUpdate = _mapper.Map<CustomerInformationViewModel>(this);
-                customerToUpdate.CustomerId = customerId;
+                var customerViewToUpdate = _mapper.Map<CustomerInformationViewModel>(this);
+                customerViewToUpdate.CustomerId = customerId;
+                customerViewToUpdate.CountryCode = _customerService.GetCountryCode(customerViewToUpdate.Country);
 
-                _customerService.EditCustomer(customerToUpdate);
+                _customerService.EditCustomer(customerViewToUpdate);
 
                 return RedirectToPage("Index");
             }
