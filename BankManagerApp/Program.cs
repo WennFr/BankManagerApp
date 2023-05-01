@@ -22,6 +22,15 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CashierOnly", policy =>
+        policy.RequireRole("Cashier"));
+    options.AddPolicy("AdminOnly", policy =>
+        policy.RequireRole("Cashier"));
+});
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<DataInitializer>();

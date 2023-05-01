@@ -6,9 +6,11 @@ using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Paging;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.Customers
 {
+    [Authorize(Policy = "CashierOnly")]
     public class IndexModel : PageModel
     {
         public IndexModel(ICustomerService customerService)
