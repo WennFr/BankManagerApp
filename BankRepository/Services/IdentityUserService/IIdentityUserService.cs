@@ -9,8 +9,8 @@ namespace BankRepository.Services.IdentityUserService
 {
     public interface IIdentityUserService
     {
+        List<IdentityUserViewModel> GetAllIdentityUsers();
         void SaveNewIdentityUser(IdentityUserViewModel identityUserViewModel);
 
-        List<IdentityUserViewModel> GetAllIdentityUsers();
     }
 }

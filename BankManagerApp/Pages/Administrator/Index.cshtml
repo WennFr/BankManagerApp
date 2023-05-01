@@ -26,9 +26,9 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 order-2 order-md-1 text-center text-md-center mx-auto">
-                <h1 class="text-white font-weight-bold mb-4">Manage Users</h1>
+                <h1 class="text-white font-weight-bold mb-4">Administrator</h1>
                 <p class="text-white mb-5">
-                    Administrate user and customer accounts by creating new ones or modifying existing ones.
+                    Manage users by registering new or modifying existing ones.
                 </p>
             </div>
         </div>
@@ -75,17 +75,14 @@
 
                                                         </thead>
                                                         <tbody>
-                                                        @foreach (var user in Model.IdentityUsers)
-                                                        {
-
-                                                            <tr>
-                                                                <td>@user.Id</td>
-                                                                <td>@user.Email</td>
-                                                                <td><a asp-page="" asp-route-Id="@user.Id" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
-                                                            </tr>
-
-                                                        }
-                                                    
+                                                            @foreach (var user in Model.IdentityUsers)
+                                                            {
+                                                                <tr>
+                                                                    <td>@user.Id</td>
+                                                                    <td>@user.Email</td>
+                                                                    <td><a asp-area="Identity" asp-page="/Account/Manage/Index" asp-route-userId="@user.Id" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
+                                                                </tr>
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -103,19 +100,6 @@
                             <h3>Cashier</h3>
                             <!-- Location -->
                             <p>Manages accounts and transactions.</p>
-                        </div>
-                        <!-- Action Button -->
-                        <div class="apply-button">
-                            <a href="#" class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Create</a>
-                            <a href="#" class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Edit</a>
-                        </div>
-                    </div>
-                    <div class="job">
-                        <div class="content">
-                            <!-- Job Title -->
-                            <h3>Customer </h3>
-                            <!-- Location -->
-                            <p>Register and edit Blue Ridge Bank customers.</p>
                         </div>
                         <!-- Action Button -->
                         <div class="apply-button">
