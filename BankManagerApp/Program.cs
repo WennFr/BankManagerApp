@@ -28,7 +28,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("CashierOnly", policy =>
         policy.RequireRole("Cashier"));
     options.AddPolicy("AdminOnly", policy =>
-        policy.RequireRole("Cashier"));
+        policy.RequireRole("Admin"));
 });
 
 builder.Services.AddRazorPages();
