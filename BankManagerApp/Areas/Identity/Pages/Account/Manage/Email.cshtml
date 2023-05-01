@@ -35,6 +35,7 @@
             }
             <div class="form-floating">
                 <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
+                <input type="hidden" name="userId" value="@Model.UserId" />
                 <label asp-for="Input.NewEmail" class="form-label"></label>
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>

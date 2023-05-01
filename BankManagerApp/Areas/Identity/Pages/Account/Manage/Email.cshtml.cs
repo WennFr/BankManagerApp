@@ -111,9 +111,17 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostChangeEmailAsync()
+        public async Task<IActionResult> OnPostChangeEmailAsync(string userId)
         {
             var user = await _userManager.GetUserAsync(User);
+            UserId = user.Id;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                user = await _userManager.FindByIdAsync(userId);
+                UserId = user.Id;
+            }
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -126,32 +134,35 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
+            
             if (Input.NewEmail != email)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _userManager.SetEmailAsync(user, Input.NewEmail);
+                await _userManager.UpdateAsync(user);
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
-                return RedirectToPage();
+                StatusMessage = "Your email has been updated.";
+            }
+            else
+            {
+                StatusMessage = "Your email is unchanged.";
             }
 
-            StatusMessage = "Your email is unchanged.";
-            return RedirectToPage();
+            return RedirectToPage(new { userId = UserId });
+
         }
 
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
+        public async Task<IActionResult> OnPostSendVerificationEmailAsync(string userId)
         {
+
+            userId = Request.Form["userId"].ToString();
+
             var user = await _userManager.GetUserAsync(User);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                user = await _userManager.FindByIdAsync(userId);
+                UserId = user.Id;
+            }
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -163,22 +174,23 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            var selectUserId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { area = "Identity", userId = userId, code = code },
+                values: new { area = "Identity", userId = selectUserId, code = code },
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+
             StatusMessage = "Verification email sent. Please check your email.";
-            return RedirectToPage();
+            return RedirectToPage(new { userId = UserId });
         }
     }
 }
