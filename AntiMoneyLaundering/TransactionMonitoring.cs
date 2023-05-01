@@ -31,7 +31,7 @@ namespace AntiMoneyLaundering
 
         public void Execute()
         {
-            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 2000, null, null).Customers;
+            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 20000, null, null).Customers;
             var counter = 1;
 
             var lastMonitoringDate = ReadLastMonitoringDate();
@@ -51,7 +51,7 @@ namespace AntiMoneyLaundering
                     var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
                     var fullName = $"{customer.Givenname} {customer.Surname}";
                     var transactions = _transactionService
-                        .GetAllAccountTransactions(account.AccountId, 1, 20000)
+                        .GetAllAccountTransactions(account.AccountId, 1, 20000,0)
                         .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate);
 
                     foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
@@ -100,7 +100,7 @@ namespace AntiMoneyLaundering
 
             }
 
-            CreateMonitoringDate();
+            CreateMonitoringDateTime();
             Console.WriteLine("Done...");
             Console.ReadKey();
         }
@@ -110,8 +110,11 @@ namespace AntiMoneyLaundering
         public DateTime ReadLastMonitoringDate()
         {
             var date = new DateTime();
-            var folder = "../../../MonitoringData";
+            var folder = System.IO.Directory.GetParent(@"./").FullName;
             var filePath = "../../../MonitoringData/lastTransactionMonitoring.txt";
+
+
+
 
             if (!Directory.Exists(folder))
             {
@@ -146,9 +149,13 @@ namespace AntiMoneyLaundering
         {
             if (suspectedTransactionsByCountry != null || suspectedTransactionsByCountry.Count > 0)
             {
+
                 string fileName = $"suspected_transactions_{country}.txt";
 
-                using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/{fileName}", append: false))
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MonitoringData", fileName);
+
+
+                using (StreamWriter writer = new StreamWriter(filePath, append: false))
                 {
                     foreach (var transaction in suspectedTransactionsByCountry)
                     {
@@ -164,7 +171,7 @@ namespace AntiMoneyLaundering
 
         }
 
-        public void CreateMonitoringDate()
+        public void CreateMonitoringDateTime()
         {
 
             using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastTransactionMonitoring.txt", append: false))
