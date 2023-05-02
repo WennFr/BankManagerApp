@@ -10,7 +10,7 @@ namespace BankManagerApp.Pages
 {
     public class IndexModel : PageModel
     {
-        public IndexModel(ILogger<IndexModel> logger,IIndexStatisticsService indexStatisticsService)
+        public IndexModel(ILogger<IndexModel> logger, IIndexStatisticsService indexStatisticsService)
         {
             _logger = logger;
             _indexStatisticsService = indexStatisticsService;
@@ -20,12 +20,12 @@ namespace BankManagerApp.Pages
         private readonly IIndexStatisticsService _indexStatisticsService;
 
 
-        public List<IndexDataViewModel> IndexPageData { get; set; } 
+        public List<IndexDataViewModel> IndexPageData { get; set; }
 
         public void OnGet()
         {
 
-          IndexPageData =  _indexStatisticsService.GetIndexCountryStatistics().ToList();
+            IndexPageData = _indexStatisticsService.GetIndexCountryStatistics().ToList();
         }
     }
 }

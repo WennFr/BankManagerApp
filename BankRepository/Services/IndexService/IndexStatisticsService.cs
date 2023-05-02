@@ -21,7 +21,7 @@ namespace BankRepository.Services.IndexService
 
         public IEnumerable<IndexDataViewModel> GetIndexCountryStatistics()
         {
-            foreach (var country in _dbContext.Customers.Select(c => c.Country).Distinct())
+            foreach (var country in _dbContext.Customers.Select(c => c.Country).Distinct().ToList())
             {
                 yield return new IndexDataViewModel
                 {
