@@ -19,6 +19,8 @@ namespace BankManagerApp.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IIndexStatisticsService _indexStatisticsService;
 
+        public string Paragraph { get; set; } =
+            $"Access detailed statistics by country for all the Scandinavian accounts, allowing you to track our bank's performance and identify trends in Scandinavian banking.";
 
         public List<IndexDataViewModel> IndexPageData { get; set; }
 
@@ -26,6 +28,7 @@ namespace BankManagerApp.Pages
         {
 
             IndexPageData = _indexStatisticsService.GetIndexCountryStatistics().ToList();
+
         }
     }
 }
