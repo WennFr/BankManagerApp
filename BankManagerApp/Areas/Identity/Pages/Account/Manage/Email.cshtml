@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Manage Email";
     ViewData["ActivePage"] = ManageNavPages.Email;
+    ViewBag.BodyClass = "home";
+
 }
 
-<div class="col-md-3">
+@*<div class="col-md-3">
     <partial name="_ManageNav" model="@Model.UserId" />
 </div>
 
@@ -43,6 +45,70 @@
         </form>
     </div>
 </div>
+*@
+
+<section class="job-list section pt-4 position-relative pull-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-10 m-auto">
+                <div class="block">
+                    <div class="job">
+                        <div class="content justify-content-center align-items-center">
+
+                            <partial name="_ManageNav" model="@Model.UserId" />
+
+                            <div class="justify-content-center mt-3">
+
+                                <div>
+                                    <h3>@ViewData["Title"]</h3>
+                                </div>
+                                <partial name="_StatusMessage" for="StatusMessage" />
+
+                                <div class="mt-3">
+                                    <form id="email-form" method="post">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        @if (Model.IsEmailConfirmed)
+                                        {
+                                            <div class="form-floating ">
+                                                <input asp-for="Email" class="form-control" disabled />
+                                                <div class="">
+                                                    <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+                                                </div>
+                                                <label asp-for="Email" class="form-label"></label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-floating">
+                                                <input asp-for="Email" class="form-control" disabled />
+                                                <label asp-for="Email" class="form-label"></label>
+                                                <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                                            </div>
+                                        }
+                                        <div class="form-floating">
+                                            <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
+                                            <input type="hidden" name="userId" value="@Model.UserId" />
+                                            <label asp-for="Input.NewEmail" class="form-label"></label>
+                                            <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                                        </div>
+                                        <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
