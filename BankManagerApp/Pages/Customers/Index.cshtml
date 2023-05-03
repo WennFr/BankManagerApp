@@ -5,11 +5,23 @@
 
 }
 
-<h1 class="text-center">All Customers </h1>
+@if (@Model.PreviousPage == "manage-customers")
+{
+
+    <partial name="_Showcase" model='new { HeaderText = "Select Customer To Edit", ParagraphText = "" }' />
+
+
+}
+else
+{
+    <partial name="_Showcase" model='new { HeaderText = "All Customers", ParagraphText = "" }' />
+
+}
 
 
 
-<section class="job-list section pt-0">
+
+<section class="job-list section pt-0 position-relative pull-top">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-12 m-auto">

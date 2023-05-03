@@ -4,11 +4,11 @@
     ViewBag.BodyClass = "homelong";
 }
 
-<h1 class="text-center">All Accounts</h1>
+<partial name="_Showcase" model='new { HeaderText = "All Accounts", ParagraphText = "" }' />
 
 
 
-<section class="job-list section pt-0">
+<section class="job-list section pt-0 position-relative pull-top">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-12 m-auto">
@@ -117,7 +117,6 @@
                                        asp-route-pageNo="@i">
                                             @i
                                         </a>
-                                        @*asp-route-q="@Model.Q"*@
                                     }
                                 </td>
                                 <td></td>
