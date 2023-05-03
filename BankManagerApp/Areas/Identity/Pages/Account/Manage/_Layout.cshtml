@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -13,11 +13,9 @@
 <partial name="_Showcase" model='new { HeaderText = "Edit User", ParagraphText = "" }' />
 
 <div>
-    <div class="row">
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
+
+    @RenderBody()
+
 </div>
 
 @section Scripts {
