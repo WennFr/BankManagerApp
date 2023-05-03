@@ -96,6 +96,13 @@ cite {
     width: 14rem;
 }
 
+.edit-user-box {
+    height: 400px;
+    overflow: auto;
+    text-align: left;
+}
+
+
 .form-control::-webkit-input-placeholder {
     color: #808080;
     line-height: 25px;
