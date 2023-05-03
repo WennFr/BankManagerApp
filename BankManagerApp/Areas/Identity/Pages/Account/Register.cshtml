@@ -6,18 +6,19 @@
 
 }
 
+<partial name="_Showcase" model='new { HeaderText = "Create User", ParagraphText = "" }' />
 
-<section class="job-list section pt-4">
+
+<section class="job-list section pt-4 position-relative pull-top">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-10 m-auto">
                 <div class="block">
                     <div class="job">
                         <div class="content">
-
                             <!-- Application Form -->
                             <form id="registerForm" asp-route-returnUrl="" method="post">
-                                <h2>Create a new user</h2>
+                                <h2>New User</h2>
                                 <hr />
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-floating">
