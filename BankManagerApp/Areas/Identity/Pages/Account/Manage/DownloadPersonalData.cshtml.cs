@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using BankRepository.BankAppData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,15 +34,22 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
             return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string userId)
         {
             var user = await _userManager.GetUserAsync(User);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                user = await _userManager.FindByIdAsync(userId);
+            }
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            _logger.LogInformation("User with ID '{UserId}' asked for their personal data.", _userManager.GetUserId(User));
+
+            _logger.LogInformation("User with ID '{UserId}' asked for their personal data.", _userManager.FindByIdAsync(user.Id));
 
             // Only include personal data for download
             var personalData = new Dictionary<string, string>();

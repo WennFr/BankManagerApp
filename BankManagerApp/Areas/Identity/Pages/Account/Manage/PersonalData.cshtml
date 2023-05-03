@@ -7,35 +7,6 @@
 
 }
 
-
-
-@*<div class="col-md-3">
-    <partial name="_ManageNav" model="@Model.UserId" />
-</div>
-
-<h3>@ViewData["Title"]</h3>
-
-<div class="row">
-    <div class="col-md-6">
-        <p>The account contains user data. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove the account, and this cannot be recovered.</strong>
-        </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
-        </form>
-        <p>
-            <a id="delete" asp-route-userId="@Model.UserId" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
-    </div>
-</div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-*@
-
-
 <section class="job-list section pt-4 position-relative pull-top">
     <div class="container">
         <div class="row">
@@ -54,12 +25,12 @@
                                 <div class="mt-3">
                                  
                                     <p>The account contains user data. This page allows you to download or delete that data.</p>
+                                    <form id="download-data" asp-page="DownloadPersonalData" asp-route-userId="@Model.UserId" method="post">
+                                        <button class="w-100 btn btn-lg btn btn-primary" type="submit">Download Data</button>
+                                    </form>
                                     <p>
                                         <strong>Deleting this data will permanently remove the account, and this cannot be recovered.</strong>
                                     </p>
-                                    <form id="download-data" asp-page="DownloadPersonalData" method="post">
-                                        <button class="btn btn-primary" type="submit">Download</button>
-                                    </form>
                                     <p>
                                         <a id="delete" asp-route-userId="@Model.UserId" asp-page="DeletePersonalData" class="w-100 btn btn-lg btn btn-danger">Delete</a>
                                     </p>
