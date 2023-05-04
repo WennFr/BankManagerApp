@@ -30,9 +30,6 @@ namespace BankManagerApp.Pages.Accounts
         public DateTime WithdrawalDate { get; set; }
 
 
-
-
-
         public void OnGet(int accountId)
         {
             CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
