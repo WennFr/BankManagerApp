@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankManagerApp.Pages.Country
 {
+    [ResponseCache(Duration = 60, VaryByQueryKeys = new[] { "country" })]
+
     public class IndexModel : PageModel
     {
         public IndexModel(ICustomerService customerService)

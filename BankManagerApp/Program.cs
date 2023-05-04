@@ -49,7 +49,9 @@ builder.Services.AddDbContext<BankAppDataContext>(options =>
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 //This includes all MappingProfiles
-builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly); 
+builder.Services.AddAutoMapper(typeof(CustomerProfile).Assembly);
+
+builder.Services.AddResponseCaching();
 
 
 var app = builder.Build();
@@ -80,5 +82,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseResponseCaching();
+
 
 app.Run();
