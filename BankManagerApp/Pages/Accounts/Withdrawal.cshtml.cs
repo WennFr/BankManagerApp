@@ -2,6 +2,7 @@ using BankRepository.Infrastructure.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using BankManagerApp.Infrastructure.Validation;
 using Microsoft.EntityFrameworkCore;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;

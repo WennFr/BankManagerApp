@@ -31,9 +31,9 @@ namespace BankManagerApp.Pages.Accounts
         [Required(ErrorMessage =
             "Comment is required.")]
         [MinLength(5, ErrorMessage =
-            "Comment is to short, 5-250 characters required.")]
+            "Comment is too short, 5-250 characters required.")]
         [MaxLength(250, ErrorMessage =
-            "Comment is to long, 5-250 characters required.")]
+            "Comment is too long, 5-250 characters required.")]
         public string Comment { get; set; }
 
         public void OnGet()
