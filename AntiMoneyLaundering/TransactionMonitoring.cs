@@ -110,15 +110,13 @@ namespace AntiMoneyLaundering
         public DateTime ReadLastMonitoringDate()
         {
             var date = new DateTime();
-            var folder = System.IO.Directory.GetParent(@"./").FullName;
-            var filePath = "../../../MonitoringData/lastTransactionMonitoring.txt";
 
+            var folderName = "../../../MonitoringData";
+            var filePath = Path.Combine(folderName, "lastTransactionMonitoring.txt");
 
-
-
-            if (!Directory.Exists(folder))
+            if (!Directory.Exists(folderName))
             {
-                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(folderName);
             }
 
             if (!File.Exists(filePath))
@@ -141,6 +139,7 @@ namespace AntiMoneyLaundering
                     date = date.Date;
                 }
             }
+
 
             return date;
         }
