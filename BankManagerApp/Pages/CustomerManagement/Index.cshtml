@@ -50,7 +50,7 @@
 
                                                         </thead>
                                                         <tbody>
-                                                        @foreach (var cust in Model.Customers)
+                                                       @* @foreach (var cust in Model.Customers)
                                                         {
 
                                                             <tr>
@@ -59,7 +59,7 @@
                                                                 <td>@cust.Surname</td>
                                                                     <td><a asp-page="/CustomerManagement/Index" asp-route-Id="@cust.CustomerId" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
                                                             </tr>
-                                                        }
+                                                        }*@
                                                         </tbody>
                                                     </table>
                                                 </div>

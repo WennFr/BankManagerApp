@@ -4,6 +4,7 @@ using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
@@ -35,36 +36,40 @@ namespace AntiMoneyLaundering
         private readonly ITransactionService _transactionService;
         private readonly IFileService _fileService;
 
-        private List<SuspectedTransaction> suspectedTransactionsByCountry;
 
 
         public void Execute()
         {
-            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 2000, null, null).Customers;
+
+            var suspectedTransactionsByCountryToRegister = new List<SuspectedTransaction>();
 
             var lastMonitoringDate = _fileService.SetupLastMonitoringDate();
-
             var monitoringDate = DateTime.Now;
+
+            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 2000000, null, null).Customers;
 
             foreach (var country in allCustomers.Select(c => c.Country).Distinct())
             {
-                var suspectedTransactionsByCountry = GetSuspectedTransactionsByCountry(country, lastMonitoringDate, allCustomers);
+                suspectedTransactionsByCountryToRegister = GetSuspectedTransactionsByCountry(country, lastMonitoringDate, allCustomers);
 
-                _fileService.RegisterSuspectedTransactions(suspectedTransactionsByCountry, country, monitoringDate);
+                _fileService.RegisterSuspectedTransactions(suspectedTransactionsByCountryToRegister, country, monitoringDate);
             }
 
             _fileService.CreateNewLastMonitoringDate();
 
-            Console.WriteLine("Done...");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Successfully completed transaction monitoring");
+            Console.ResetColor();
             Console.ReadKey();
         }
+
+
 
         private List<SuspectedTransaction> GetSuspectedTransactionsByCountry(string country, DateTime lastMonitoringDate, List<CustomerViewModel> allCustomers)
         {
             var counter = 1;
 
             var suspectedTransactionsByCountry = new List<SuspectedTransaction>();
-
 
             var accountsPerCountry = allCustomers
                 .Where(c => c.Country == country)
@@ -76,90 +81,72 @@ namespace AntiMoneyLaundering
             {
                 var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
                 var fullName = $"{customer.Givenname} {customer.Surname}";
-                var transactions = GetTransactionsForAccount(account.AccountId, lastMonitoringDate);
+                var transactions = _transactionService.GetAllAccountTransactions(account.AccountId, 1, 20000, 0).ToList();
 
 
+                suspectedTransactionsByCountry = CheckSuspectedLargeTransactions(transactions, fullName,
+                    account.AccountId, lastMonitoringDate, suspectedTransactionsByCountry);
 
-
-                foreach (var transaction in transactions.Where(x => x.Amount > 15000 || x.Amount < -15000))
-                {
-                    var suspectedTransaction = new SuspectedTransaction
-                    {
-                        CustomerName = fullName,
-                        AccountId = account.AccountId,
-                        TransactionDate = new List<string> { transaction.Date },
-                        TransactionIds = new List<int> { transaction.TransactionId },
-                        Amount = new List<decimal> { transaction.Amount },
-                    };
-                    suspectedTransactionsByCountry.Add(suspectedTransaction);
-                }
-
-
-
-                //suspectedTransactionsByCountry.AddRange(largeAmountTransactions);
-
-
-
-                var totalSumOfLatestAccountTransactions = GetTotalSumOfLatestAccountTransactions(transactions);
-
-                if (totalSumOfLatestAccountTransactions > 23000)
-                {
-
-                    var suspectedTransaction = new SuspectedTransaction
-                    {
-                        CustomerName = fullName,
-                        AccountId = account.AccountId,
-                        TransactionDate = new List<string>(),
-                        TransactionIds = new List<int>(),
-                        Amount = new List<decimal>()
-                    };
-
-                    suspectedTransaction.TransactionIds.AddRange(transactions.Select(t => t.TransactionId));
-                    suspectedTransaction.TransactionDate.AddRange(transactions.Select(t => t.Date));
-                    suspectedTransaction.Amount.AddRange(transactions.Select(t => t.Amount));
-
-
-                    suspectedTransactionsByCountry.Add(suspectedTransaction);
-
-                }
-
+                suspectedTransactionsByCountry = CheckSuspectedLatestTransactions(transactions,
+                    suspectedTransactionsByCountry, fullName, account.AccountId);
+                
                 Console.WriteLine(counter);
                 counter++;
             }
 
-
-
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"Accounts from {country} monitored.");
+            Console.ResetColor();
             return suspectedTransactionsByCountry;
         }
 
 
-        private List<TransactionViewModel> GetTransactionsForAccount(int accountId, DateTime lastMonitoringDate)
+        private List<SuspectedTransaction> CheckSuspectedLargeTransactions(List<TransactionViewModel> transactions, string fullName, int accountId, DateTime lastMonitoringDate, List<SuspectedTransaction> suspectedTransactionsByCountry)
         {
-            return _transactionService.GetAllAccountTransactions(accountId, 1, 20000, 0)
-                .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate)
-                .ToList();
-        }
 
-        private List<SuspectedTransaction> GetSuspectedLargeTransactions(List<TransactionViewModel> transactions, string fullName, int accountId)
-        {
-            return transactions
-                .Where(t => t.Amount > 15000 || t.Amount < -15000)
-                .Select(t => new SuspectedTransaction
+            foreach (var transaction in transactions.Where(t => t.Amount > 15000 && DateTime.Parse(t.Date) > lastMonitoringDate || t.Amount < -15000 && DateTime.Parse(t.Date) > lastMonitoringDate))
+            {
+                var suspectedTransaction = new SuspectedTransaction
                 {
                     CustomerName = fullName,
                     AccountId = accountId,
-                    TransactionDate = new List<string> { t.Date },
-                    TransactionIds = new List<int> { t.TransactionId },
-                    Amount = new List<decimal> { t.Amount },
-                })
-                .ToList();
+                    TransactionDate = new List<string> { transaction.Date },
+                    TransactionIds = new List<int> { transaction.TransactionId },
+                    Amount = new List<decimal> { transaction.Amount },
+                };
+                suspectedTransactionsByCountry.Add(suspectedTransaction);
+            }
+
+            return suspectedTransactionsByCountry;
         }
 
-
-        private decimal GetTotalSumOfLatestAccountTransactions(List<TransactionViewModel> transactions)
+        private List<SuspectedTransaction> CheckSuspectedLatestTransactions(List<TransactionViewModel> transactions,List<SuspectedTransaction> suspectedTransactionsByCountry, string fullName, int accountId)
         {
+
             var latestAccountTransactions = transactions.Where(t => DateTime.Parse(t.Date) >= DateTime.Now.AddDays(-3)).ToList();
-            return latestAccountTransactions.Sum(t => t.Amount);
+
+            if (latestAccountTransactions.Sum(t => t.Amount) > 23000)
+            {
+
+                var suspectedTransaction = new SuspectedTransaction
+                {
+                    CustomerName = fullName,
+                    AccountId = accountId,
+                    TransactionDate = new List<string>(),
+                    TransactionIds = new List<int>(),
+                    Amount = new List<decimal>()
+                };
+
+                suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t => t.TransactionId));
+                suspectedTransaction.TransactionDate.AddRange(latestAccountTransactions.Select(t => t.Date));
+                suspectedTransaction.Amount.AddRange(latestAccountTransactions.Select(t => t.Amount));
+
+
+                suspectedTransactionsByCountry.Add(suspectedTransaction);
+
+            }
+
+            return suspectedTransactionsByCountry;
         }
 
 

@@ -127,7 +127,7 @@ namespace BankRepository.Services.CustomerService
         public CustomerInformationViewModel GetFullCustomerInformationById(int customerId)
         {
 
-            var customer = _dbContext.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+            var customer = _dbContext.Customers.First(c => c.CustomerId == customerId);
             var customerViewModel = _mapper.Map<CustomerInformationViewModel>(customer);
             customerViewModel.TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerViewModel.CustomerId);
 

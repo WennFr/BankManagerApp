@@ -21,14 +21,14 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public void OnGet(int pageNo)
         {
-            var pagedCustomerViewModelResult = _customerService.GetAllCustomers(null, null, 1, 20, null, null);
+            //var pagedCustomerViewModelResult = _customerService.GetAllCustomers(null, null, 1, 20, null, null);
 
 
-            if (pageNo == 0)
-                pageNo = 1;
+            //if (pageNo == 0)
+            //    pageNo = 1;
 
-            CurrentPage = pagedCustomerViewModelResult.PageCount;
-            Customers = pagedCustomerViewModelResult.Customers;
+            //CurrentPage = pagedCustomerViewModelResult.PageCount;
+            //Customers = pagedCustomerViewModelResult.Customers;
 
         }
     }
