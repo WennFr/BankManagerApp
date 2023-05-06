@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
+using BankRepository.DataAccess;
+using BankRepository.Services;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.Services.TransactionService;
 using BankRepository.ViewModels;
+using BankRepository.ViewModels.CustomerView;
+using BankRepository.ViewModels.TransactionView;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -16,172 +23,146 @@ namespace AntiMoneyLaundering
 {
     public class TransactionMonitoring
     {
-        public TransactionMonitoring(ICustomerService customerService, IAccountService accountService, ITransactionService transactionService)
+        public TransactionMonitoring(ICustomerService customerService, IAccountService accountService, ITransactionService transactionService, IFileService fileService)
         {
             _customerService = customerService;
             _accountService = accountService;
             _transactionService = transactionService;
+            _fileService = fileService;
         }
 
         private readonly ICustomerService _customerService;
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
+        private readonly IFileService _fileService;
 
         private List<SuspectedTransaction> suspectedTransactionsByCountry;
 
+
         public void Execute()
         {
-            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 20000, null, null).Customers;
-            var counter = 1;
+            var allCustomers = _customerService.GetAllCustomers(null, null, 1, 2000, null, null).Customers;
 
-            var lastMonitoringDate = ReadLastMonitoringDate();
+            var lastMonitoringDate = _fileService.SetupLastMonitoringDate();
+
+            var monitoringDate = DateTime.Now;
 
             foreach (var country in allCustomers.Select(c => c.Country).Distinct())
             {
+                var suspectedTransactionsByCountry = GetSuspectedTransactionsByCountry(country, lastMonitoringDate, allCustomers);
 
-                suspectedTransactionsByCountry = new List<SuspectedTransaction>();
-                var accountsPerCountry = allCustomers
-                    .Where(c => c.Country == country)
-                    .SelectMany(c => _accountService.GetAccountsByCustomerId(c.CustomerId))
-                    .ToList();
-
-                foreach (var account in accountsPerCountry)
-                {
-
-                    var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
-                    var fullName = $"{customer.Givenname} {customer.Surname}";
-                    var transactions = _transactionService
-                        .GetAllAccountTransactions(account.AccountId, 1, 20000,0)
-                        .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate);
-
-                    foreach (var transaction in transactions.Where(t => t.Amount > 15000 || t.Amount < -15000))
-                    {
-                        var suspectedTransaction = new SuspectedTransaction
-                        {
-                            CustomerName = fullName,
-                            AccountId = account.AccountId,
-                            TransactionDate = new List<string> { transaction.Date },
-                            TransactionIds = new List<int> { transaction.TransactionId },
-                            Amount = new List<decimal> { transaction.Amount },
-                        };
-                        suspectedTransactionsByCountry.Add(suspectedTransaction);
-                    }
-
-                    var latestAccountTransactions = transactions
-                        .Where(t => DateTime.Parse(t.Date) >= DateTime.Now.AddDays(-3))
-                        .ToList();
-
-                    var totalSumOfLatestAccountTransactions = latestAccountTransactions.Sum(t => t.Amount);
-
-                    if (totalSumOfLatestAccountTransactions > 23000)
-                    {
-                        var suspectedTransaction = new SuspectedTransaction
-                        {
-                            CustomerName = fullName,
-                            AccountId = account.AccountId,
-                            TransactionDate = new List<string>(),
-                            TransactionIds = new List<int>(),
-                            Amount = new List<decimal>()
-
-                        };
-                        suspectedTransaction.TransactionIds.AddRange(latestAccountTransactions.Select(t => t.TransactionId));
-                        suspectedTransaction.TransactionDate.AddRange(latestAccountTransactions.Select(t => t.Date));
-                        suspectedTransaction.Amount.AddRange(latestAccountTransactions.Select(t => t.Amount));
-
-                        suspectedTransactionsByCountry.Add(suspectedTransaction);
-                    }
-
-                    Console.WriteLine(counter);
-                    counter++;
-
-                }
-
-                RegisterSuspectedTransactions(suspectedTransactionsByCountry, country);
-
+                _fileService.RegisterSuspectedTransactions(suspectedTransactionsByCountry, country, monitoringDate);
             }
 
-            CreateMonitoringDateTime();
+            _fileService.CreateNewLastMonitoringDate();
+
             Console.WriteLine("Done...");
             Console.ReadKey();
         }
 
-
-
-        public DateTime ReadLastMonitoringDate()
+        private List<SuspectedTransaction> GetSuspectedTransactionsByCountry(string country, DateTime lastMonitoringDate, List<CustomerViewModel> allCustomers)
         {
-            var date = new DateTime();
+            var counter = 1;
 
-            var folderName = "../../../MonitoringData";
-            var filePath = Path.Combine(folderName, "lastTransactionMonitoring.txt");
+            var suspectedTransactionsByCountry = new List<SuspectedTransaction>();
 
-            if (!Directory.Exists(folderName))
+
+            var accountsPerCountry = allCustomers
+                .Where(c => c.Country == country)
+                .SelectMany(c => _accountService.GetAccountsByCustomerId(c.CustomerId))
+                .ToList();
+
+
+            foreach (var account in accountsPerCountry)
             {
-                Directory.CreateDirectory(folderName);
-            }
+                var customer = _customerService.GetCustomerNameByAccountId(account.AccountId);
+                var fullName = $"{customer.Givenname} {customer.Surname}";
+                var transactions = GetTransactionsForAccount(account.AccountId, lastMonitoringDate);
 
-            if (!File.Exists(filePath))
-            {
-                using (StreamWriter writer = new StreamWriter(filePath, append: true))
+
+
+
+                foreach (var transaction in transactions.Where(x => x.Amount > 15000 || x.Amount < -15000))
                 {
-                    date = new DateTime(2010, 1, 1);
-                    writer.WriteLine($"{date}");
-                }
-            }
-
-            if (File.Exists(filePath))
-            {
-
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-
-                    string dateString = reader.ReadLine();
-                    date = DateTime.Parse(dateString);
-                    date = date.Date;
-                }
-            }
-
-
-            return date;
-        }
-
-        public void RegisterSuspectedTransactions(List<SuspectedTransaction> suspectedTransactions, string country)
-        {
-            if (suspectedTransactionsByCountry != null || suspectedTransactionsByCountry.Count > 0)
-            {
-
-                string fileName = $"suspected_transactions_{country}.txt";
-
-                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MonitoringData", fileName);
-
-
-                using (StreamWriter writer = new StreamWriter(filePath, append: false))
-                {
-                    foreach (var transaction in suspectedTransactionsByCountry)
+                    var suspectedTransaction = new SuspectedTransaction
                     {
-                        writer.WriteLine($"Customer Name: {transaction.CustomerName}");
-                        writer.WriteLine($"Account ID: {transaction.AccountId}");
-                        writer.WriteLine($"Transaction ID: {string.Join(", ", transaction.TransactionIds)}");
-                        writer.WriteLine($"Amount: {string.Join(", ", transaction.Amount)}");
-                        writer.WriteLine($"Transaction Date: {string.Join(", ", transaction.TransactionDate)}");
-                        writer.WriteLine("------------------------------------");
-                    }
+                        CustomerName = fullName,
+                        AccountId = account.AccountId,
+                        TransactionDate = new List<string> { transaction.Date },
+                        TransactionIds = new List<int> { transaction.TransactionId },
+                        Amount = new List<decimal> { transaction.Amount },
+                    };
+                    suspectedTransactionsByCountry.Add(suspectedTransaction);
                 }
+
+
+
+                //suspectedTransactionsByCountry.AddRange(largeAmountTransactions);
+
+
+
+                var totalSumOfLatestAccountTransactions = GetTotalSumOfLatestAccountTransactions(transactions);
+
+                if (totalSumOfLatestAccountTransactions > 23000)
+                {
+
+                    var suspectedTransaction = new SuspectedTransaction
+                    {
+                        CustomerName = fullName,
+                        AccountId = account.AccountId,
+                        TransactionDate = new List<string>(),
+                        TransactionIds = new List<int>(),
+                        Amount = new List<decimal>()
+                    };
+
+                    suspectedTransaction.TransactionIds.AddRange(transactions.Select(t => t.TransactionId));
+                    suspectedTransaction.TransactionDate.AddRange(transactions.Select(t => t.Date));
+                    suspectedTransaction.Amount.AddRange(transactions.Select(t => t.Amount));
+
+
+                    suspectedTransactionsByCountry.Add(suspectedTransaction);
+
+                }
+
+                Console.WriteLine(counter);
+                counter++;
             }
 
+
+
+            return suspectedTransactionsByCountry;
         }
 
-        public void CreateMonitoringDateTime()
+
+        private List<TransactionViewModel> GetTransactionsForAccount(int accountId, DateTime lastMonitoringDate)
         {
+            return _transactionService.GetAllAccountTransactions(accountId, 1, 20000, 0)
+                .Where(t => DateTime.Parse(t.Date) > lastMonitoringDate)
+                .ToList();
+        }
 
-            using (StreamWriter writer = new StreamWriter($"../../../MonitoringData/lastTransactionMonitoring.txt", append: false))
-            {
-                var date = DateTime.Now.Date;
-                writer.WriteLine($"{date}");
-            }
+        private List<SuspectedTransaction> GetSuspectedLargeTransactions(List<TransactionViewModel> transactions, string fullName, int accountId)
+        {
+            return transactions
+                .Where(t => t.Amount > 15000 || t.Amount < -15000)
+                .Select(t => new SuspectedTransaction
+                {
+                    CustomerName = fullName,
+                    AccountId = accountId,
+                    TransactionDate = new List<string> { t.Date },
+                    TransactionIds = new List<int> { t.TransactionId },
+                    Amount = new List<decimal> { t.Amount },
+                })
+                .ToList();
+        }
 
+
+        private decimal GetTotalSumOfLatestAccountTransactions(List<TransactionViewModel> transactions)
+        {
+            var latestAccountTransactions = transactions.Where(t => DateTime.Parse(t.Date) >= DateTime.Now.AddDays(-3)).ToList();
+            return latestAccountTransactions.Sum(t => t.Amount);
         }
 
 
     }
 }
-

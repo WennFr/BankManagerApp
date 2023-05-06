@@ -28,7 +28,7 @@ namespace AntiMoneyLaundering
             IMapper mapper = new Mapper(config);
 
             var accountService = new AccountService(dbContext, mapper);
-            return new TransactionMonitoring(new CustomerService(dbContext, accountService,mapper),accountService, new TransactionService(dbContext, mapper));
+            return new TransactionMonitoring(new CustomerService(dbContext, accountService,mapper),accountService, new TransactionService(dbContext, mapper), new FileService());
         }
     }
 
