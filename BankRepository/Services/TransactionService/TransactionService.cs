@@ -65,6 +65,11 @@ namespace BankRepository.Services.TransactionService
 
         public void RegisterTransaction(int accountId, decimal amount, decimal newBalance, string operation, DateTime transactionDate, TransactionType type)
         {
+            if (type == TransactionType.Debit)
+            {
+                amount = -amount;
+            }
+
             _dbContext.Transactions.Add(new Transaction
             {
                 AccountId = accountId,
