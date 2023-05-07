@@ -36,6 +36,7 @@ namespace BankManagerApp.Pages.CustomerManagement
         public Gender GenderCustomer { get; set; }
         public List<SelectListItem> Genders { get; set; }
 
+
         [MaxLength(100)]
         [Required]
         public string Givenname { get; set; }
@@ -52,7 +53,7 @@ namespace BankManagerApp.Pages.CustomerManagement
         [Required]
         public string City { get; set; }
 
-        [StringLength(10)]
+        [StringLength(15)]
         [Required]
         public string Zipcode { get; set; }
 
