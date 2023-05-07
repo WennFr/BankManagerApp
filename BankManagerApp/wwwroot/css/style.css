@@ -42,16 +42,6 @@ p, li, blockquote, label {
     margin-bottom: 0;
 }
 
-/*table {
-    width: 100%;
-    table-layout: fixed;
-}
-
-th {
-    width: 145px;
-    min-width: 100px;
-    box-sizing: border-box;
-}*/
 
 .table td, .table th {
     padding: 0.75rem !important;
@@ -60,6 +50,13 @@ th {
     max-width: 120px;
     vertical-align:middle !important;
 }
+
+.col-lg-3:hover {
+    background-color: rgba(173, 216, 230, 0.2);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 .lora {
     font-family: "Lora", serif;
