@@ -28,6 +28,9 @@ namespace BankRepository.Services.AccountService
 
         void RegisterNewAccountByCustomerId(int customerId);
 
+        public string GetCurrency();
+
+
 
     }
 }

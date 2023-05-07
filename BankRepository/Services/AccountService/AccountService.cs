@@ -142,7 +142,10 @@ namespace BankRepository.Services.AccountService
         }
 
 
-
+        public string GetCurrency()
+        {
+            return "€";
+        }
 
     }
 }

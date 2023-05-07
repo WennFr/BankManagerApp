@@ -15,8 +15,7 @@ namespace BankRepository.ViewModels.AccountView
         public string Created { get; set; }
 
         public decimal Balance { get; set; }
-
-
+        public string Currency { get; set; }
 
     }
 }

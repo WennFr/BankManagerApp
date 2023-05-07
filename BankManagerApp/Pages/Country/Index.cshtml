@@ -43,7 +43,7 @@
                                     <td>@cust.Surname</td>
                                     <td>@cust.City</td>
                                     <td>@cust.Country</td>
-                                    <td>@cust.TotalBalanceOfAllAccounts</td>
+                                    <td>@cust.TotalBalanceOfAllAccounts @cust.Currency</td>
                                     @if (User.IsInRole("Cashier"))
                                     {
                                         <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="topCustomersByCountry" class="btn btn-primary">View</a></td>

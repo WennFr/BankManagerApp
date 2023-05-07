@@ -22,8 +22,9 @@ namespace BankManagerApp.Pages.Accounts
         public int CurrentPage { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
-
         public int PageCount { get; set; }
+
+        public string Currency { get; set; }
 
         public void OnGet(string sortColumn, string sortOrder, int pageNo)
         {
@@ -38,6 +39,7 @@ namespace BankManagerApp.Pages.Accounts
             Accounts = pagedAccountViewModel.Accounts;
             PageCount = pagedAccountViewModel.PageCount;
 
+            Currency = _accountService.GetCurrency();
         }
     }
 }

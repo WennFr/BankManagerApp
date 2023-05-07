@@ -15,6 +15,7 @@ namespace BankRepository.ViewModels.CustomerView
         public string City { get; set; }
         public string Country { get; set; }
         public decimal TotalBalanceOfAllAccounts { get; set; }
+        public string Currency { get; set; }
 
     }
 }

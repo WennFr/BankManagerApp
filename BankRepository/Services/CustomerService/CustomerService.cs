@@ -49,9 +49,10 @@ namespace BankRepository.Services.CustomerService
 
             var viewModelResult = _mapper.Map<List<TopCustomerViewModel>>(customers);
 
-            foreach (var customer in viewModelResult)
+            foreach (var customerViewModel in viewModelResult)
             {
-                customer.TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customer.CustomerId);
+                customerViewModel.TotalBalanceOfAllAccounts = _accountService.GetTotalCustomerAccountBalance(customerViewModel.CustomerId);
+                customerViewModel.Currency = _accountService.GetCurrency();
             }
 
             return viewModelResult;

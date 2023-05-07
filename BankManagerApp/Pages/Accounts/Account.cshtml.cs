@@ -30,12 +30,16 @@ namespace BankManagerApp.Pages.Accounts
         public CustomerViewModel Customer { get; set; }
         public string PreviousPage { get; set; }
 
+        public string Currency { get; set; }
 
         public void OnGet(int accountId, string previousPage)
         {
             Account = _accountService.GetAccountByAccountId(accountId);
             Customer = _customerService.GetCustomerNameByAccountId(accountId);
             PreviousPage = previousPage;
+
+            Currency = _accountService.GetCurrency();
+
         }
 
         public IActionResult OnGetShowMore(int accountId, int pageNo)

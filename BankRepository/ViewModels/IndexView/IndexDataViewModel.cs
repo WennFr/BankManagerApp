@@ -12,7 +12,7 @@ namespace BankRepository.ViewModels.IndexView
         public int TotalNumberOfAccounts { get; set; }
         public decimal TotalSumOfAccounts { get; set; }
         public string Country { get; set; }
-
+        public string Currency { get; set; }
 
 
     }

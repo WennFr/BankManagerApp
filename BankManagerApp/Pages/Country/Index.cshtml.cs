@@ -21,7 +21,6 @@ namespace BankManagerApp.Pages.Country
         public void OnGet(string country)
         {
             TopCustomers = _customerService.GetTopCustomersByCountry(country);
-
         }
     }
 }

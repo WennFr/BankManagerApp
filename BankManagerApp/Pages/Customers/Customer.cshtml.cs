@@ -23,7 +23,7 @@ namespace BankManagerApp.Pages.Customers
         public string PreviousPage { get; set; }
         public int AccountIdFromAccountPage { get; set; }
         public string Country { get; set; }
-
+        public string Currency { get; set; }
 
 
         public void OnGet(int customerId, string previousPage,int accountId)
@@ -33,6 +33,7 @@ namespace BankManagerApp.Pages.Customers
             PreviousPage = previousPage;
             Country = Customer.Country;
             AccountIdFromAccountPage = accountId;
+            Currency = _accountService.GetCurrency();
         }
     }
 }
