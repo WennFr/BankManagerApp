@@ -2,9 +2,19 @@
 @model AccessDeniedModel
 @{
     ViewData["Title"] = "Access denied";
+    ViewBag.BodyClass = "home";
+
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+
+
+<partial name="_Showcase" model='new { HeaderText = "", ParagraphText = "" }' />
+
+<section class="section pt-0 position-relative pull-top">
+    <div class="container">
+        <div class="rounded shadow p-5 bg-white text-center">
+                <h1 class="text-danger">@ViewData["Title"]</h1>
+                <p class="text-danger">You do not have access to this resource.</p>
+        </div>
+    </div>
+</section>
