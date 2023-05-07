@@ -13,7 +13,13 @@
         <div class="row">
             <div class="col-10 col-lg-11 m-auto">
                 <div class="block">
-                    <table class="title table">
+                    <div class="customer-top">
+                        <h2 class="customer-name">Customer Account</h2>
+                        <div>
+                            <img class="account-img" src="/images/briefcase.png" alt="client">
+                        </div>
+                    </div>
+                    <table class="title table mt-3">
                         <thead>
                             <tr>
                                 <th scope="col">Account Info</th>
@@ -181,7 +187,7 @@
 </section>
 
 @section Scripts
-{
+    {
     <script>
         pageNo = 1;
 
@@ -202,14 +208,14 @@
             const amountColor = element.type === "Credit" ? "green" : "red";
             document.querySelector('#posts-table tbody').innerHTML +=
                 `<tr>
-                    <td>${element.transactionId}</td>
-                    <td>${element.type}</td>
-                    <td>${element.operation}</td>
-                    <td style="color:${amountColor}">${element.amount.toFixed(2)}</td>
-                    <td>${element.balance.toFixed(2)}</td>
-                    <td>${element.date}</td>
-                    <td></td>
-                 </tr>`;
+                            <td>${element.transactionId}</td>
+                            <td>${element.type}</td>
+                            <td>${element.operation}</td>
+                            <td style="color:${amountColor}">${element.amount.toFixed(2)}</td>
+                            <td>${element.balance.toFixed(2)}</td>
+                            <td>${element.date}</td>
+                            <td></td>
+                         </tr>`;
         }
 
     </script>

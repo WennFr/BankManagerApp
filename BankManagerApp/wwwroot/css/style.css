@@ -107,9 +107,16 @@ p, li, blockquote, label {
 }
 
 .customer-img {
-    height: 14rem;
-    width: 14rem;
+    height: 7rem;
+    width: 7rem;
 }
+
+.account-img {
+    height: 6rem;
+    width: 6rem;
+}
+
+
 
 .edit-user-box {
     height: 400px;
