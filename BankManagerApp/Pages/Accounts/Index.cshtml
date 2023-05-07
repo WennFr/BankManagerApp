@@ -74,7 +74,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach (var acco in Model.Accounts)
                             {
                                 <tr>
@@ -85,57 +84,58 @@
                                     <td><a asp-page="/Accounts/Account" asp-route-accountId="@acco.AccountId" asp-route-previousPage="accounts" class="btn btn-primary">View</a></td>
                                 </tr>
                             }
-
+                            
                             <tr>
-                                <td>
-                                    @if (Model.CurrentPage != 1)
-                                    {
-                                        <a class="btn btn-secondary"
-                                       asp-page="/Accounts/Index"
-                                       asp-route-sortColumn="@Model.SortColumn"
-                                       asp-route-sortOrder="@Model.SortOrder"
-                                       asp-route-pageNo="@(Model.CurrentPage - 1)">
-                                            Prev
-                                        </a>
-                                    }
-                                </td>
-                                <td></td>
-                                <td colspan="2">
-                                    @for (int i = 1; i <= @Model.PageCount; i++)
-                                    {
-                                        string activeLink = "btn-secondary";
+                                <td colspan="7">
+                                    <div class="pagination d-flex justify-content-center">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
 
-                                        if (i == Model.CurrentPage)
-                                        {
-                                            activeLink = "btn-primary";
-                                        }
+                                                @if (Model.CurrentPage > 1)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" asp-page="/Accounts/Index"
+                                                       asp-route-sortColumn="@Model.SortColumn"
+                                                       asp-route-sortOrder="@Model.SortOrder"
+                                                       asp-route-pageNo="1">First</a>
+                                                    </li>
+                                                }
 
-                                        <a class="btn @activeLink"
-                                       asp-page="/Accounts/Index"
-                                       asp-route-sortColumn="@Model.SortColumn"
-                                       asp-route-sortOrder="@Model.SortOrder"
-                                       asp-route-pageNo="@i">
-                                            @i
-                                        </a>
-                                    }
-                                </td>
-                                <td></td>
-                                <td>
-                                    @if (Model.CurrentPage != Model.PageCount)
-                                    {
-                                        <a class="btn btn-secondary"
-                                       asp-page="/Accounts/Index"
-                                       asp-route-sortColumn="@Model.SortColumn"
-                                       asp-route-sortOrder="@Model.SortOrder"
-                                       asp-route-pageNo="@(Model.CurrentPage + 1)">
-                                            Next
-                                        </a>
-                                    }
+                                                @for (int i = 1; i <= Model.PageCount; i++)
+                                                {
+                                                    if (i == Model.CurrentPage)
+                                                    {
+                                                        <li class="page-item active">
+                                                            <a class="page-link">@i <span class="sr-only">(current)</span></a>
+                                                        </li>
+                                                    }
+                                                    else if (i >= Model.CurrentPage - 4 && i <= Model.CurrentPage + 4)
+                                                    {
+                                                        <li class="page-item">
+                                                            <a class="page-link" asp-page="/Accounts/Index"
+                                                       asp-route-sortColumn="@Model.SortColumn"
+                                                       asp-route-sortOrder="@Model.SortOrder"
+                                                       asp-route-pageNo="@i">@i</a>
+                                                        </li>
+                                                    }
+                                                }
+
+                                                @if (Model.CurrentPage < Model.PageCount)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" asp-page="/Accounts/Index"
+                                                       asp-route-sortColumn="@Model.SortColumn"
+                                                       asp-route-sortOrder="@Model.SortOrder"
+                                                       asp-route-pageNo="@Model.PageCount">Last</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
