@@ -180,42 +180,6 @@
     </div>
 </section>
 
-
-@*@section Scripts
-    {
-    <script>
-        pageNo = 1;
-
-        document.addEventListener("DOMContentLoaded", function () {
-            showMore();
-        });
-
-        function showMore() {
-            fetch("Account?handler=ShowMore&pageNo=" + pageNo + "&accountId=@Model.Account.AccountId")
-                .then((response) => response.json())
-                .then((json) => {
-                    pageNo = pageNo + 1
-                    json.transactions.forEach(drawElements);
-                });
-        }
-
-        function drawElements(element) {
-            document.querySelector('#posts-table tbody').innerHTML +=
-                `<tr>
-                    <td>${element.transactionId}</td>
-                    <td>${element.type}</td>
-                    <td>${element.operation}</td>
-                    <td>${element.amount.toFixed(2)}</td>
-                    <td>${element.balance.toFixed(2)}</td>
-                    <td>${element.date}</td>
-                    <td></td>
-                 </tr>`;
-        }
-
-    </script>
-}*@
-
-        
 @section Scripts
 {
     <script>
