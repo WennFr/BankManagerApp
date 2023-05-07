@@ -53,6 +53,8 @@ p, li, blockquote, label {
 
 .col-lg-3:hover {
     background-color: rgba(173, 216, 230, 0.2);
+    background-color: #f2f8ff;
+    background-color: #f2f2f2;
     text-decoration: none;
     cursor: pointer;
 }
@@ -65,8 +67,7 @@ p, li, blockquote, label {
 
 
 .flags {
-    font-size: 2em;
-    /*box-shadow: 1px 2px 1px 1px black;*/
+    font-size: 3em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
