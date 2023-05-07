@@ -157,96 +157,6 @@ else
                                 <th></th>
                             </tr>
                         </thead>
-                        @* <tbody>
-
-                        @foreach (var cust in Model.Customers)
-                        {
-                        <tr>
-                        <td>@cust.CustomerId</td>
-                        <td>@cust.Givenname</td>
-                        <td>@cust.Surname</td>
-                        <td>@cust.Streetaddress</td>
-                        <td>@cust.City</td>
-                        <td>@cust.Country</td>
-
-                        @if (@Model.PreviousPage == "manage-customers")
-                        {
-                        <td><a asp-page="/CustomerManagement/UpdateCustomer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="customers" class="btn btn-primary">Select</a></td>
-                        }
-                        else
-                        {
-                        <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="customers" class="btn btn-primary">View</a></td>
-                        }
-                        </tr>
-                        }
-
-                        <tr>
-                        <td>
-                        @if (Model.CurrentPage != 1)
-                        {
-                        <a class="btn btn-secondary"
-                        asp-page="/Customers/Index"
-                        asp-route-q="@Model.QName"
-                        asp-route-q="@Model.QCity"
-                        asp-route-sortColumn="@Model.SortColumn"
-                        asp-route-sortOrder="@Model.SortOrder"
-                        asp-route-pageNo="@(Model.CurrentPage - 1)"
-                        asp-route-previousPage="@Model.PreviousPage">
-                        Prev
-                        </a>
-                        }
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2">
-                        @for (int i = 1; i <= @Model.PageCount; i++)
-                        {
-                        string activeLink = "btn-secondary";
-
-                        if (i == Model.CurrentPage)
-                        {
-                        activeLink = "btn-primary";
-                        }
-
-                        <a class="btn @activeLink"
-                        asp-page="/Customers/Index"
-                        asp-route-q="@Model.QName"
-                        asp-route-q="@Model.QCity"
-                        asp-route-sortColumn="@Model.SortColumn"
-                        asp-route-sortOrder="@Model.SortOrder"
-                        asp-route-previousPage="@Model.PreviousPage"
-                        asp-route-pageNo="@i">
-                        @i
-                        </a>
-
-                        }
-
-
-                        </td>
-                        <td></td>
-                        <td></td>
-
-                        <td>
-                        @if (Model.CurrentPage != Model.PageCount)
-                        {
-
-                        <a class="btn btn-secondary"
-                        asp-page="/Customers/Index"
-                        asp-route-q="@Model.QName"
-                        asp-route-q="@Model.QCity"
-                        asp-route-sortColumn="@Model.SortColumn"
-                        asp-route-sortOrder="@Model.SortOrder"
-                        asp-route-previousPage="@Model.PreviousPage"
-                        asp-route-pageNo="@(Model.CurrentPage + 1)">
-                        Next
-                        </a>
-
-                        }
-
-                        </td>
-                        </tr>
-                        </tbody>*@
-
 
                         <tbody>
                             @foreach (var cust in Model.Customers)
@@ -301,7 +211,7 @@ else
                                                             <a class="page-link">@i <span class="sr-only">(current)</span></a>
                                                         </li>
                                                     }
-                                                    else if (i >= Model.CurrentPage - 2 && i <= Model.CurrentPage + 2)
+                                                    else if (i >= Model.CurrentPage - 4 && i <= Model.CurrentPage + 4)
                                                     {
                                                         <li class="page-item">
                                                             <a class="page-link" asp-page="/Customers/Index"
@@ -333,17 +243,6 @@ else
                                 </td>
                             </tr>
                         </tbody>
-
-
-
-
-
-
-
-
-
-
-
                     </table>
                 </div>
             </div>
