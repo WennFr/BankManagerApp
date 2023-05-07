@@ -26,9 +26,9 @@
     <link rel="stylesheet" href="~/plugins/fancybox/jquery.fancybox.min.css">
     <link rel="stylesheet" href="~/plugins/aos/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css" />
-    <link rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
-          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -49,34 +49,45 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                        <li class="nav-item dropdown">
+                            <a asp-page="/Customers/Index" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                 Home
                                 <span><i class="ti-angle-down"></i></span>
                             </a>
 
                             <!-- Dropdown list -->
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item active" href="">Homepage</a></li>
-                                <li><a class="dropdown-item" href="homepage-2.html">Homepage 2</a></li>
-                                <li><a class="dropdown-item active3" href="homepage-3.html">Homepage 3</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-page="/Administrator/Index">Administrate Users</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-page="/Privacy">Privacy</a>
+                                    </li>
+                                }
+                                
+                                else if (User.IsInRole("Cashier"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-page="/Customers/Index">Customers</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-page="/Accounts/Index">Accounts</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-page="/CustomerManagement/Index">Manage Clients</a>
+                                    </li>
 
-                                <li class="dropdown dropdown-submenu dropright">
-                                    <a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0301" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
+                                }
 
-                                    <ul class="dropdown-menu" aria-labelledby="dropdown0301">
-                                        <li><a class="dropdown-item" href="index.html">Submenu 11</a></li>
-                                        <li><a class="dropdown-item" href="index.html">Submenu 12</a></li>
-                                    </ul>
-                                </li>
                             </ul>
                         </li>
 
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item  @@administrate users">
-                                <a class="nav-link text-dark"asp-page="/Administrator/Index">Administrate Users</a>
+                                <a class="nav-link text-dark" asp-page="/Administrator/Index">Administrate Users</a>
                             </li>
                             <li class="nav-item @@privacy">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
@@ -86,17 +97,17 @@
                         else if (User.IsInRole("Cashier"))
                         {
                             <li class="nav-item @@customers">
-                                <a class="nav-link text-dark" asp-area="" 
-                                   asp-page="/Customers/Index">Customers</a>
+                                <a class="nav-link text-dark" asp-area=""
+                               asp-page="/Customers/Index">Customers</a>
                             </li>
 
                             <li class="nav-item  @@accounts">
                                 <a class="nav-link text-dark" asp-area=""
-                                   asp-page="/Accounts/Index">Accounts</a>
+                               asp-page="/Accounts/Index">Accounts</a>
                             </li>
 
                             <li class="nav-item  @@clients">
-                                <a class="nav-link text-dark"asp-page="/CustomerManagement/Index">Manage Clients</a>
+                                <a class="nav-link text-dark" asp-page="/CustomerManagement/Index">Manage Clients</a>
                             </li>
                         }
                     </ul>
