@@ -17,7 +17,7 @@
                         <img class="img-fluid " src="~/images/office-corridor.jpg"
                              alt="desk-image">
                     </div>
-                    <div class="content text-center bg-white">
+                    <div class="content text-center bg-white" style="height: 40rem;">
                         <div class="logo">
                             <a asp-page="/Index"><img src="~/images/BrB-logo2-alt.png" alt=""></a>
                         </div>
@@ -37,7 +37,7 @@
                             <div>
                                 <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                             </div>
-                            <div class="checkbox">
+                            <div class="checkbox align-content-center align-items-center mt-2">
                                 <label asp-for="Input.RememberMe" class="form-label">
                                     <input class="form-check-input" asp-for="Input.RememberMe" />
                                     @Html.DisplayNameFor(m => m.Input.RememberMe)
@@ -45,7 +45,7 @@
                             </div>
 
                         </form>
-                        <div class="new-account">
+                  @*      <div class="new-account" style="visibility: hidden;">
                             <p>
                                 <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                             </p>
@@ -57,7 +57,7 @@
                                 <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                             </p>
 
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>

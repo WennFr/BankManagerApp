@@ -46,7 +46,6 @@
                                     <td>@cust.TotalBalanceOfAllAccounts</td>
                                     @if (User.IsInRole("Cashier"))
                                     {
-
                                         <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="topCustomersByCountry" class="btn btn-primary">View</a></td>
                                     }
 
