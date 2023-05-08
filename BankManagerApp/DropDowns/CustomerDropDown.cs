@@ -10,7 +10,7 @@ namespace BankManagerApp.DropDowns
             return Enum.GetValues<Gender>()
                 .Select(g => new SelectListItem
                 {
-                    Value = g.ToString(),
+                    Value = ((int)g).ToString(),
                     Text = g.ToString()
                 }).ToList();
         }

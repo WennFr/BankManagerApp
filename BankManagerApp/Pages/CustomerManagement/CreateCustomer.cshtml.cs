@@ -14,6 +14,7 @@ using BankManagerApp.Infrastructure.Validation;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
+
     [BindProperties]
     public class CreateCustomerModel : PageModel
     {
