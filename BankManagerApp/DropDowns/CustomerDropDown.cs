@@ -30,8 +30,8 @@ namespace BankManagerApp.DropDowns
             return Enum.GetValues<TelephoneCountryCode>()
                 .Select(g => new SelectListItem
                 {
+                    Value = ((int)g).ToString(),
                     Text = ((int)g).ToString(),
-                    Value = g.ToString()
                 }).ToList();
         }
 
