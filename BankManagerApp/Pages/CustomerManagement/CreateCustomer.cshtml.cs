@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
 using BankManagerApp.DropDowns;
 using BankRepository.Services.AccountService;
@@ -18,18 +19,20 @@ namespace BankManagerApp.Pages.CustomerManagement
     {
 
 
-        public CreateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
+        public CreateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper, INotyfService toastNotification)
         {
             _customerService = customerService;
             _accountService = accountService;
             _customerDropDown = customerDropDown;
             _mapper = mapper;
+            _toastNotification = toastNotification;
         }
 
         private readonly ICustomerService _customerService;
         private readonly IAccountService _accountService;
         private readonly ICustomerDropDown _customerDropDown;
         private readonly IMapper _mapper;
+        private readonly INotyfService _toastNotification;
 
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
         public Gender GenderCustomer { get; set; }
@@ -103,6 +106,7 @@ namespace BankManagerApp.Pages.CustomerManagement
                 _accountService.RegisterNewAccountByCustomerId(newCustomerId);
 
 
+                _toastNotification.Success($"New customer was successfully registered!", 10);
                 return RedirectToPage("Index");
             }
 

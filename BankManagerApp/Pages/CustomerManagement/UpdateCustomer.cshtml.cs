@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
 using BankManagerApp.DropDowns;
 using BankRepository.BankAppData;
@@ -18,18 +19,20 @@ namespace BankManagerApp.Pages.CustomerManagement
     public class UpdateCustomerModel : PageModel
     {
 
-        public UpdateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper)
+        public UpdateCustomerModel(ICustomerService customerService, IAccountService accountService, ICustomerDropDown customerDropDown, IMapper mapper, INotyfService toastNotification)
         {
             _customerService = customerService;
             _accountService = accountService;
             _customerDropDown = customerDropDown;
             _mapper = mapper;
+            _toastNotification = toastNotification;
         }
 
         private readonly ICustomerService _customerService;
         private readonly IAccountService _accountService;
         private readonly ICustomerDropDown _customerDropDown;
         private readonly IMapper _mapper;
+        private readonly INotyfService _toastNotification;
 
         [Required]
         [Range(1, 99, ErrorMessage = "Please choose a valid gender.")]
@@ -111,6 +114,8 @@ namespace BankManagerApp.Pages.CustomerManagement
 
                 _customerService.EditCustomer(customerViewToUpdate);
 
+
+                _toastNotification.Success($"Selected customer was successfully edited!", 10);
                 return RedirectToPage("Index");
             }
 
