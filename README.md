@@ -1,5 +1,5 @@
 # BankManagerApp
 
-# 📃Description
+## 📃Description
 BankManagerApp is a C# Razor pages project that provides a simulated bank administration site experience on a smaller scale. The main project called "BankManagerApp" enables users to enter a functional website and perform various operations such as viewing top customers by country, all customers and accounts, as well as conducting transactions. The main application is intended for bank employees and thus targets the administrative user experience. Users can log in as two different roles (Admin or Cashier) and perform various actions based on their logged in credentials. Cashiers handles everything associated with customers, accounts and transactions, including registering new customers or editing existing ones. Admins are responsible for managing all registered users and can create new users(Admins/Cashiers) or edit/delete existing ones. The application is built of an existing database which contains a large quantity of pre-existing customers, accounts and transactions. Every action, such as conducting transactions or managing customers/users is registered to this database.        
 
