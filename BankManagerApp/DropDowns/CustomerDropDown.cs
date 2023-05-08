@@ -20,7 +20,7 @@ namespace BankManagerApp.DropDowns
             return Enum.GetValues<CountryEnum>()
                 .Select(g => new SelectListItem
                 {
-                    Value = g.ToString(),
+                    Value = ((int)g).ToString(),
                     Text = g.ToString()
                 }).ToList();
         }
