@@ -126,13 +126,12 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
+                    return RedirectToPage(new { userId = UserId });
                 }
             }
 
-            await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            return RedirectToPage(new { userId = UserId });
         }
     }
 }
