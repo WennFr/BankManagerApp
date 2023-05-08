@@ -5,6 +5,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BankRepository.BankAppData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +19,18 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly INotyfService _toastNotification;
 
         public DeletePersonalDataModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            INotyfService toastNotification)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _toastNotification = toastNotification;
         }
 
         public string UserId { get; set; }
@@ -114,6 +118,7 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
 
             _logger.LogInformation("User with ID '{UserId}' was deleted.", deletedUserId);
 
+            _toastNotification.Success("User was successfully deleted.",10);
             return Redirect("~/Administrator/Index");
         }
     }
