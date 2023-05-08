@@ -9,6 +9,7 @@ using BankManagerApp.DropDowns;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
+using BankManagerApp.Infrastructure.Validation;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
@@ -100,6 +101,7 @@ namespace BankManagerApp.Pages.CustomerManagement
                 var newCustomerId = _customerService.RegisterNewCustomer(customerViewModel);
 
                 _accountService.RegisterNewAccountByCustomerId(newCustomerId);
+
 
                 return RedirectToPage("Index");
             }

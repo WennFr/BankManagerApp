@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using BankManagerApp.DropDowns;
 using BankRepository.Services.IdentityUserService;
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +34,14 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminOnly", policy =>
         policy.RequireRole("Admin"));
 });
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
+
 
 builder.Services.AddRazorPages();
 
@@ -80,6 +91,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.UseNotyf();
 
 app.MapRazorPages();
 

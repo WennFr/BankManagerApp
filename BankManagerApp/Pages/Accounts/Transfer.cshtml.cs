@@ -6,22 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace BankManagerApp.Pages.Accounts
 {
     [BindProperties]
     public class TransferModel : PageModel
     {
-        public TransferModel(IAccountService accountService, ITransactionService transactionService, ICustomerService customerService)
+        public TransferModel(IAccountService accountService, ITransactionService transactionService, ICustomerService customerService, INotyfService toastNotification)
         {
             _accountService = accountService;
             _transactionService = transactionService;
             _customerService = customerService;
+            _toastNotification = toastNotification;
         }
 
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
         private readonly ICustomerService _customerService;
+        private readonly INotyfService _toastNotification;
 
         [Range(100, 10000)]
         public decimal Amount { get; set; }
@@ -56,7 +59,7 @@ namespace BankManagerApp.Pages.Accounts
 
                     _transactionService.RegisterTransaction(ToAccountId, Amount, newToAccountBalance, OperationConstant.CreditInCash, TransferDate, TransactionType.Credit);
 
-
+                    _toastNotification.Success($"Transfer was successful! The funds have been safely transferred to account: {ToAccountId}", 10);
                     return RedirectToPage("/Accounts/Account", new { accountId = FromAccountId });
                 }
 

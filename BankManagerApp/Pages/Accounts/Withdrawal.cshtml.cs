@@ -6,6 +6,7 @@ using BankManagerApp.Infrastructure.Validation;
 using Microsoft.EntityFrameworkCore;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace BankManagerApp.Pages.Accounts
 {
@@ -14,14 +15,16 @@ namespace BankManagerApp.Pages.Accounts
     public class WithdrawalModel : PageModel
     {
 
-        public WithdrawalModel(IAccountService accountService,ITransactionService transactionService)
+        public WithdrawalModel(IAccountService accountService,ITransactionService transactionService, INotyfService toastNotification)
         {
             _accountService = accountService;
             _transactionService = transactionService;
+            _toastNotification = toastNotification;
         }
 
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
+        private readonly INotyfService _toastNotification;
 
 
         [Range(100, 10000)]
@@ -48,6 +51,8 @@ namespace BankManagerApp.Pages.Accounts
                 {
                     var newBalance = _transactionService.RegisterWithdrawal(accountId, Amount);
                     _transactionService.RegisterTransaction(accountId, Amount, newBalance, OperationConstant.WithdrawalInCash, WithdrawalDate, TransactionType.Debit);
+
+                    _toastNotification.Success("Withdrawal successful! The funds have been withdrawn from the account. ", 10);
                     return RedirectToPage("/Accounts/Account", new { accountId = accountId });
                 }
 

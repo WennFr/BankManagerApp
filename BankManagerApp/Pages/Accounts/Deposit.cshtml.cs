@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BankRepository.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using BankRepository.Services.AccountService;
@@ -12,13 +13,15 @@ namespace BankManagerApp.Pages.Accounts
     public class DepositModel : PageModel
     {
 
-        public DepositModel(IAccountService accountService, ITransactionService transactionService)
+        public DepositModel(IAccountService accountService, ITransactionService transactionService, INotyfService toastNotification)
         {
             _accountService = accountService;
             _transactionService = transactionService;
+            _toastNotification = toastNotification;
         }
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
+        private readonly INotyfService _toastNotification;
 
 
         [Range(100, 10000)]
@@ -53,6 +56,8 @@ namespace BankManagerApp.Pages.Accounts
             {
                 var newBalance = _transactionService.RegisterDeposit(accountId, Amount);
                 _transactionService.RegisterTransaction(accountId, Amount, newBalance, OperationConstant.CreditInCash, DepositDate, TransactionType.Credit);
+
+                _toastNotification.Success("Deposit successful! The funds have been added to the account. ", 10);
                 return RedirectToPage("/Accounts/Account", new { accountId = accountId });
             }
 
