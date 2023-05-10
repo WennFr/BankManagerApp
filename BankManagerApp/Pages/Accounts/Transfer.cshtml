@@ -11,7 +11,7 @@
     <div class="container">
         <div class="rounded shadow p-5 bg-white">
             <div class="col-12">
-                <h2 class="mb-5 text-left">Balance: @Model.CurrentBalance</h2>
+                <h2 class="mb-5 text-left">Balance: @Model.CurrentBalance @Model.Currency</h2>
                 <div class="row">
                     <div class="col-lg-6 mt-5 mt-lg-0 transfer-column">
                         <form method="post" asp-page-handler="TransferFunds">
@@ -26,7 +26,6 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Transfer</button>
                             <span class="field-validation-error transfer" asp-validation-for="Amount"></span>
-
                         </form>
                     </div>
                     <div class="col-lg-6 mt-5 mt-lg-0 transfer-column">
@@ -43,7 +42,6 @@
                             <div class="form-group">
                                 <label asp-for="ToAccountId" class="transaction-solid">Search:</label>
                                 <input value=”” class="form-control main" placeholder="Account Id" asp-for="@Model.ToAccountId" class="form-control">
-                                
                             </div>
                             <input type="hidden" asp-for="FromAccountId"/>
                             <input type="hidden" asp-for="CurrentBalance"/>

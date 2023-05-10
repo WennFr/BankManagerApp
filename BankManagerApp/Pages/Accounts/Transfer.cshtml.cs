@@ -36,11 +36,13 @@ namespace BankManagerApp.Pages.Accounts
 
         [Range(1, int.MaxValue)]
         public int ToAccountId { get; set; }
+        public string Currency { get; set; }
 
         public void OnGet(int accountId)
         {
             FromAccountId = _accountService.GetAccountByAccountId(accountId).AccountId;
             CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
+            Currency = _accountService.GetCurrency();
         }
 
         public IActionResult OnPostTransferFunds()
@@ -81,7 +83,7 @@ namespace BankManagerApp.Pages.Accounts
 
         public IActionResult OnPostRetrieveToAccountId()
         {
-
+            Currency = _accountService.GetCurrency();
 
             if (FromAccountId == ToAccountId)
             {
