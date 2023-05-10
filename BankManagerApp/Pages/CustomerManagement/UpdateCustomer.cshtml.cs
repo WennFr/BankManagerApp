@@ -88,18 +88,22 @@ namespace BankManagerApp.Pages.CustomerManagement
         public string? Currency { get; set; }
 
         public decimal? TotalCustomerBalance { get; set; }
-
+        public int CustomerId { get; set; }
 
         public void OnGet(int customerId)
         {
+
             Genders = _customerDropDown.FillGenderList();
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+
 
             var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
             Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
             TotalCustomerBalance = _accountService.GetTotalCustomerAccountBalance(customerId);
             Currency = _accountService.GetCurrency();
+
+            CustomerId = customerId;
 
             _mapper.Map(customerViewModel, this);
 
@@ -107,7 +111,7 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public IActionResult OnPostUpdateProfile(int customerId)
         {
-            
+
             var age = DateTime.Today - BirthDay;
             if (age.TotalDays < 18 * 365.25)
             {
@@ -143,14 +147,29 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public IActionResult OnPostNewAccount(int customerId)
         {
+
             Genders = _customerDropDown.FillGenderList();
             Countries = _customerDropDown.FillCountryList();
             TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+
             var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
+            TotalCustomerBalance = _accountService.GetTotalCustomerAccountBalance(customerId);
+            Currency = _accountService.GetCurrency();
             Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+            CustomerId = customerId;
 
             _mapper.Map(customerViewModel, this);
 
+
+            if (Accounts.Count <= 5)
+            {
+                _accountService.RegisterNewAccountByCustomerId(customerId);
+                _toastNotification.Success($"New Account registered for customer {customerId}", 5);
+                Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+                return Page();
+            }
+
+            _toastNotification.Error($"Only 5 accounts per customer allowed.");
             return Page();
         }
 

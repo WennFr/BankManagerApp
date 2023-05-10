@@ -17,8 +17,6 @@ namespace BankRepository.Infrastructure.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created.ToString("yyyy-MM-dd")))
                 .ReverseMap();
 
-            //CreateMap<Disposition, AccountViewModel>().ReverseMap();
-
             CreateMap<Disposition, AccountViewModel>()
                 .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Account.AccountId))
                 .ForMember(dest => dest.Frequency, opt => opt.MapFrom(src => src.Account.Frequency))

@@ -17,8 +17,7 @@
                         <h2 class="customer-name">@Model.Givenname @Model.Surname</h2>
 
                     </div>
-
-                    <form method="post" asp-page-handler="UpdateProfile">
+                    <form method="post" asp-page-handler="UpdateProfile" asp-route-customerId="@Model.CustomerId">
                         <div class="form-group">
                             <label asp-for="GenderCustomer">*Gender</label>
                             <select class="form-control" asp-for="GenderCustomer" asp-items="@Model.Genders"></select>
@@ -100,102 +99,48 @@
     </div>
 </section>
 
-<section class="job-list section pt-0 ">
+<section class="job-list section pt-0">
     <div class="container">
         <div class="row">
             <div class="col-10 col-lg-11 m-auto">
                 <div class="block">
-                    <div class="customer-top">
-
-                       @* <form method="post" asp-page-handler="NewAccount">
-                            <table class="title table mt-3">
-                                <thead>
-                                <th scope="col">Accounts</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                </thead>
-                                <tbody>
-
+                    <div class="text-center">
+                        <form method="post" asp-page-handler="NewAccount" asp-route-customerId="@Model.CustomerId">
+                            <div class="table-container mt-3">
+                                <h3 class="table-header">Accounts</h3>
+                                <table class="title table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Account Id</th> 
+                                        <th class="text-center">Balance</th> 
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     @foreach (var acco in @Model.Accounts)
                                     {
                                         <tr>
-                                            <td>Account Id:  </td>
-                                            <td>@acco.AccountId</td>
-                                            <td style="width: 150px">
-                                            </td>
+                                            <td class="text-center">@acco.AccountId</td>
+                                            <td class="text-center">@acco.Balance @Model.Currency</td>
                                         </tr>
                                     }
-
                                     <tr>
-                                        <td>Total Customer Balance:</td>
-                                        <td>@Model.TotalCustomerBalance @Model.Currency</td>
-                                        <td></td>
+                                        <td class="text-center">Total Customer Balance:</td>
+                                        <td class="text-center">@Model.TotalCustomerBalance @Model.Currency</td>
                                     </tr>
-
-
-                                </tbody>
-                            </table>
-                        </form>*@
-                       <form method="post" asp-page-handler="NewAccount">
-                           <div class="table-container mt-3">
-                               <h3 class="table-header">Accounts</h3>
-                               <table class="title table">
-                                   <thead>
-                                   <tr>
-                                       <th>Account Id</th>
-                                       <th>Balance</th>
-                                   </tr>
-                                   </thead>
-                                   <tbody>
-                                   @foreach (var acco in @Model.Accounts)
-                                   {
-                                       <tr>
-                                           <td>@acco.AccountId</td>
-                                           <td>@acco.Balance</td>
-                                       </tr>
-                                   }
-                                   <tr>
-                                       <td>Total Customer Balance:</td>
-                                       <td>@Model.TotalCustomerBalance @Model.Currency</td>
-                                   </tr>
-                                   </tbody>
-                               </table>
-                           </div>
-                       </form>
-
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary">Add New Account</button> 
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
 </section>
+
 
 
 
