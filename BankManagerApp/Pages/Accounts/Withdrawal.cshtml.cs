@@ -36,11 +36,14 @@ namespace BankManagerApp.Pages.Accounts
 
         public DateTime WithdrawalDate { get; set; }
 
+        public int AccountId { get; set; }
+
 
         public void OnGet(int accountId)
         {
             CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
             Currency = _accountService.GetCurrency();
+            AccountId = accountId;
         }
 
         public IActionResult OnPost(int accountId)
