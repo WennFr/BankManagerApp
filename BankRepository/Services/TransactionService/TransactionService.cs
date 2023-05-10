@@ -10,6 +10,7 @@ using BankRepository.Infrastructure.Common;
 using BankRepository.Infrastructure.Paging;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankRepository.ViewModels.TransactionView;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankRepository.Services.TransactionService
 {
