@@ -25,6 +25,7 @@ namespace BankManagerApp.Pages.Accounts
         private readonly ITransactionService _transactionService;
         private readonly INotyfService _toastNotification;
 
+        public int? AccountId { get; set; }
 
         [Range(100, 10000)]
         public decimal Amount { get; set; }
@@ -41,9 +42,10 @@ namespace BankManagerApp.Pages.Accounts
             "Comment is too long, 5-250 characters required.")]
         public string Comment { get; set; }
 
-        public void OnGet()
+        public void OnGet(int accountId)
         {
             DepositDate = DateTime.Now.AddHours(1);
+            AccountId = accountId;
         }
 
         public IActionResult OnPost(int accountId)
