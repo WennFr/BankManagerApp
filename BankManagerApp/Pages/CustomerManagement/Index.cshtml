@@ -2,11 +2,9 @@
 @model BankManagerApp.Pages.CustomerManagement.IndexModel
 @{
     ViewBag.BodyClass = "home";
-
 }
 
 <partial name="_Showcase" model='new { HeaderText = "Cashier", ParagraphText = "Manage customers and accounts by creating new ones or modifying existing ones." }' />
-
 
 <section class="job-list section pt-4 position-relative pull-top">
     <div class="container">
@@ -14,60 +12,20 @@
             <div class="col-12 col-lg-10 m-auto">
                 <div class="block">
                     <div class="job">
-                        <div class="content">
+                        <div class="content text-center">
                             <!-- Job Title -->
-                            <h3>Customers </h3>
+                            <h3>Customers</h3>
                             <!-- Location -->
-                            <p>Register and edit Blue Ridge Bank customers.</p>
+                            <p class="mb-4">Register and edit Blue Ridge Bank customers.</p>
                         </div>
                         <!-- Create Button -->
-                        <div class="apply-button">
-                            <a asp-page="/CustomerManagement/CreateCustomer" class="btn btn-main-sm">Create</a>
-                            <a asp-page="/Customers/Index" asp-route-previousPage="manage-customers" class="btn btn-main-sm">Edit</a>
-                            <!-- Modal -->
-                            <div class="modal fade jd-modal" id="android-developer" tabindex="-1">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Choose User</h5>
-                                            <button type="button" class="close" data-dismiss="modal">
-                                                <span>&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Application Form -->
-                                            <div class="col-12 col-lg-12 m-auto">
-                                                <div class="block">
-                                                    <table class="title table ">
-                                                        <thead>
-
-                                                            <tr>
-                                                                <th scope="col">Id</th>
-                                                                <th scope="col">First Name</th>
-                                                                <th scope="col">Second Name</th>
-                                                                <th></th>
-                                                            </tr>
-
-                                                        </thead>
-                                                        <tbody>
-                                                       @* @foreach (var cust in Model.Customers)
-                                                        {
-
-                                                            <tr>
-                                                                <td>@cust.CustomerId</td>
-                                                                <td>@cust.Givenname</td>
-                                                                <td>@cust.Surname</td>
-                                                                    <td><a asp-page="/CustomerManagement/Index" asp-route-Id="@cust.CustomerId" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
-                                                            </tr>
-                                                        }*@
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="apply-button text-center">
+                            <a asp-page="/CustomerManagement/CreateCustomer" class="btn btn-success btn-main-sm">
+                                <i class="fas fa-plus-circle"></i> Create
+                            </a>
+                            <a asp-page="/Customers/Index" asp-route-previousPage="manage-customers" class="btn btn-warning btn-main-sm ml-3">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -79,4 +37,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
