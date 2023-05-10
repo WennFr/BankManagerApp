@@ -32,17 +32,21 @@ namespace BankManagerApp.Pages.Accounts
         public decimal Amount { get; set; }
         public decimal CurrentBalance { get; set; }
 
+        public string Currency { get; set; }
+
         public DateTime WithdrawalDate { get; set; }
 
 
         public void OnGet(int accountId)
         {
             CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
+            Currency = _accountService.GetCurrency();
         }
 
         public IActionResult OnPost(int accountId)
         {
             WithdrawalDate = DateTime.Now.AddHours(1);
+            Currency = _accountService.GetCurrency();
             var status = _transactionService.ReturnValidationStatus(CurrentBalance, Amount);
 
             if (ModelState.IsValid)
