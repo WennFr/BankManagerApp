@@ -142,7 +142,7 @@ namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
             _logger.LogInformation("User changed their password successfully.");
             StatusMessage = "User password has been changed.";
 
-            return RedirectToPage();
+            return RedirectToPage(new { userId = UserId });
         }
     }
 }

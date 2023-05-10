@@ -27,9 +27,7 @@
                             <button type="submit" class="btn btn-primary">Transfer</button>
                             <span class="field-validation-error transfer" asp-validation-for="Amount"></span>
                         </form>
-                      
                     </div>
-
                     <div class="col-lg-6 mt-5 mt-lg-0 transfer-column">
                         <form method="post" asp-page-handler="RetrieveToAccountId">
                             @if (@Model.ToAccountId > 0)
@@ -52,7 +50,7 @@
                             <span class="field-validation-error transfer" asp-validation-for="ToAccountId"></span>
                         </form>
                     </div>
-                    <a class="btn btn-secondary"
+                    <a class="btn btn-secondary ml-3"
                        asp-page="/Accounts/Account" asp-route-previousPage="/Accounts/Index" asp-route-accountId="@Model.FromAccountId">
                         Back
                     </a>
