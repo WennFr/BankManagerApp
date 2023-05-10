@@ -4,15 +4,19 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using BankRepository.BankAppData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles = "Admin")]
+
     public class IndexModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

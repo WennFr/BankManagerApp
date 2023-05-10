@@ -4,9 +4,11 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BankRepository.BankAppData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +16,8 @@ using Microsoft.Extensions.Logging;
 
 namespace BankManagerApp.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeletePersonalDataModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

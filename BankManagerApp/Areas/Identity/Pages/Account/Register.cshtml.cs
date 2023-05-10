@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BankManagerApp.Areas.Identity.Pages.Account
 {
+
     [Authorize(Roles = "Admin")]
 
     public class RegisterModel : PageModel
