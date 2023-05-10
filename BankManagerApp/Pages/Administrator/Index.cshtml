@@ -4,7 +4,7 @@
     ViewBag.BodyClass = "home";
 }
 
-<partial name="_Showcase" model='new { HeaderText = "Administrator", ParagraphText = "Manage users by registering new or modifying existing ones." }' />
+<partial name="_Showcase" model='new { HeaderText = "Administrator", ParagraphText = "Manage users by creating new ones or modifying existing ones." }' />
 
 
 <section class="job-list section pt-4 position-relative pull-top">
@@ -13,15 +13,20 @@
             <div class="col-12 col-lg-10 m-auto">
                 <div class="block">
                     <div class="job">
-                        <div class="content">
+                        <div class="content text-center">
                             <!-- Job Title -->
-                            <h3>Administrator</h3>
-                            <p>Creates and edits users and customers.</p>
+                            <h3>Users</h3>
+                            <!-- Location -->
+                            <p class="mb-4">Admins and Cashiers.</p>
                         </div>
-                        <!-- Action Button -->
-                        <div class="apply-button">
-                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-main-sm">Create</a>
-                            <a class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Edit</a>
+                        <!-- Action Buttons -->
+                        <div class="apply-button text-center">
+                            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-success btn-main-sm">
+                                <i class="fas fa-plus-circle"></i> Create
+                            </a>
+                            <a class="btn btn-warning btn-main-sm ml-3" data-toggle="modal" data-target="#android-developer">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
                             <!-- Modal -->
                             <div class="modal fade jd-modal" id="android-developer" tabindex="-1">
                                 <div class="modal-dialog modal-lg">
@@ -38,45 +43,31 @@
                                                 <div class="block">
                                                     <table class="title table ">
                                                         <thead>
-
                                                             <tr>
-                                                                <th scope="col">Id</th>
-                                                                <th scope="col">Email</th>
-                                                                <th></th>
+                                                                <th class="small-table" scope="col">Id</th>
+                                                                <th class="small-table" scope="col">Email</th>
+                                                                <th class="small-table"> </th>
+                                                                <th class="small-table"></th>
                                                             </tr>
-
                                                         </thead>
                                                         <tbody>
                                                             @foreach (var user in Model.IdentityUsers)
                                                             {
                                                                 <tr>
-                                                                    <td>@user.Id</td>
-                                                                    <td>@user.Email</td>
-                                                                    <td><a asp-area="Identity" asp-page="/Account/Manage/Index" asp-route-userId="@user.Id" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
+                                                                    <td class="small-table">@user.Id</td>
+                                                                    <td class="small-table">@user.Email</td>
+                                                                    <td class="small-table"></td>
+                                                                    <td class="small-table"><a asp-area="Identity" asp-page="/Account/Manage/Index" asp-route-userId="@user.Id" asp-route-previousPage="/Administration/Index" class="btn btn-primary">Select</a></td>
                                                                 </tr>
                                                             }
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="job">
-                        <div class="content">
-                            <!-- Job Title -->
-                            <h3>Cashier</h3>
-                            <!-- Location -->
-                            <p>Manages accounts and transactions.</p>
-                        </div>
-                        <!-- Action Button -->
-                        <div class="apply-button">
-                            <a href="#" class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Create</a>
-                            <a href="#" class="btn btn-main-sm" data-toggle="modal" data-target="#android-developer">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -88,47 +79,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-<script>
-    // Find the form element
-    const form = document.getElementById("registerForm");
-
-    // Add an event listener for form submission
-    form.addEventListener("submit", function (event) {
-        // Prevent the default form submission behavior
-        event.preventDefault();
-
-        // Get the form fields and their values
-        const emailInput = form.elements.email;
-        const passwordInput = form.elements.password;
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        // Validate the form fields
-        let errors = [];
-        if (email === "") {
-            errors.push("Please enter your email address.");
-        }
-        if (password === "") {
-            errors.push("Please enter your password.");
-        }
-
-        // If there are errors, show them to the user
-        if (errors.length > 0) {
-            const errorList = document.createElement("ul");
-            errors.forEach(function (error) {
-                const errorItem = document.createElement("li");
-                errorItem.textContent = error;
-                errorList.appendChild(errorItem);
-            });
-            const errorDiv = document.getElementById("errorDiv");
-            errorDiv.innerHTML = "";
-            errorDiv.appendChild(errorList);
-        }
-
-        // If there are no errors, submit the form
-        else {
-            form.submit();
-        }
-    });
-</script>
+              

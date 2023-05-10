@@ -51,7 +51,9 @@ p, li, blockquote, label {
     vertical-align:middle !important;
 }
 
-
+.small-table {
+    max-width: 0px!important;
+}
 
 .col-lg-3:hover {
     background-color: rgba(173, 216, 230, 0.2);

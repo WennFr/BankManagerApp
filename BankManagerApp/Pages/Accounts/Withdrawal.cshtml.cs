@@ -32,7 +32,7 @@ namespace BankManagerApp.Pages.Accounts
         public decimal Amount { get; set; }
         public decimal CurrentBalance { get; set; }
 
-        public string Currency { get; set; }
+        public string? Currency { get; set; }
 
         public DateTime WithdrawalDate { get; set; }
 
