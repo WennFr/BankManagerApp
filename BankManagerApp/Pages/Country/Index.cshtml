@@ -20,7 +20,10 @@
                         <thead>
                             <tr>
                                 <th>Rank</th>
-                                <th scope="col">Customer Id</th>
+                                @if (User.IsInRole("Cashier"))
+                                {
+                                    <th scope="col">Customer Id</th>
+                                }
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
                                 <th scope="col">City</th>
@@ -38,16 +41,19 @@
                                 <tr class="job">
                                 <tr class="container">
                                     <td>@(counter++).</td>
-                                    <td>@cust.CustomerId</td>
+                                        @if (User.IsInRole("Cashier"))
+                                        {
+                                        <td>@cust.CustomerId</td>
+                                        }
                                     <td>@cust.Givenname</td>
                                     <td>@cust.Surname</td>
                                     <td>@cust.City</td>
                                     <td>@cust.Country</td>
                                     <td>@cust.TotalBalanceOfAllAccounts @cust.Currency</td>
-                                    @if (User.IsInRole("Cashier"))
-                                    {
+                                        @if (User.IsInRole("Cashier"))
+                                        {
                                         <td><a asp-page="/Customers/Customer" asp-route-customerId="@cust.CustomerId" asp-route-previousPage="topCustomersByCountry" class="btn btn-primary">View</a></td>
-                                    }
+                                        }
 
                                 </tr>
                                 </tr>
