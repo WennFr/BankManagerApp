@@ -19,7 +19,7 @@
                             <input type="hidden" asp-for="FromAccountId" />
                             <input type="hidden" asp-for="ToAccountId" />
                             <h3 class="mt-4 text-capitalize h5 "><span class="font-weight-bold">From </span>AccountId: @Model.FromAccountId</h3>
-                            <p class="regular text-muted">Owner:</p>
+                            <p class="regular text-muted">Owner: @Model.FromCustomerName</p>
                             <div class="form-group">
                                 <label asp-for="Amount" class="transaction-solid">Amount</label>
                                 <input class="form-control main" asp-for="Amount" required>
@@ -38,13 +38,14 @@
                             {
                                 <h3 class="mt-4 text-capitalize h5 "><span class="font-weight-bold">To </span> AccountId:</h3>
                             }
-                            <p class="regular text-muted">Owner:</p>
+
+                            <p class="regular text-muted">Owner: @Model.ToCustomerName</p>
                             <div class="form-group">
                                 <label asp-for="ToAccountId" class="transaction-solid">Search:</label>
                                 <input value=”” class="form-control main" placeholder="Account Id" asp-for="@Model.ToAccountId" class="form-control">
                             </div>
-                            <input type="hidden" asp-for="FromAccountId"/>
-                            <input type="hidden" asp-for="CurrentBalance"/>
+                            <input type="hidden" asp-for="FromAccountId" />
+                            <input type="hidden" asp-for="CurrentBalance" />
                             <button type="submit" class="btn btn-primary">Search</button>
                             <span class="field-validation-error transfer" asp-validation-for="ToAccountId"></span>
                         </form>
@@ -58,8 +59,8 @@
 
 
 @section Scripts
-{
-    <partial name="Shared/_ValidationScriptsPartial"/>
+    {
+    <partial name="Shared/_ValidationScriptsPartial" />
 }
 
 

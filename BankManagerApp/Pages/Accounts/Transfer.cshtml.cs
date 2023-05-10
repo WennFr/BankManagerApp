@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using BankRepository.ViewModels.CustomerView;
 using Microsoft.AspNetCore.Authorization;
+using BankRepository.BankAppData;
 
 namespace BankManagerApp.Pages.Accounts
 {
@@ -33,16 +35,23 @@ namespace BankManagerApp.Pages.Accounts
         public decimal CurrentBalance { get; set; }
         public DateTime TransferDate { get; set; }
         public int FromAccountId { get; set; }
+    
+        public string? FromCustomerName { get; set; }
+        public string? ToCustomerName { get; set; }
 
-        [Range(1, int.MaxValue)]
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please choose a valid number larger than 1")]
         public int ToAccountId { get; set; }
-        public string Currency { get; set; }
+        public string? Currency { get; set; }
 
         public void OnGet(int accountId)
         {
             FromAccountId = _accountService.GetAccountByAccountId(accountId).AccountId;
             CurrentBalance = _accountService.GetAccountByAccountId(accountId).Balance;
             Currency = _accountService.GetCurrency();
+            var customerName = _customerService.GetCustomerNameByAccountId(accountId).Givenname + " " + _customerService.GetCustomerNameByAccountId(accountId).Surname;
+            FromCustomerName = customerName;
+            ToCustomerName = "";
         }
 
         public IActionResult OnPostTransferFunds()
@@ -81,9 +90,11 @@ namespace BankManagerApp.Pages.Accounts
             return Page();
         }
 
-        public IActionResult OnPostRetrieveToAccountId()
+        public IActionResult OnPostRetrieveToAccountId(int fromAccountId)
         {
             Currency = _accountService.GetCurrency();
+            var customerName = _customerService.GetCustomerNameByAccountId(fromAccountId).Givenname + " " + _customerService.GetCustomerNameByAccountId(fromAccountId).Surname;
+            FromCustomerName = customerName;
 
             if (FromAccountId == ToAccountId)
             {
@@ -96,6 +107,8 @@ namespace BankManagerApp.Pages.Accounts
                 if (status == AccountErrorCode.OK)
                 {
                     ToAccountId = _accountService.GetAccountByAccountId(ToAccountId).AccountId;
+                    customerName = _customerService.GetCustomerNameByAccountId(ToAccountId).Givenname + " " + _customerService.GetCustomerNameByAccountId(ToAccountId).Surname;
+                    ToCustomerName = customerName;
                     return Page();
                 }
 
