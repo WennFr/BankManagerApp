@@ -55,6 +55,11 @@ p, li, blockquote, label {
     max-width: 0px!important;
 }
 
+.balance-column {
+    padding-left: 30rem !important;
+}
+
+
 .col-lg-3:hover {
     background-color: rgba(173, 216, 230, 0.2);
     background-color: #f2f8ff;
@@ -63,6 +68,9 @@ p, li, blockquote, label {
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 
 .lora {

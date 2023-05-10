@@ -13,7 +13,7 @@
 <section class="job-list section pt-0 position-relative pull-top">
     <div class="container">
         <div class="row">
-            <div class="col-10 col-lg-11 m-auto">
+            <div class="col-1 col-lg-11 m-auto">
                 <div class="block">
                     <div class="customer-top">
                         <h2 class="customer-name">@Model.Customer.Givenname @Model.Customer.Surname</h2>
@@ -40,7 +40,7 @@
                         <thead>
 
                             <tr>
-                                <th scope="col">Customer Info</th>
+                                <th colspan="1" scope="col">Customer Info</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -123,87 +123,90 @@
                                 <td></td>
 
                             </tr>
-
-
-
-                        <th scope="col">Accounts</th>
-                        <th></th>
-                        <th></th>
-
-
-                            @foreach (var acco in @Model.Accounts)
-                            {
-                            <tr>
-                                <td>Account Id:  </td>
-                                <td>@acco.AccountId</td>
-                                <td style="width: 150px">
-                                        @if (@Model.PreviousPage == "account")
-                                        {
-                                        }
-                                        else if (@Model.PreviousPage == "customers")
-                                        {
-                                        <a class="btn btn-primary"
-                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
-                                            Account
-                                        </a>
-                                        }
-
-                                        else if (@Model.PreviousPage == "topCustomersByCountry")
-                                        {
-                                        <a class="btn btn-primary"
-                                   asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
-                                            Account
-                                        </a>
-                                        }
-
-
-                                </td>
-                            </tr>
-                            }
-
-                        <tr>
-                            <td>Total Customer Balance:</td>
-                            <td>@Model.Customer.TotalBalanceOfAllAccounts @Model.Currency</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                    @if (@Model.PreviousPage == "customers")
-                                    {
-
-                                    <a class="btn btn-secondary"
-                                   asp-page="/Customers/Index">
-                                        Back
-                                    </a>
-
-                                    }
-                                    else if (@Model.PreviousPage == "topCustomersByCountry")
-                                    {
-                                    <a class="btn btn-secondary"
-                                   asp-page="/Country/Index" asp-route-country="@Model.Country">
-                                        Back
-                                    </a>
-                                    }
-                                    else if (@Model.PreviousPage == "account")
-                                    {
-                                    <a class="btn btn-secondary"
-                                   asp-page="/Accounts/Account" asp-route-accountId="@Model.AccountIdFromAccountPage" asp-route-previousPage="accounts">
-                                        Back
-                                    </a>
-                                    }
-                                    else
-                                    {
-                                    <a class="btn btn-secondary"
-                                   asp-page="/Customers/Index">
-                                        Back
-                                    </a>
-
-                                    }
-                            </td>
-                            <td></td>
-                            <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         </tbody>
                     </table>
+                    <div class="table-container table-responsive mt-3">
+                        <h3 class="table-header mb-4">Accounts</h3>
+                        <table class="title table">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Account Id</th>
+                                    <th colspan="2" style="padding-left:2.48rem!important;">Balance</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var acco in @Model.Accounts)
+                                {
+                                    <tr>
+                                        <td colspan="2">@acco.AccountId</td>
+                                        <td colspan="2" style="padding-left:2.48rem!important;" >@acco.Balance @Model.Currency</td>
+                                        <td style="width: 150px">
+                                            @if (@Model.PreviousPage == "account")
+                                            {
+                                            }
+                                            else if (@Model.PreviousPage == "customers")
+                                            {
+                                                <a class="btn btn-primary"
+                                           asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="customer" asp-route-accountId="@acco.AccountId">
+                                                    Account
+                                                </a>
+                                            }
+                                            else if (@Model.PreviousPage == "topCustomersByCountry")
+                                            {
+                                                <a class="btn btn-primary"
+                                           asp-page="/Accounts/Account" asp-route-customerId="@Model.Customer.CustomerId" asp-route-previousPage="topCustomersByCountry" asp-route-accountId="@acco.AccountId">
+                                                    Account
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="2">Total Accounts Balance:</td>
+                                    <td colspan="2" style="padding-left:2.48rem!important;">@Model.Customer.TotalBalanceOfAllAccounts @Model.Currency</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        @if (@Model.PreviousPage == "customers")
+                                        {
+                                            <a class="btn btn-secondary"
+                                           asp-page="/Customers/Index">
+                                                Back
+                                            </a>
+                                        }
+                                        else if (@Model.PreviousPage == "topCustomersByCountry")
+                                        {
+                                            <a class="btn btn-secondary"
+                                           asp-page="/Country/Index" asp-route-country="@Model.Country">
+                                                Back
+                                            </a>
+                                        }
+                                        else if (@Model.PreviousPage == "account")
+                                        {
+                                            <a class="btn btn-secondary"
+                                           asp-page="/Accounts/Account" asp-route-accountId="@Model.AccountIdFromAccountPage" asp-route-previousPage="accounts">
+                                                Back
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-secondary"
+                                           asp-page="/Customers/Index">
+                                                Back
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
                 </div>
             </div>
         </div>
