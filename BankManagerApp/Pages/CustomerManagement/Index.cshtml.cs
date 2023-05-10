@@ -1,10 +1,12 @@
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
+    [Authorize(Policy = "CashierOnly")]
     public class IndexModel : PageModel
     {
 

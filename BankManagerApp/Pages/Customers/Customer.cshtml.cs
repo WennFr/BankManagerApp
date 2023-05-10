@@ -2,11 +2,14 @@ using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.AccountView;
 using BankRepository.ViewModels.CustomerView;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BankManagerApp.Pages.Customers
 {
+
+    [Authorize(Policy = "CashierOnly")]
     public class CustomerModel : PageModel
     {
         public CustomerModel(ICustomerService customerService,IAccountService accountService)

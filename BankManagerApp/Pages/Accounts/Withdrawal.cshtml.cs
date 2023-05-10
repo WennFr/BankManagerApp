@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.Accounts
 {
-
+    [Authorize(Policy = "CashierOnly")]
     [BindProperties]
     public class WithdrawalModel : PageModel
     {

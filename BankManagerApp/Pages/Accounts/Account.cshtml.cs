@@ -4,12 +4,14 @@ using BankRepository.Services.CustomerService;
 using BankRepository.Services.TransactionService;
 using BankRepository.ViewModels.AccountView;
 using BankRepository.ViewModels.CustomerView;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankManagerApp.Pages.Accounts
 {
+    [Authorize(Policy = "CashierOnly")]
     public class AccountModel : PageModel
     {
 

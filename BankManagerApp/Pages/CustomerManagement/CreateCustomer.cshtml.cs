@@ -11,10 +11,11 @@ using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
 using BankManagerApp.Infrastructure.Validation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.CustomerManagement
 {
-
+    [Authorize(Policy = "CashierOnly")]
     [BindProperties]
     public class CreateCustomerModel : PageModel
     {

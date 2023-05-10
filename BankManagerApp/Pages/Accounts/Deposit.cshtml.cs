@@ -6,9 +6,11 @@ using BankRepository.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.TransactionService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.Accounts
 {
+    [Authorize(Policy = "CashierOnly")]
     [BindProperties]
     public class DepositModel : PageModel
     {

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.JSInterop;
 using System.ComponentModel.DataAnnotations;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.Accounts
 {
+    [Authorize(Policy = "CashierOnly")]
     [BindProperties]
     public class TransferModel : PageModel
     {
