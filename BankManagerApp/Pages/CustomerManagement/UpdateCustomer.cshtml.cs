@@ -85,6 +85,10 @@ namespace BankManagerApp.Pages.CustomerManagement
 
         public List<AccountViewModel> Accounts { get; set; }
 
+        public string? Currency { get; set; }
+
+        public decimal? TotalCustomerBalance { get; set; }
+
 
         public void OnGet(int customerId)
         {
@@ -94,12 +98,14 @@ namespace BankManagerApp.Pages.CustomerManagement
 
             var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
             Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+            TotalCustomerBalance = _accountService.GetTotalCustomerAccountBalance(customerId);
+            Currency = _accountService.GetCurrency();
 
             _mapper.Map(customerViewModel, this);
 
         }
 
-        public IActionResult OnPost(int customerId)
+        public IActionResult OnPostUpdateProfile(int customerId)
         {
             
             var age = DateTime.Today - BirthDay;
@@ -134,6 +140,21 @@ namespace BankManagerApp.Pages.CustomerManagement
 
             return Page();
         }
+
+        public IActionResult OnPostNewAccount(int customerId)
+        {
+            Genders = _customerDropDown.FillGenderList();
+            Countries = _customerDropDown.FillCountryList();
+            TelephoneCountryCodes = _customerDropDown.FillCountryCodeList();
+            var customerViewModel = _customerService.GetFullCustomerInformationById(customerId);
+            Accounts = _accountService.GetAccountsByCustomerId(customerId).ToList();
+
+            _mapper.Map(customerViewModel, this);
+
+            return Page();
+        }
+
+
 
 
     }
