@@ -1,7 +1,7 @@
 # BankManagerApp
 
 ## 📃Description
-* BankManagerApp is a .NET project that provides a simulated bank administration site experience on a smaller scale. It contains 4 projects that all relates to the same fictional bank managing scandinavian countrys. The main project called "BankManagerApp" is a C# Razor pages app that enables users to enter a functional website and perform various operations such as viewing top customers by country, all customers and accounts, as well as conducting transactions. The main application is intended for bank employees and thus targets the administrative user experience. Users can log in as two different roles (Admin or Cashier) and perform various actions based on their logged in credentials. Cashiers handles everything associated with customers, accounts and transactions, including registering new customers or editing existing ones. Admins are responsible for managing all registered users and can create new users(Admins/Cashiers) or edit/delete existing ones. The application is built of an existing database which contains a large quantity of pre-existing customers, accounts and transactions. Every action, such as conducting transactions or managing customers/users is registered to this database.        
+* BankManagerApp is a .NET project that provides a simulated bank administration site experience on a smaller scale. It contains 4 projects that all relates to the same fictional bank called Blue Ridge Bank, managing scandinavian countrys. The main project called "BankManagerApp" is a C# Razor pages app that enables users to enter a functional website and perform various operations such as viewing top customers by country, all customers and accounts, as well as conducting transactions. The main application is intended for bank employees and thus targets the administrative user experience. Users can log in as two different roles (Admin or Cashier) and perform various actions based on their logged in credentials. Cashiers handles everything associated with customers, accounts and transactions, including registering new customers or editing existing ones. Admins are responsible for managing all registered users and can create new users(Admins/Cashiers) or edit/delete existing ones. The application is built of an existing database which contains a large quantity of pre-existing customers, accounts and transactions. Every action, such as conducting transactions or managing customers/users is registered to this database.        
 
 * "BankWebAPI" is a an ASP.NET Core Web API included in the BankManagerApp solution. It's intended purpose is to simulate an API associated provided by the bank with the intention of providing customers with the ability to log in and view their customer and transaction information. The API retrieves all customer information at launch and provides them with log in information based on their customer id. Through an API-interface such as swagger or postman, it is possible to log in as a customer and view the relevant data. If a customer tries to access someone elses information through an HTTP request it will recieve the 401 Unauthorized error code. There is also an admin log in that has the ability to authorization to view all customer and account data.      
 
@@ -56,10 +56,13 @@
  
     1. An individual transaction greater than 15,000 €.
     
-    2. The total transactions in the last three days (72 hours) from the current time are greater than 23,000 €.
+    2. A customers total transactions in the last three days (72 hours) from the current time are greater than 23,000 €.
 
 
-    The application will automatically create a folder called "MonitoringData" that will contain the results of the transaction monitoring in the form of .txt files that are registered per country and date of monitoring. 
+    The application will automatically create a folder called "MonitoringData" that will contain the results of the transaction monitoring in the form of .txt files that are registered per country and date of monitoring.  The last transaction monitoring date is also saved here so that the application remembers when it last did the check and doesn't repeat transactions that have already been registered. This excludeds total transactions in the last three days (72 hours) which will always check for and register transactions greater 23,000 € based on the current date. 
+    
+## 🛠️ Implementations
+    
 
     
     
