@@ -8,7 +8,7 @@ using BankRepository.Services.TransactionService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using BankManagerApp.DropDowns;
+using BankManagerApp.Infrastructure.DropDowns;
 using BankRepository.Services.IdentityUserService;
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;

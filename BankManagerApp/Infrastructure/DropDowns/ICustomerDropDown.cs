@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BankManagerApp.DropDowns
+namespace BankManagerApp.Infrastructure.DropDowns
 {
     public interface ICustomerDropDown
     {

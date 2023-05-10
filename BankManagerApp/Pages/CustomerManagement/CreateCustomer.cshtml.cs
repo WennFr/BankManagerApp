@@ -6,11 +6,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
-using BankManagerApp.DropDowns;
+using BankManagerApp.Infrastructure.DropDowns;
 using BankRepository.Services.AccountService;
 using BankRepository.Services.CustomerService;
 using BankRepository.ViewModels.CustomerView;
-using BankManagerApp.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BankManagerApp.Pages.CustomerManagement

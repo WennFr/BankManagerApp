@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
-using BankManagerApp.DropDowns;
+using BankManagerApp.Infrastructure.DropDowns;
 using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
 using BankRepository.Services.AccountService;

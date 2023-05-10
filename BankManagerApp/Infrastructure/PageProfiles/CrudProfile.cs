@@ -4,7 +4,7 @@ using BankRepository.BankAppData;
 using BankRepository.Infrastructure.Common;
 using BankRepository.ViewModels.CustomerView;
 
-namespace BankManagerApp.PageProfiles
+namespace BankManagerApp.Infrastructure.PageProfiles
 {
     public class CrudProfile : Profile
     {

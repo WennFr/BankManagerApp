@@ -1,7 +1,7 @@
 ﻿using BankRepository.Infrastructure.Common;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BankManagerApp.DropDowns
+namespace BankManagerApp.Infrastructure.DropDowns
 {
     public class CustomerDropDown : ICustomerDropDown
     {
