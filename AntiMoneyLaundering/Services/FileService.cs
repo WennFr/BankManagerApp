@@ -14,7 +14,6 @@ namespace AntiMoneyLaundering.Services
         {
 
             var date = new DateTime();
-
             var folderName = "../../../MonitoringData";
             var filePath = Path.Combine(folderName, "lastTransactionMonitoring.txt");
 
