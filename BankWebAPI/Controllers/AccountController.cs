@@ -52,6 +52,12 @@ namespace BankWebAPI.Controllers
         {
 
             var loggedInCustomerId = User.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+
+            if (User.IsInRole("Admin"))
+            {
+                loggedInCustomerId = id.ToString();
+            }
+
             var loggedInCustomerAccounts = _accountService.GetAccountsByCustomerId(Convert.ToInt32(loggedInCustomerId));
 
             if (!loggedInCustomerAccounts.Any(l => l.AccountId == id) && User.IsInRole("User"))
