@@ -14,9 +14,9 @@ namespace BankWebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowAll")]
-    public class MeController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        public MeController(ICustomerService customerService, IAccountService accountService)
+        public CustomerController(ICustomerService customerService, IAccountService accountService)
         {
             _customerService = customerService;
             _accountService = accountService;
@@ -38,7 +38,7 @@ namespace BankWebAPI.Controllers
         /// Customer Information
         /// </returns>
         /// <remarks>
-        /// Example end point: GET /api/Me/2
+        /// Example end point: GET /api/customer/2
         /// </remarks>
         /// <response code="200">
         /// Successfully Returned Customer Information
